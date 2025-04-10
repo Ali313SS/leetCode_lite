@@ -1,0 +1,16 @@
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Infrastructure\bin\Debug\net8.0\AJudge.Infrastructure.deps.json
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Infrastructure\bin\Debug\net8.0\AJudge.Infrastructure.dll
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Infrastructure\bin\Debug\net8.0\AJudge.Infrastructure.pdb
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Infrastructure\bin\Debug\net8.0\AJudge.Domain.dll
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Infrastructure\bin\Debug\net8.0\AJudge.Domain.pdb
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Infrastructure\obj\Debug\net8.0\AJudge.Infrastructure.csproj.AssemblyReference.cache
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Infrastructure\obj\Debug\net8.0\AJudge.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Infrastructure\obj\Debug\net8.0\AJudge.Infrastructure.AssemblyInfoInputs.cache
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Infrastructure\obj\Debug\net8.0\AJudge.Infrastructure.AssemblyInfo.cs
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Infrastructure\obj\Debug\net8.0\AJudge.Infrastructure.csproj.CoreCompileInputs.cache
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Infrastructure\obj\Debug\net8.0\AJudge.Infrastructure.sourcelink.json
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Infrastructure\obj\Debug\net8.0\AJudge.I.0E079F98.Up2Date
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Infrastructure\obj\Debug\net8.0\AJudge.Infrastructure.dll
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Infrastructure\obj\Debug\net8.0\refint\AJudge.Infrastructure.dll
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Infrastructure\obj\Debug\net8.0\AJudge.Infrastructure.pdb
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Infrastructure\obj\Debug\net8.0\ref\AJudge.Infrastructure.dll

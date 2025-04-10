@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace AJudge.Domain.Entities
 {
     public class Announcement

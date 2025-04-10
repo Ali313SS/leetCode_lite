@@ -18,3 +18,8 @@ A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudg
 A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.dll
 A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\refint\AJudge.Domain.dll
 A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.pdb
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Domain\bin\Debug\net8.0\AJudge.Domain.deps.json
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Domain\bin\Debug\net8.0\AJudge.Domain.dll
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Domain\bin\Debug\net8.0\AJudge.Domain.pdb
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\ref\AJudge.Domain.dll
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.csproj.AssemblyReference.cache

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AJudge.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e0a3c25064cfcfacdcfbbe1997f7515abec6e297")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7b1ee01afa322d063fdeed8b65b1159e9d39a46a")]
 [assembly: System.Reflection.AssemblyProductAttribute("AJudge.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AJudge.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

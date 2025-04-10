@@ -1,5 +1,6 @@
 
 using AJudge.Infrastructure.Data;
+using AJudge.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace AJudge
@@ -17,7 +18,7 @@ namespace AJudge
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-
+            // Ensure the Microsoft.EntityFrameworkCore.SqlServer package is installed
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnstring"));
@@ -36,10 +37,10 @@ namespace AJudge
 
             app.UseAuthorization();
 
-
             app.MapControllers();
 
             app.Run();
         }
     }
+             
 }

@@ -17,7 +17,7 @@ namespace AJudge.Domain.Entities
         public int CreatorUserId { get; set; }
         // Navigation Properties
         public User Creator { get; set; }
-        Group GroupContest { get; set; }
+        public Group GroupContest { get; set; }
         public ICollection<Problem> Problems { get; set; } = new List<Problem>();
        
         public ICollection<Announcement> Announcements { get; set; } = new List<Announcement>();
