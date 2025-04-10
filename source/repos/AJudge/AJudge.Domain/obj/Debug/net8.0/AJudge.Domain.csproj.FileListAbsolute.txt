@@ -10,3 +10,11 @@ C:\Users\El-Wattaneya\source\repos\Ajudge\leetCode_lite\source\repos\AJudge\AJud
 C:\Users\El-Wattaneya\source\repos\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\refint\AJudge.Domain.dll
 C:\Users\El-Wattaneya\source\repos\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.pdb
 C:\Users\El-Wattaneya\source\repos\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\ref\AJudge.Domain.dll
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.GeneratedMSBuildEditorConfig.editorconfig
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.AssemblyInfoInputs.cache
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.AssemblyInfo.cs
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.csproj.CoreCompileInputs.cache
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.sourcelink.json
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.dll
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\refint\AJudge.Domain.dll
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.pdb

@@ -11,7 +11,6 @@ namespace AJudge.Domain.Entities
         public int TagId { get; set; }
         public string Name { get; set; }
 
-        // Navigation Properties
-        public ICollection<ProblemTag> ProblemTags { get; set; } = new List<ProblemTag>();
+        // Navigation Properties       
     }
 }

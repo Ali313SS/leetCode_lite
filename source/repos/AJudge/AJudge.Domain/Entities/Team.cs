@@ -13,7 +13,7 @@ namespace AJudge.Domain.Entities
             public string Name { get; set; }
 
             // Navigation Properties
-            public ICollection<UserTeam> UserTeams { get; set; } = new List<UserTeam>();
+            public ICollection<User> UserTeams { get; set; } = new List<User>();
         
     }
 }

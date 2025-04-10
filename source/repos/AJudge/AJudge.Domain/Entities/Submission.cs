@@ -10,14 +10,12 @@ namespace AJudge.Domain.Entities
     {
         public int SubmissionId { get; set; }
         public int UserId { get; set; }
-        public int ProblemId { get; set; }
-        public int ContestId { get; set; }
+        public int ProblemId { get; set; }     
         public DateTime SubmittedAt { get; set; }
         public string Result { get; set; }
 
         // Navigation Properties
         public User User { get; set; }
-        public Problem Problem { get; set; }
-        public Contest Contest { get; set; }
+        public Problem Problem { get; set; }      
     }
 }

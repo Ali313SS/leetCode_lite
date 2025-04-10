@@ -15,6 +15,5 @@ namespace AJudge.Domain.Entities
         // Navigation Properties
         public User User { get; set; }
         public Group Group { get; set; }
-        public ICollection<ManagerPermission> ManagerPermissions { get; set; } = new List<ManagerPermission>();
     }
 }

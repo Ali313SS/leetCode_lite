@@ -9,12 +9,18 @@ namespace AJudge.Domain.Entities
     public class Problem
     {
         public int ProblemId { get; set; }
-        public string Name { get; set; }
+        public int ContestId { get; set; }
+        public string ProblemName { get; set; }
+        public string Description { get; set; }
+        public string InputFormat { get; set; }
+        public string OutputFormat { get; set; }
+        public string[] SampleInput { get; set; }
+        public string[] SampleOutput { get; set; }
         public int Rating { get; set; }
-        public string Topic { get; set; }
+        public List<string> Topics { get; set; } = new List<string>();
 
         // Navigation Properties
-        public ICollection<ContestProblem> ContestProblems { get; set; } = new List<ContestProblem>();
+        Contest Contest { get; set; }
         public ICollection<ProblemTag> ProblemTags { get; set; } = new List<ProblemTag>();
     }
 }
