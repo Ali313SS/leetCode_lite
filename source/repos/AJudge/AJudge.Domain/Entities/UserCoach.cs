@@ -14,6 +14,7 @@ namespace AJudge.Domain.Entities
 
         // Navigation Properties
         public User User { get; set; }
-        public Coach Coach { get; set; }
+
+       // public Coach Coach { get; set; }
     }
 }
