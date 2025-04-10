@@ -28,7 +28,16 @@ namespace AJudge.Domain.Entities
             public ICollection<Vote> Votes { get; set; } = new List<Vote>();
             public ICollection<Statistics> Statistics { get; set; } = new List<Statistics>();
             public ICollection<Blog> Blogs { get; set; } = new List<Blog>();
-            //public ICollection<Coach> UserCoaches { get; set; } = new List<Coach>();
-        
+
+
+
+
+        public ICollection<User> UserCoaches { get; set; } = new List<User>();
+        public ICollection<User> CoachedByhim { get; set; } = new List<User>();
+        public ICollection<User> Friends { get; set; } = new List<User>();
+
+
+        //public ICollection<Coach> UserCoaches { get; set; } = new List<Coach>();
+
     }
 }
