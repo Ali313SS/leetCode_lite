@@ -22,7 +22,13 @@ namespace AJudge.Domain.Entities
 
         // Navigation Properties
         public ICollection<Team> Teams { get; set; } = new List<Team>();
-        public ICollection<Group> Groups { get; set; } = new List<Group>();
+
+
+        public ICollection<Group> MembersGroups { get; set; } = new List<Group>();
+        public ICollection<Group> ManagersGroups { get; set; } = new List<Group>();
+        public ICollection<Group> LeadGroups { get; set; } = new List<Group>();
+
+
         public ICollection<Contest> CompeteContests { get; set; } = new List<Contest>();
         public ICollection<Submission> Submissions { get; set; } = new List<Submission>();
         public ICollection<Vote> Votes { get; set; } = new List<Vote>();
@@ -37,7 +43,6 @@ namespace AJudge.Domain.Entities
         public ICollection<User> Friends { get; set; } = new List<User>();
 
 
-        //public ICollection<Coach> UserCoaches { get; set; } = new List<Coach>();
 
     }
 }

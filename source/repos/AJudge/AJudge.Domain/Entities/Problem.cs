@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,10 +18,10 @@ namespace AJudge.Domain.Entities
         public string[] SampleInput { get; set; }
         public string[] SampleOutput { get; set; }
         public int Rating { get; set; }
-        public List<string> Topics { get; set; } = new List<string>();
 
         // Navigation Properties
+        [ForeignKey("ContestId")]
         Contest Contest { get; set; }
-        public ICollection<ProblemTag> ProblemTags { get; set; } = new List<ProblemTag>();
+        public ICollection<Tag> Tags { get; set; } = new List<Tag>();
     }
 }

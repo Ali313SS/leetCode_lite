@@ -27,3 +27,15 @@ A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\
 A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\AJudge.Application.pdb
 A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\ref\AJudge.Application.dll
 A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\AJudge.Application.csproj.AssemblyReference.cache
+E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\AJudge.Application.dll
+E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\refint\AJudge.Application.dll
+E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\AJudge.Application.pdb
+E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Application\bin\Debug\net8.0\AJudge.Application.deps.json
+E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Application\bin\Debug\net8.0\AJudge.Application.dll
+E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Application\bin\Debug\net8.0\AJudge.Application.pdb
+E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\AJudge.Application.GeneratedMSBuildEditorConfig.editorconfig
+E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\AJudge.Application.AssemblyInfoInputs.cache
+E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\AJudge.Application.AssemblyInfo.cs
+E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\AJudge.Application.csproj.CoreCompileInputs.cache
+E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\AJudge.Application.sourcelink.json
+E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\ref\AJudge.Application.dll

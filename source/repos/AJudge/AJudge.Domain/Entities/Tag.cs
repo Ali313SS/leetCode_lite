@@ -10,7 +10,9 @@ namespace AJudge.Domain.Entities
     {
         public int TagId { get; set; }
         public string Name { get; set; }
+        
 
         // Navigation Properties       
+        public ICollection<Problem> Problems { get; set; } = new List<Problem>();  
     }
 }

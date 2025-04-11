@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,9 @@ namespace AJudge.Domain.Entities
         public int BlogId { get; set; }
 
         // Navigation Properties
+        [ForeignKey("UserId")]
         public User Voter { get; set; }
+        [ForeignKey("BlogId")]
         public Blog Blog { get; set; }
     }
 
