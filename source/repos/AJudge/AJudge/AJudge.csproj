@@ -7,6 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.15">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -16,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AJudge.Application\AJudge.Application.csproj" />
+    <ProjectReference Include="..\AJudge.Domain\AJudge.Domain.csproj" />
     <ProjectReference Include="..\AJudge.Infrastructure\AJudge.Infrastructure.csproj" />
   </ItemGroup>
 

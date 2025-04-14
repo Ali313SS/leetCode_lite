@@ -15,10 +15,10 @@ namespace AJudge.Domain.Entities
         public string Email { get; set; }
         public string PasswordHash { get; set; }
         public DateTime? BirthDate { get; set; }
-        public string ProfilePicture { get; set; }
+        public string? ProfilePicture { get; set; }
         public DateTime? LastSeen { get; set; }
         public int ProblemsTriedCount { get; set; }
-        public string ClubUniversity { get; set; }
+        public string? ClubUniversity { get; set; }
 
         // Navigation Properties
         public ICollection<Team> Teams { get; set; } = new List<Team>();

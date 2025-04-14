@@ -47,10 +47,10 @@ namespace AJudge.Infrastructure.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ProfilePicture = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProfilePicture = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastSeen = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ProblemsTriedCount = table.Column<int>(type: "int", nullable: false),
-                    ClubUniversity = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ClubUniversity = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

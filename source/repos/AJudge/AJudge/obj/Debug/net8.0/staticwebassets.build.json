@@ -1,11 +1,12 @@
 {
   "Version": 1,
-  "Hash": "lrv7+Ep47GDHPrPSeDRKPNCKc7PPIGqhzjqF0e1ycWI=",
+  "Hash": "q1wbFklXi7kzeb1uZtGAzJ6aao7bbWF0w3PXeTxLHXQ=",
   "Source": "AJudge",
   "BasePath": "_content/AJudge",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": []
+  "Assets": [],
+  "Endpoints": []
 }

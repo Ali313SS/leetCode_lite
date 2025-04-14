@@ -32,3 +32,5 @@ E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Infrastructur
 E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Infrastructure\obj\Debug\net8.0\ref\AJudge.Infrastructure.dll
 E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Infrastructure\bin\Debug\net8.0\AJudge.Infrastructure.runtimeconfig.json
 E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Infrastructure\obj\Debug\net8.0\AJudge.Infrastructure.genruntimeconfig.cache
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Infrastructure\bin\Debug\net8.0\AJudge.Infrastructure.runtimeconfig.json
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Infrastructure\obj\Debug\net8.0\AJudge.Infrastructure.genruntimeconfig.cache
