@@ -72,9 +72,7 @@ namespace AJudge.Controllers
             // Generate JWT token
             // var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
-
             var config= new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-            return Ok("ss");
             var jwtOption =config.GetSection("JWT").Get<JwtOptions>();   
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(jwtOption.SigningKey); 
@@ -85,7 +83,7 @@ namespace AJudge.Controllers
                             new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
                             new Claim(ClaimTypes.Email, user.Email)
                 }),
-                Expires = DateTime.UtcNow.AddHours(10),
+                Expires = DateTime.UtcNow.AddHours(jwtOption.LifeTime),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
