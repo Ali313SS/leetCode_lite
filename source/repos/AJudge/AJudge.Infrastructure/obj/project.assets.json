@@ -4022,23 +4022,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\20101\\.nuget\\packages\\": {},
+    "C:\\Users\\msi\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "A:\\Ajudge\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\AJudge.Infrastructure.csproj",
+      "projectUniqueName": "D:\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\AJudge.Infrastructure.csproj",
       "projectName": "AJudge.Infrastructure",
-      "projectPath": "A:\\Ajudge\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\AJudge.Infrastructure.csproj",
-      "packagesPath": "C:\\Users\\20101\\.nuget\\packages\\",
-      "outputPath": "A:\\Ajudge\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\obj\\",
+      "projectPath": "D:\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\AJudge.Infrastructure.csproj",
+      "packagesPath": "C:\\Users\\msi\\.nuget\\packages\\",
+      "outputPath": "D:\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\20101\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\msi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4047,15 +4047,14 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "A:\\Ajudge\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\AJudge.Domain.csproj": {
-              "projectPath": "A:\\Ajudge\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\AJudge.Domain.csproj"
+            "D:\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\AJudge.Domain.csproj": {
+              "projectPath": "D:\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\AJudge.Domain.csproj"
             }
           }
         }
@@ -4068,9 +4067,9 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "direct"
+        "auditMode": "all"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net8.0": {
@@ -4107,7 +4106,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
