@@ -21,6 +21,8 @@ namespace AJudge.Domain.Entities
         public string? ClubUniversity { get; set; }
 
         // Navigation Properties
+        //public ICollection<UserTeam> UserTeams { get; set; } = new List<UserTeam>();
+        public ICollection<UserTeam> UserTeams { get; set; } = new List<UserTeam>();
         public ICollection<Team> Teams { get; set; } = new List<Team>();
 
 

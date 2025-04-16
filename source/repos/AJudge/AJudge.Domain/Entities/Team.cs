@@ -12,9 +12,11 @@ namespace AJudge.Domain.Entities
             public int TeamId { get; set; }
             public string Name { get; set; }
             public DateTime CreatedAt { get; set; }
-
+      //  public int UserTeams { get; set; }
         // Navigation Properties
-        public ICollection<User> UserTeams { get; set; } = new List<User>();
-        
+         public ICollection<User> Users { get; set; } = new List<User>();
+
+        public ICollection<UserTeam> UserTeams { get; set; } = new List<UserTeam>();
+
     }
 }

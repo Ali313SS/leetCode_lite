@@ -38,3 +38,15 @@ E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Application\o
 E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\AJudge.Application.csproj.CoreCompileInputs.cache
 E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\AJudge.Application.sourcelink.json
 E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\ref\AJudge.Application.dll
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Application\bin\Debug\net8.0\AJudge.Application.deps.json
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Application\bin\Debug\net8.0\AJudge.Application.dll
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Application\bin\Debug\net8.0\AJudge.Application.pdb
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\AJudge.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\AJudge.Application.AssemblyInfoInputs.cache
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\AJudge.Application.AssemblyInfo.cs
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\AJudge.Application.csproj.CoreCompileInputs.cache
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\AJudge.Application.sourcelink.json
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\AJudge.Application.dll
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\refint\AJudge.Application.dll
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\AJudge.Application.pdb
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\ref\AJudge.Application.dll

@@ -34,3 +34,15 @@ E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\De
 E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\refint\AJudge.Domain.dll
 E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.pdb
 E:\3-.NET\9-Projects\Temp\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\ref\AJudge.Domain.dll
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Domain\bin\Debug\net8.0\AJudge.Domain.deps.json
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Domain\bin\Debug\net8.0\AJudge.Domain.dll
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Domain\bin\Debug\net8.0\AJudge.Domain.pdb
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.AssemblyInfoInputs.cache
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.AssemblyInfo.cs
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.csproj.CoreCompileInputs.cache
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.sourcelink.json
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.dll
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\refint\AJudge.Domain.dll
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.pdb
+C:\Users\El-Wattaneya\Desktop\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\ref\AJudge.Domain.dll

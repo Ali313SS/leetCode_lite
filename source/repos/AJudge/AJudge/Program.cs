@@ -4,6 +4,9 @@ using AJudge.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using AJudge.Application.services;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace AJudge
 {
@@ -33,6 +36,22 @@ namespace AJudge
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnstring"));
             });
 
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["JWT:Issuer"],
+            ValidAudience = builder.Configuration["JWT:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"]))
+        };
+    });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -44,8 +63,9 @@ namespace AJudge
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
+                
             app.UseAuthorization();
-
             app.MapControllers();
 
             app.Run();

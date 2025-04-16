@@ -10,7 +10,7 @@ namespace AJudge.Infrastructure.Data
     public class ApplicationDbContext:DbContext
     {
        
-        public ApplicationDbContext(DbContextOptions options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
             
         }
@@ -24,8 +24,9 @@ namespace AJudge.Infrastructure.Data
         public DbSet<Statistics> Statistics { get; set; }
         public DbSet<Submission> Submission { get; set; }
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<Team> Teams { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<UserTeam> UserTeams { get; set; }
         public DbSet<Vote> Votes { get; set; }
 
         //public DbSet<Manager> Managers { get; set; }
@@ -64,6 +65,27 @@ namespace AJudge.Infrastructure.Data
              .HasForeignKey(v => v.UserId)
              .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<UserTeam>()
+    .HasKey(e => new { e.UserId, e.TeamId });
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Teams)
+                .WithMany(t => t.Users)
+                .UsingEntity<UserTeam>(
+                    join => join
+                        .HasOne(ut => ut.Team)
+                        .WithMany(t => t.UserTeams)
+                        .HasForeignKey(ut => ut.TeamId),
+                    join => join
+                        .HasOne(ut => ut.User)
+                        .WithMany(u => u.UserTeams)
+                        .HasForeignKey(ut => ut.UserId),
+                    join =>
+                    {
+                        join.HasKey(ut => new { ut.UserId, ut.TeamId });
+                        // Optional: customize table name or properties
+                        join.ToTable("UserTeams");
+                    });
 
 
             modelBuilder.Entity<Contest>()
