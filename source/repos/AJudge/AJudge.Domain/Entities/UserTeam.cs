@@ -11,7 +11,7 @@ namespace AJudge.Domain.Entities
     //[NotMapped]
     public class UserTeam
     {
-        //public int UserTeamId { get; set; }
+        public int UserTeamId { get; set; }
         public int UserId { get; set; }
         public int TeamId { get; set; }
 

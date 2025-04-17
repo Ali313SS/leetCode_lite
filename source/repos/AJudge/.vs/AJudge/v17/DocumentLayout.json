@@ -1,82 +1,102 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\",
+  "WorkspaceRootPath": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|c:\\users\\el-wattaneya\\desktop\\leetcode_lite\\source\\repos\\ajudge\\ajudge\\controllers\\teammanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge\\controllers\\teammanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|solutionrelative:ajudge\\controllers\\teammanagementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8185308D-DBD7-4E5D-83E3-816B8E288E2A}|AJudge.Infrastructure\\AJudge.Infrastructure.csproj|c:\\users\\el-wattaneya\\desktop\\leetcode_lite\\source\\repos\\ajudge\\ajudge.infrastructure\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B6AF0A53-2625-4118-A9FB-AFB36A553937}|AJudge.Domain\\AJudge.Domain.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge.domain\\entities\\announcement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6AF0A53-2625-4118-A9FB-AFB36A553937}|AJudge.Domain\\AJudge.Domain.csproj|solutionrelative:ajudge.domain\\entities\\announcement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8185308D-DBD7-4E5D-83E3-816B8E288E2A}|AJudge.Infrastructure\\AJudge.Infrastructure.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge.infrastructure\\ajudge.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{8185308D-DBD7-4E5D-83E3-816B8E288E2A}|AJudge.Infrastructure\\AJudge.Infrastructure.csproj|solutionrelative:ajudge.infrastructure\\ajudge.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8185308D-DBD7-4E5D-83E3-816B8E288E2A}|AJudge.Infrastructure\\AJudge.Infrastructure.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge.infrastructure\\migrations\\20250417020042_updateteam.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8185308D-DBD7-4E5D-83E3-816B8E288E2A}|AJudge.Infrastructure\\AJudge.Infrastructure.csproj|solutionrelative:ajudge.infrastructure\\migrations\\20250417020042_updateteam.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8185308D-DBD7-4E5D-83E3-816B8E288E2A}|AJudge.Infrastructure\\AJudge.Infrastructure.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge.infrastructure\\migrations\\applicationdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8185308D-DBD7-4E5D-83E3-816B8E288E2A}|AJudge.Infrastructure\\AJudge.Infrastructure.csproj|solutionrelative:ajudge.infrastructure\\migrations\\applicationdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8185308D-DBD7-4E5D-83E3-816B8E288E2A}|AJudge.Infrastructure\\AJudge.Infrastructure.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge.infrastructure\\migrations\\20250417020042_updateteam.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8185308D-DBD7-4E5D-83E3-816B8E288E2A}|AJudge.Infrastructure\\AJudge.Infrastructure.csproj|solutionrelative:ajudge.infrastructure\\migrations\\20250417020042_updateteam.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8185308D-DBD7-4E5D-83E3-816B8E288E2A}|AJudge.Infrastructure\\AJudge.Infrastructure.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge.infrastructure\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8185308D-DBD7-4E5D-83E3-816B8E288E2A}|AJudge.Infrastructure\\AJudge.Infrastructure.csproj|solutionrelative:ajudge.infrastructure\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B6AF0A53-2625-4118-A9FB-AFB36A553937}|AJudge.Domain\\AJudge.Domain.csproj|c:\\users\\el-wattaneya\\desktop\\leetcode_lite\\source\\repos\\ajudge\\ajudge.domain\\entities\\userteam.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B6AF0A53-2625-4118-A9FB-AFB36A553937}|AJudge.Domain\\AJudge.Domain.csproj|solutionrelative:ajudge.domain\\entities\\userteam.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8185308D-DBD7-4E5D-83E3-816B8E288E2A}|AJudge.Infrastructure\\AJudge.Infrastructure.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge.infrastructure\\migrations\\20250411163144_init.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8185308D-DBD7-4E5D-83E3-816B8E288E2A}|AJudge.Infrastructure\\AJudge.Infrastructure.csproj|solutionrelative:ajudge.infrastructure\\migrations\\20250411163144_init.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|c:\\users\\el-wattaneya\\desktop\\leetcode_lite\\source\\repos\\ajudge\\ajudge.application\\dto\\jointeamdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|solutionrelative:ajudge.application\\dto\\jointeamdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|c:\\users\\el-wattaneya\\desktop\\leetcode_lite\\source\\repos\\ajudge\\ajudge\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|solutionrelative:ajudge\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B6AF0A53-2625-4118-A9FB-AFB36A553937}|AJudge.Domain\\AJudge.Domain.csproj|c:\\users\\el-wattaneya\\desktop\\leetcode_lite\\source\\repos\\ajudge\\ajudge.domain\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B6AF0A53-2625-4118-A9FB-AFB36A553937}|AJudge.Domain\\AJudge.Domain.csproj|solutionrelative:ajudge.domain\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B6AF0A53-2625-4118-A9FB-AFB36A553937}|AJudge.Domain\\AJudge.Domain.csproj|c:\\users\\el-wattaneya\\desktop\\leetcode_lite\\source\\repos\\ajudge\\ajudge.domain\\entities\\team.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B6AF0A53-2625-4118-A9FB-AFB36A553937}|AJudge.Domain\\AJudge.Domain.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge.domain\\entities\\team.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B6AF0A53-2625-4118-A9FB-AFB36A553937}|AJudge.Domain\\AJudge.Domain.csproj|solutionrelative:ajudge.domain\\entities\\team.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|c:\\users\\el-wattaneya\\desktop\\leetcode_lite\\source\\repos\\ajudge\\ajudge.application\\dto\\teammemberdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B6AF0A53-2625-4118-A9FB-AFB36A553937}|AJudge.Domain\\AJudge.Domain.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge.domain\\entities\\userteam.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6AF0A53-2625-4118-A9FB-AFB36A553937}|AJudge.Domain\\AJudge.Domain.csproj|solutionrelative:ajudge.domain\\entities\\userteam.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge.application\\dto\\teammemberdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|solutionrelative:ajudge.application\\dto\\teammemberdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|c:\\users\\el-wattaneya\\desktop\\leetcode_lite\\source\\repos\\ajudge\\ajudge.application\\dto\\createteamdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|solutionrelative:ajudge.application\\dto\\createteamdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|c:\\users\\el-wattaneya\\desktop\\leetcode_lite\\source\\repos\\ajudge\\ajudge\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|solutionrelative:ajudge\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B6AF0A53-2625-4118-A9FB-AFB36A553937}|AJudge.Domain\\AJudge.Domain.csproj|c:\\users\\el-wattaneya\\desktop\\leetcode_lite\\source\\repos\\ajudge\\ajudge.domain\\ajudge.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{B6AF0A53-2625-4118-A9FB-AFB36A553937}|AJudge.Domain\\AJudge.Domain.csproj|solutionrelative:ajudge.domain\\ajudge.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|solutionrelative:ajudge\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|c:\\users\\el-wattaneya\\desktop\\leetcode_lite\\source\\repos\\ajudge\\ajudge\\ajudge.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
-      "RelativeMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|solutionrelative:ajudge\\ajudge.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|c:\\users\\el-wattaneya\\desktop\\leetcode_lite\\source\\repos\\ajudge\\ajudge.application\\dto\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|solutionrelative:ajudge.application\\dto\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|c:\\users\\el-wattaneya\\desktop\\leetcode_lite\\source\\repos\\ajudge\\ajudge.application\\services\\sender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|solutionrelative:ajudge.application\\services\\sender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|c:\\users\\el-wattaneya\\desktop\\leetcode_lite\\source\\repos\\ajudge\\ajudge.application\\services\\isender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|solutionrelative:ajudge.application\\services\\isender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|c:\\users\\el-wattaneya\\desktop\\leetcode_lite\\source\\repos\\ajudge\\ajudge\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|solutionrelative:ajudge\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|c:\\users\\el-wattaneya\\desktop\\leetcode_lite\\source\\repos\\ajudge\\ajudge\\jwtoptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge\\jwtoptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|solutionrelative:ajudge\\jwtoptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|c:\\users\\el-wattaneya\\desktop\\leetcode_lite\\source\\repos\\ajudge\\ajudge\\ajudge.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|solutionrelative:ajudge\\ajudge.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge.application\\dto\\jointeamdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|solutionrelative:ajudge.application\\dto\\jointeamdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8185308D-DBD7-4E5D-83E3-816B8E288E2A}|AJudge.Infrastructure\\AJudge.Infrastructure.csproj|c:\\users\\el-wattaneya\\desktop\\leetcode_lite\\source\\repos\\ajudge\\ajudge.infrastructure\\migrations\\20250411163144_init.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8185308D-DBD7-4E5D-83E3-816B8E288E2A}|AJudge.Infrastructure\\AJudge.Infrastructure.csproj|solutionrelative:ajudge.infrastructure\\migrations\\20250411163144_init.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B6AF0A53-2625-4118-A9FB-AFB36A553937}|AJudge.Domain\\AJudge.Domain.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge.domain\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6AF0A53-2625-4118-A9FB-AFB36A553937}|AJudge.Domain\\AJudge.Domain.csproj|solutionrelative:ajudge.domain\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge.application\\dto\\createteamdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|solutionrelative:ajudge.application\\dto\\createteamdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6AF0A53-2625-4118-A9FB-AFB36A553937}|AJudge.Domain\\AJudge.Domain.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge.domain\\ajudge.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{B6AF0A53-2625-4118-A9FB-AFB36A553937}|AJudge.Domain\\AJudge.Domain.csproj|solutionrelative:ajudge.domain\\ajudge.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge\\ajudge.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|solutionrelative:ajudge\\ajudge.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge.application\\dto\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|solutionrelative:ajudge.application\\dto\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge.application\\services\\sender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|solutionrelative:ajudge.application\\services\\sender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge.application\\services\\isender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|solutionrelative:ajudge.application\\services\\isender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|solutionrelative:ajudge\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|a:\\test\\leetcode_lite\\source\\repos\\ajudge\\ajudge\\ajudge.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|solutionrelative:ajudge\\ajudge.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -86,8 +106,35 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": -1,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AJudge.Infrastructure",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\AJudge.Infrastructure.csproj",
+              "RelativeDocumentMoniker": "AJudge.Infrastructure\\AJudge.Infrastructure.csproj",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\AJudge.Infrastructure.csproj",
+              "RelativeToolTip": "AJudge.Infrastructure\\AJudge.Infrastructure.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-04-17T02:02:21.94Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
@@ -102,63 +149,76 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "JoinTeamDto.cs",
-              "DocumentMoniker": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\DtO\\JoinTeamDto.cs",
-              "RelativeDocumentMoniker": "AJudge.Application\\DtO\\JoinTeamDto.cs",
-              "ToolTip": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\DtO\\JoinTeamDto.cs",
-              "RelativeToolTip": "AJudge.Application\\DtO\\JoinTeamDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-15T18:35:34.627Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UserTeam.cs",
-              "DocumentMoniker": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\Entities\\UserTeam.cs",
-              "RelativeDocumentMoniker": "AJudge.Domain\\Entities\\UserTeam.cs",
-              "ToolTip": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\Entities\\UserTeam.cs",
-              "RelativeToolTip": "AJudge.Domain\\Entities\\UserTeam.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAADwvxIAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-15T15:38:19.85Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\Data\\ApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "AJudge.Infrastructure\\Data\\ApplicationDbContext.cs",
-              "ToolTip": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\Data\\ApplicationDbContext.cs",
-              "RelativeToolTip": "AJudge.Infrastructure\\Data\\ApplicationDbContext.cs",
-              "ViewState": "AgIAAEUAAAAAAAAAAAAAAFAAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-15T04:36:10.82Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "TeamManagementController.cs",
-              "DocumentMoniker": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\Controllers\\TeamManagementController.cs",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\Controllers\\TeamManagementController.cs",
               "RelativeDocumentMoniker": "AJudge\\Controllers\\TeamManagementController.cs",
-              "ToolTip": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\Controllers\\TeamManagementController.cs*",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\Controllers\\TeamManagementController.cs*",
               "RelativeToolTip": "AJudge\\Controllers\\TeamManagementController.cs*",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAACMAAAATAAAAAAAAAA==",
+              "ViewState": "AgIAACEAAAAAAAAAAAAYwCwAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-15T04:33:53.685Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
+              "Title": "ApplicationDbContextModelSnapshot.cs",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "RelativeDocumentMoniker": "AJudge.Infrastructure\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "RelativeToolTip": "AJudge.Infrastructure\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAQwA0AAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T02:01:00.037Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "20250417020042_updateTeam.Designer.cs",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\Migrations\\20250417020042_updateTeam.Designer.cs",
+              "RelativeDocumentMoniker": "AJudge.Infrastructure\\Migrations\\20250417020042_updateTeam.Designer.cs",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\Migrations\\20250417020042_updateTeam.Designer.cs",
+              "RelativeToolTip": "AJudge.Infrastructure\\Migrations\\20250417020042_updateTeam.Designer.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T02:01:00.397Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "20250417020042_updateTeam.cs",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\Migrations\\20250417020042_updateTeam.cs",
+              "RelativeDocumentMoniker": "AJudge.Infrastructure\\Migrations\\20250417020042_updateTeam.cs",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\Migrations\\20250417020042_updateTeam.cs",
+              "RelativeToolTip": "AJudge.Infrastructure\\Migrations\\20250417020042_updateTeam.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T02:00:43.246Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Announcement.cs",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\Entities\\Announcement.cs",
+              "RelativeDocumentMoniker": "AJudge.Domain\\Entities\\Announcement.cs",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\Entities\\Announcement.cs",
+              "RelativeToolTip": "AJudge.Domain\\Entities\\Announcement.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T01:55:26.182Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "Team.cs",
-              "DocumentMoniker": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\Entities\\Team.cs",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\Entities\\Team.cs",
               "RelativeDocumentMoniker": "AJudge.Domain\\Entities\\Team.cs",
-              "ToolTip": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\Entities\\Team.cs",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\Entities\\Team.cs",
               "RelativeToolTip": "AJudge.Domain\\Entities\\Team.cs",
               "ViewState": "AgIAAAcAAAAAAAAAAAAIwAgAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -167,11 +227,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "TeamMemberDto.cs",
-              "DocumentMoniker": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\DtO\\TeamMemberDto.cs",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\DtO\\TeamMemberDto.cs",
               "RelativeDocumentMoniker": "AJudge.Application\\DtO\\TeamMemberDto.cs",
-              "ToolTip": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\DtO\\TeamMemberDto.cs",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\DtO\\TeamMemberDto.cs",
               "RelativeToolTip": "AJudge.Application\\DtO\\TeamMemberDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -180,52 +240,52 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\Entities\\User.cs",
-              "RelativeDocumentMoniker": "AJudge.Domain\\Entities\\User.cs",
-              "ToolTip": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\Entities\\User.cs",
-              "RelativeToolTip": "AJudge.Domain\\Entities\\User.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAAABgAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T00:14:45.436Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\appsettings.json",
-              "RelativeDocumentMoniker": "AJudge\\appsettings.json",
-              "ToolTip": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\appsettings.json",
-              "RelativeToolTip": "AJudge\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-04-15T15:52:37.441Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "CreateTeamDto.cs",
-              "DocumentMoniker": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\DtO\\CreateTeamDto.cs",
-              "RelativeDocumentMoniker": "AJudge.Application\\DtO\\CreateTeamDto.cs",
-              "ToolTip": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\DtO\\CreateTeamDto.cs",
-              "RelativeToolTip": "AJudge.Application\\DtO\\CreateTeamDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-15T18:35:26.303Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 9,
+              "Title": "UserTeam.cs",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\Entities\\UserTeam.cs",
+              "RelativeDocumentMoniker": "AJudge.Domain\\Entities\\UserTeam.cs",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\Entities\\UserTeam.cs",
+              "RelativeToolTip": "AJudge.Domain\\Entities\\UserTeam.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAwwA8AAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-15T15:38:19.85Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "AJudge.Infrastructure\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "AJudge.Infrastructure\\Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAqwEUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-15T04:36:10.82Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "20250411163144_init.cs",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\Migrations\\20250411163144_init.cs",
+              "RelativeDocumentMoniker": "AJudge.Infrastructure\\Migrations\\20250411163144_init.cs",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\Migrations\\20250411163144_init.cs",
+              "RelativeToolTip": "AJudge.Infrastructure\\Migrations\\20250411163144_init.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAACAAAABXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-14T00:15:53.819Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\Program.cs",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\Program.cs",
               "RelativeDocumentMoniker": "AJudge\\Program.cs",
-              "ToolTip": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\Program.cs",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\Program.cs",
               "RelativeToolTip": "AJudge\\Program.cs",
-              "ViewState": "AgIAACMAAAAAAAAAAAAAAC8AAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAB8AAAAAAAAAAADwvzAAAABKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-15T05:17:12.258Z",
               "EditorCaption": ""
@@ -233,23 +293,84 @@
             {
               "$type": "Document",
               "DocumentIndex": 12,
-              "Title": "LoginRequest.cs",
-              "DocumentMoniker": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\DtO\\LoginRequest.cs",
-              "RelativeDocumentMoniker": "AJudge.Application\\DtO\\LoginRequest.cs",
-              "ToolTip": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\DtO\\LoginRequest.cs",
-              "RelativeToolTip": "AJudge.Application\\DtO\\LoginRequest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-13T23:24:39.012Z",
+              "Title": "appsettings.json",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\appsettings.json",
+              "RelativeDocumentMoniker": "AJudge\\appsettings.json",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\appsettings.json",
+              "RelativeToolTip": "AJudge\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-15T15:52:37.441Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 13,
+              "Title": "JwtOptions.cs",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\JwtOptions.cs",
+              "RelativeDocumentMoniker": "AJudge\\JwtOptions.cs",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\JwtOptions.cs",
+              "RelativeToolTip": "AJudge\\JwtOptions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-13T23:44:19.854Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "User.cs",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\Entities\\User.cs",
+              "RelativeDocumentMoniker": "AJudge.Domain\\Entities\\User.cs",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\Entities\\User.cs",
+              "RelativeToolTip": "AJudge.Domain\\Entities\\User.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAAABgAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-14T00:14:45.436Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "JoinTeamDto.cs",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\DtO\\JoinTeamDto.cs",
+              "RelativeDocumentMoniker": "AJudge.Application\\DtO\\JoinTeamDto.cs",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\DtO\\JoinTeamDto.cs",
+              "RelativeToolTip": "AJudge.Application\\DtO\\JoinTeamDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-15T18:35:34.627Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "CreateTeamDto.cs",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\DtO\\CreateTeamDto.cs",
+              "RelativeDocumentMoniker": "AJudge.Application\\DtO\\CreateTeamDto.cs",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\DtO\\CreateTeamDto.cs",
+              "RelativeToolTip": "AJudge.Application\\DtO\\CreateTeamDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-15T18:35:26.303Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "LoginRequest.cs",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\DtO\\LoginRequest.cs",
+              "RelativeDocumentMoniker": "AJudge.Application\\DtO\\LoginRequest.cs",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\DtO\\LoginRequest.cs",
+              "RelativeToolTip": "AJudge.Application\\DtO\\LoginRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-13T23:24:39.012Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
               "Title": "AJudge.Domain.csproj",
-              "DocumentMoniker": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\AJudge.Domain.csproj",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\AJudge.Domain.csproj",
               "RelativeDocumentMoniker": "AJudge.Domain\\AJudge.Domain.csproj",
-              "ToolTip": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\AJudge.Domain.csproj",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\AJudge.Domain.csproj",
               "RelativeToolTip": "AJudge.Domain\\AJudge.Domain.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
@@ -258,11 +379,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 18,
               "Title": "AJudge",
-              "DocumentMoniker": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\AJudge.csproj",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\AJudge.csproj",
               "RelativeDocumentMoniker": "AJudge\\AJudge.csproj",
-              "ToolTip": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\AJudge.csproj",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\AJudge.csproj",
               "RelativeToolTip": "AJudge\\AJudge.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
               "WhenOpened": "2025-04-14T00:09:36.708Z",
@@ -270,80 +391,51 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 22,
               "Title": "launchSettings.json",
-              "DocumentMoniker": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\Properties\\launchSettings.json",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "AJudge\\Properties\\launchSettings.json",
-              "ToolTip": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\Properties\\launchSettings.json",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\Properties\\launchSettings.json",
               "RelativeToolTip": "AJudge\\Properties\\launchSettings.json",
               "ViewState": "AgIAAAwAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-04-14T01:02:27.435Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-14T01:02:27.435Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 21,
               "Title": "ISender.cs",
-              "DocumentMoniker": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\services\\ISender.cs",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\services\\ISender.cs",
               "RelativeDocumentMoniker": "AJudge.Application\\services\\ISender.cs",
-              "ToolTip": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\services\\ISender.cs",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\services\\ISender.cs",
               "RelativeToolTip": "AJudge.Application\\services\\ISender.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T02:57:39.941Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-14T02:57:39.941Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 20,
               "Title": "Sender.cs",
-              "DocumentMoniker": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\services\\Sender.cs",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\services\\Sender.cs",
               "RelativeDocumentMoniker": "AJudge.Application\\services\\Sender.cs",
-              "ToolTip": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\services\\Sender.cs",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\services\\Sender.cs",
               "RelativeToolTip": "AJudge.Application\\services\\Sender.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAIBJwB8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T02:44:40.256Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-14T02:44:40.256Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 23,
               "Title": "AJudge.csproj",
-              "DocumentMoniker": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\AJudge.csproj",
+              "DocumentMoniker": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\AJudge.csproj",
               "RelativeDocumentMoniker": "AJudge\\AJudge.csproj",
-              "ToolTip": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\AJudge.csproj",
+              "ToolTip": "A:\\Test\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\AJudge.csproj",
               "RelativeToolTip": "AJudge\\AJudge.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
               "WhenOpened": "2025-04-14T01:06:43.291Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "20250411163144_init.cs",
-              "DocumentMoniker": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\Migrations\\20250411163144_init.cs",
-              "RelativeDocumentMoniker": "AJudge.Infrastructure\\Migrations\\20250411163144_init.cs",
-              "ToolTip": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\Migrations\\20250411163144_init.cs",
-              "RelativeToolTip": "AJudge.Infrastructure\\Migrations\\20250411163144_init.cs",
-              "ViewState": "AgIAACMAAAAAAAAAAAAiwCYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T00:15:53.819Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "JwtOptions.cs",
-              "DocumentMoniker": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\JwtOptions.cs",
-              "RelativeDocumentMoniker": "AJudge\\JwtOptions.cs",
-              "ToolTip": "C:\\Users\\El-Wattaneya\\Desktop\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\JwtOptions.cs",
-              "RelativeToolTip": "AJudge\\JwtOptions.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-13T23:44:19.854Z",
               "EditorCaption": ""
             }
           ]

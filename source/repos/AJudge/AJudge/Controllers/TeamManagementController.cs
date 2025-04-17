@@ -26,11 +26,10 @@ namespace AJudge.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<TeamResponseDto>> CreateTeam(CreateTeamDto dto)
-        {
-            var currentUserId = GetCurrentUserId();
+        public async Task<ActionResult<TeamResponseDto>> CreateTeam([FromBody]CreateTeamDto dto)
+        {         
+            var currentUserId = GetCurrentUserId();    
             var user = await _context.Users.FindAsync(currentUserId);
-
             if (user == null)
             {
                 return Unauthorized();
@@ -43,7 +42,7 @@ namespace AJudge.Controllers
             };
 
             _context.Teams.Add(team);
-
+            await _context.SaveChangesAsync();      
             var userTeam = new UserTeam
             {
                 UserId = currentUserId,
