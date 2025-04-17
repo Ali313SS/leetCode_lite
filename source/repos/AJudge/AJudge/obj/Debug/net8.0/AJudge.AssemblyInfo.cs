@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AJudge")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3e765418e230dd61a7cb18552bfe9c2705bff17d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f89e20ad2543080eb9257a204d661a0c377ea8a4")]
 [assembly: System.Reflection.AssemblyProductAttribute("AJudge")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AJudge")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
