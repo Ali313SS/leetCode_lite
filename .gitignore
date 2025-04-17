@@ -1,1 +1,15 @@
+# .vs
 .vs/
+
+# Build files
+bin/
+obj/
+.suo/
+.AssemblyInfo.cs
+.AssemblyInfoInputs.cache
+.editorconfig
+.AssemblyReference.cache
+
+
+
+
