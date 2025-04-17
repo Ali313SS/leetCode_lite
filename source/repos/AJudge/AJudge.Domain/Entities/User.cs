@@ -21,6 +21,8 @@ namespace AJudge.Domain.Entities
         public string? ClubUniversity { get; set; }
 
         // Navigation Properties
+        //public ICollection<UserTeam> UserTeams { get; set; } = new List<UserTeam>();
+        public ICollection<UserTeam> UserTeams { get; set; } = new List<UserTeam>();
         public ICollection<Team> Teams { get; set; } = new List<Team>();
 
 
@@ -38,9 +40,18 @@ namespace AJudge.Domain.Entities
 
 
 
-        public ICollection<User> UserCoaches { get; set; } = new List<User>();
-        public ICollection<User> CoachedByhim { get; set; } = new List<User>();
-        public ICollection<User> Friends { get; set; } = new List<User>();
+
+
+        // to define the self relation of user Coaches
+        public ICollection<UserCoaches> UserCoaches { get; set; } = new List<UserCoaches>();
+        public ICollection<UserCoaches> CoachedByhim { get; set; } = new List<UserCoaches>();
+
+
+
+
+        // to define the self relation of user Friends
+        public ICollection<UserFriend> Friends { get; set; } = new List<UserFriend>();
+        public ICollection<UserFriend> FriendsOf { get; set; } = new List<UserFriend>();
 
 
 

@@ -10,7 +10,7 @@ namespace AJudge.Infrastructure.Data
     public class ApplicationDbContext:DbContext
     {
        
-        public ApplicationDbContext(DbContextOptions options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
             
         }
@@ -24,9 +24,14 @@ namespace AJudge.Infrastructure.Data
         public DbSet<Statistics> Statistics { get; set; }
         public DbSet<Submission> Submission { get; set; }
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<Team> Teams { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<UserTeam> UserTeams { get; set; }
         public DbSet<Vote> Votes { get; set; }
+
+
+        public DbSet<UserCoaches> UserCoaches { get; set; }
+        public DbSet<UserFriend> UserFriend { get; set; }
 
         //public DbSet<Manager> Managers { get; set; }
         //public DbSet<ContestProblem> ContestProblems { get; set; }
@@ -64,6 +69,27 @@ namespace AJudge.Infrastructure.Data
              .HasForeignKey(v => v.UserId)
              .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<UserTeam>()
+    .HasKey(e => new { e.UserId, e.TeamId });
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Teams)
+                .WithMany(t => t.Users)
+                .UsingEntity<UserTeam>(
+                    join => join
+                        .HasOne(ut => ut.Team)
+                        .WithMany(t => t.UserTeams)
+                        .HasForeignKey(ut => ut.TeamId),
+                    join => join
+                        .HasOne(ut => ut.User)
+                        .WithMany(u => u.UserTeams)
+                        .HasForeignKey(ut => ut.UserId),
+                    join =>
+                    {
+                        join.HasKey(ut => new { ut.UserId, ut.TeamId });
+                        // Optional: customize table name or properties
+                        join.ToTable("UserTeams");
+                    });
 
 
             modelBuilder.Entity<Contest>()
@@ -71,6 +97,44 @@ namespace AJudge.Infrastructure.Data
             .WithMany(u => u.CompeteContests)
             .HasForeignKey(c => c.CreatorUserId)
             .OnDelete(DeleteBehavior.Restrict);
+
+
+
+
+
+            //define the relation Of UserFriend
+            modelBuilder.Entity<UserFriend>().HasKey(x => new { x.UserId, x.FriendId });
+
+            modelBuilder.Entity<UserFriend>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.Friends)
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<UserFriend>()
+               .HasOne(x => x.Friend)
+               .WithMany(x => x.FriendsOf)
+               .HasForeignKey(x => x.FriendId)
+               .OnDelete(DeleteBehavior.NoAction);
+
+
+
+            //define the relation Of UserCoaches
+            modelBuilder.Entity<UserCoaches>().HasKey(x => new { x.CoachId, x.UserId });
+
+            modelBuilder.Entity<UserCoaches>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.UserCoaches)
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<UserCoaches>()
+                .HasOne(x => x.Coach)
+                .WithMany(x => x.CoachedByhim)
+                .HasForeignKey(x => x.CoachId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+
         }
 
     }

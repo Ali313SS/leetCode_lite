@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AJudge.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class init_and_Adding_the_UserFriendRela_and_Updateing_theUserCoaches_rela : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,7 +30,8 @@ namespace AJudge.Infrastructure.Migrations
                 {
                     TeamId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -75,7 +76,7 @@ namespace AJudge.Infrastructure.Migrations
                         column: x => x.AuthorUserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -94,7 +95,7 @@ namespace AJudge.Infrastructure.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -117,7 +118,7 @@ namespace AJudge.Infrastructure.Migrations
                         column: x => x.LeaderUserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -137,31 +138,76 @@ namespace AJudge.Infrastructure.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "TeamUser",
+                name: "UserCoaches",
                 columns: table => new
                 {
-                    TeamsTeamId = table.Column<int>(type: "int", nullable: false),
-                    UserTeamsUserId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    CoachId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TeamUser", x => new { x.TeamsTeamId, x.UserTeamsUserId });
+                    table.PrimaryKey("PK_UserCoaches", x => new { x.CoachId, x.UserId });
                     table.ForeignKey(
-                        name: "FK_TeamUser_Teams_TeamsTeamId",
-                        column: x => x.TeamsTeamId,
+                        name: "FK_UserCoaches_Users_CoachId",
+                        column: x => x.CoachId,
+                        principalTable: "Users",
+                        principalColumn: "UserId");
+                    table.ForeignKey(
+                        name: "FK_UserCoaches_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserFriend",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    FriendId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserFriend", x => new { x.UserId, x.FriendId });
+                    table.ForeignKey(
+                        name: "FK_UserFriend_Users_FriendId",
+                        column: x => x.FriendId,
+                        principalTable: "Users",
+                        principalColumn: "UserId");
+                    table.ForeignKey(
+                        name: "FK_UserFriend_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserTeams",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    TeamId = table.Column<int>(type: "int", nullable: false),
+                    UserTeamId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserTeams", x => new { x.UserId, x.TeamId });
+                    table.ForeignKey(
+                        name: "FK_UserTeams_Teams_TeamId",
+                        column: x => x.TeamId,
                         principalTable: "Teams",
                         principalColumn: "TeamId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TeamUser_Users_UserTeamsUserId",
-                        column: x => x.UserTeamsUserId,
+                        name: "FK_UserTeams_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -182,7 +228,7 @@ namespace AJudge.Infrastructure.Migrations
                         column: x => x.BlogId,
                         principalTable: "Blog",
                         principalColumn: "BlogId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Votes_Users_UserId",
                         column: x => x.UserId,
@@ -212,7 +258,7 @@ namespace AJudge.Infrastructure.Migrations
                         column: x => x.GroupContestId,
                         principalTable: "Groups",
                         principalColumn: "GroupId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Contests_Users_CreatorUserId",
                         column: x => x.CreatorUserId,
@@ -236,13 +282,13 @@ namespace AJudge.Infrastructure.Migrations
                         column: x => x.ManagersGroupsGroupId,
                         principalTable: "Groups",
                         principalColumn: "GroupId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_GroupManagers_Users_ManagersUserId",
                         column: x => x.ManagersUserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -260,7 +306,7 @@ namespace AJudge.Infrastructure.Migrations
                         column: x => x.MembersGroupsGroupId,
                         principalTable: "Groups",
                         principalColumn: "GroupId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_GroupMembers_Users_MembersUserId",
                         column: x => x.MembersUserId,
@@ -288,7 +334,7 @@ namespace AJudge.Infrastructure.Migrations
                         column: x => x.ContestId,
                         principalTable: "Contests",
                         principalColumn: "ContestId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Announcements_Users_UserId",
                         column: x => x.UserId,
@@ -320,7 +366,7 @@ namespace AJudge.Infrastructure.Migrations
                         column: x => x.ContestId,
                         principalTable: "Contests",
                         principalColumn: "ContestId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -338,13 +384,13 @@ namespace AJudge.Infrastructure.Migrations
                         column: x => x.ProblemsProblemId,
                         principalTable: "Problems",
                         principalColumn: "ProblemId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ProblemTag_Tags_TagsTagId",
                         column: x => x.TagsTagId,
                         principalTable: "Tags",
                         principalColumn: "TagId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -366,7 +412,7 @@ namespace AJudge.Infrastructure.Migrations
                         column: x => x.ProblemId,
                         principalTable: "Problems",
                         principalColumn: "ProblemId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Submission_Users_UserId",
                         column: x => x.UserId,
@@ -446,9 +492,19 @@ namespace AJudge.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TeamUser_UserTeamsUserId",
-                table: "TeamUser",
-                column: "UserTeamsUserId");
+                name: "IX_UserCoaches_UserId",
+                table: "UserCoaches",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserFriend_FriendId",
+                table: "UserFriend",
+                column: "FriendId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserTeams_TeamId",
+                table: "UserTeams",
+                column: "TeamId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Votes_BlogId",
@@ -486,7 +542,13 @@ namespace AJudge.Infrastructure.Migrations
                 name: "Submission");
 
             migrationBuilder.DropTable(
-                name: "TeamUser");
+                name: "UserCoaches");
+
+            migrationBuilder.DropTable(
+                name: "UserFriend");
+
+            migrationBuilder.DropTable(
+                name: "UserTeams");
 
             migrationBuilder.DropTable(
                 name: "Votes");
