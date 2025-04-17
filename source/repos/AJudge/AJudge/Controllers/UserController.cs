@@ -29,10 +29,10 @@ namespace AJudge.Controllers
           return Ok(userResponseDTO);     
         }
 
-       
 
-        [HttpGet("GetUserRelatedInfo/{id:int}")]  
-        public async Task<IActionResult> GetUserGroups(int id) 
+
+        [HttpGet("GetUserGroupsInfo/{id:int}")]
+        public async Task<IActionResult> GetUserGroupsName(int id)
         {
             User? user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.UserId == id);
             if (user == null)
@@ -40,46 +40,75 @@ namespace AJudge.Controllers
 
 
             //grt your groups
-            var groupTask =  _context.Groups
+            var groupTask = await _context.Groups
               .Where(g => g.Members.Any(gm => gm.UserId == id))
               .Select(g => g.Name)
               .ToListAsync();
+            UserResponse_GroupsNameDTO res= new UserResponse_GroupsNameDTO(groupTask);
+            return Ok(res);
+
+        }
+
+        [HttpGet("GetUserCoachesInfo/{id:int}")]
+        public async Task<IActionResult> GetUserCoachesName(int id)
+        {
+            User? user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.UserId == id);
+            if (user == null)
+                return NotFound("No Such User");
 
 
-           
+             var coachTask = await  _context.UserCoaches
+               .Where(uc => uc.UserId == id)
+               .Select(uc => uc.Coach.Username)
+               .ToListAsync();
+
+            var res = new UserResponse_CoachesNameDTO(coachTask);
+            return Ok(res);
+
+        }
+
+         [HttpGet("GetUserTrainerInfo/{id:int}")]
+        public async Task<IActionResult> GetUserTrainersName(int id)
+        {
+            User? user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.UserId == id);
+            if (user == null)
+                return NotFound("No Such User");
 
 
-            //get your coaches
-            var coachTask =  _context.UserCoaches
-              .Where(uc => uc.UserId == id)
-              .Select(uc => uc.Coach.Username)
-              .ToListAsync();
+            
+                var trainersTask = await _context.UserCoaches.Where(x => x.CoachId == id)
+                     .Select(x => x.User.Username).ToListAsync();
+
+            var res = new UserResponse_TrainersNameDTO(trainersTask);
+            return Ok(res);
+
+        }
+
+         [HttpGet("GetUserFriendsInfo/{id:int}")]
+        public async Task<IActionResult> GetUserFriendsName(int id)
+        {
+            User? user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.UserId == id);
+            if (user == null)
+                return NotFound("No Such User");
 
 
-            //get youe trainers
-            var trainersTask =  _context.UserCoaches.Where(x => x.CoachId == id)
-                 .Select(x => x.User.Username).ToListAsync();
+
+          
+                var friendsTask =await   _context.UserFriend.Where(x => x.FriendId == id)
+                    .Select(x => x.User.Username).ToListAsync();
 
 
-            //get your friends
-            var friendsTask =  _context.UserFriend.Where(x => x.FriendId == id)
-                .Select(x => x.User.Username).ToListAsync();
+            var res = new UserResponse_FriendsNameDTO(friendsTask);
+            return Ok(res);
 
-            await Task.WhenAll(groupTask, coachTask, trainersTask, friendsTask);
-
-            var goupNames = groupTask.Result;
-            var coachNames = coachTask.Result;
-            var trainerNames = trainersTask.Result;
-            var friendNames = friendsTask.Result;
-
-
-            UserResponse_RelatedInfoDTO userResponse = UserResponse_RelatedInfoDTO.ConvertToUser_RelatedInfoResponse(user, goupNames, coachNames, trainerNames, friendNames);
-            return Ok(userResponse);
         }
 
 
 
-      
+
+
+
+
 
 
 
