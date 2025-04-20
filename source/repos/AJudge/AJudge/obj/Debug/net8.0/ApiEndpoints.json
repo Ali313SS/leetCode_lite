@@ -8,9 +8,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "request",
-        "Type": "AJudge.Controllers.AddFriendRequest",
-        "IsRequired": true
+        "Name": "friendId",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -24,9 +24,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "request",
-        "Type": "AJudge.Controllers.RemoveFriendRequest",
-        "IsRequired": true
+        "Name": "friendId",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

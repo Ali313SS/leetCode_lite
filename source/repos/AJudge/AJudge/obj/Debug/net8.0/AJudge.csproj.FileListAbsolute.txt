@@ -807,3 +807,4 @@ D:\leetCode_lite\source\repos\AJudge\AJudge\obj\Debug\net8.0\refint\AJudge.dll
 D:\leetCode_lite\source\repos\AJudge\AJudge\obj\Debug\net8.0\AJudge.pdb
 D:\leetCode_lite\source\repos\AJudge\AJudge\obj\Debug\net8.0\AJudge.genruntimeconfig.cache
 D:\leetCode_lite\source\repos\AJudge\AJudge\obj\Debug\net8.0\ref\AJudge.dll
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

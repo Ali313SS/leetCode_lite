@@ -82,3 +82,7 @@ D:\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\AJudge.
 D:\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\refint\AJudge.Application.dll
 D:\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\AJudge.Application.pdb
 D:\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\ref\AJudge.Application.dll
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Application\bin\Debug\net8.0\AJudge.Domain.dll
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Application\bin\Debug\net8.0\AJudge.Domain.pdb
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\AJudge.Application.csproj.AssemblyReference.cache
+A:\Ajudge\leetCode_lite\source\repos\AJudge\AJudge.Application\obj\Debug\net8.0\AJudge.A.C3B9C9AF.Up2Date
