@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\AJudge.Application.csproj": {}
+    "D:\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\AJudge.Application.csproj": {}
   },
   "projects": {
-    "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\AJudge.Application.csproj": {
+    "D:\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\AJudge.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\AJudge.Application.csproj",
+        "projectUniqueName": "D:\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\AJudge.Application.csproj",
         "projectName": "AJudge.Application",
-        "projectPath": "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\AJudge.Application.csproj",
-        "packagesPath": "C:\\Users\\Zeyad\\.nuget\\packages\\",
-        "outputPath": "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\obj\\",
+        "projectPath": "D:\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\AJudge.Application.csproj",
+        "packagesPath": "C:\\Users\\msi\\.nuget\\packages\\",
+        "outputPath": "D:\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Zeyad\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\msi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,15 +26,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\AJudge.Domain.csproj": {
-                "projectPath": "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\AJudge.Domain.csproj"
+              "D:\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\AJudge.Domain.csproj": {
+                "projectPath": "D:\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\AJudge.Domain.csproj"
               }
             }
           }
@@ -43,8 +46,9 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
-        }
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -65,21 +69,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\AJudge.Domain.csproj": {
+    "D:\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\AJudge.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\AJudge.Domain.csproj",
+        "projectUniqueName": "D:\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\AJudge.Domain.csproj",
         "projectName": "AJudge.Domain",
-        "projectPath": "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\AJudge.Domain.csproj",
-        "packagesPath": "C:\\Users\\Zeyad\\.nuget\\packages\\",
-        "outputPath": "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\obj\\",
+        "projectPath": "D:\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\AJudge.Domain.csproj",
+        "packagesPath": "C:\\Users\\msi\\.nuget\\packages\\",
+        "outputPath": "D:\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Zeyad\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\msi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -87,7 +95,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -104,8 +111,9 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
-        }
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -126,7 +134,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,30 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\",
+  "WorkspaceRootPath": "D:\\leetCode_lite\\source\\repos\\AJudge\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|e:\\3-.net\\9-projects\\temp\\leetcode_lite\\source\\repos\\ajudge\\ajudge\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|solutionrelative:ajudge\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|d:\\leetcode_lite\\source\\repos\\ajudge\\ajudge\\controllers\\friendscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|solutionrelative:ajudge\\controllers\\friendscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|e:\\3-.net\\9-projects\\temp\\leetcode_lite\\source\\repos\\ajudge\\ajudge.application\\dto\\userdtos\\userresponse_relatedinfodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|solutionrelative:ajudge.application\\dto\\userdtos\\userresponse_relatedinfodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|e:\\3-.net\\9-projects\\temp\\leetcode_lite\\source\\repos\\ajudge\\ajudge.application\\dto\\userdtos\\userresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{73BD8DD1-3A42-4541-97A4-D5A81FBA05EA}|AJudge.Application\\AJudge.Application.csproj|solutionrelative:ajudge.application\\dto\\userdtos\\userresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B6AF0A53-2625-4118-A9FB-AFB36A553937}|AJudge.Domain\\AJudge.Domain.csproj|e:\\3-.net\\9-projects\\temp\\leetcode_lite\\source\\repos\\ajudge\\ajudge.domain\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B6AF0A53-2625-4118-A9FB-AFB36A553937}|AJudge.Domain\\AJudge.Domain.csproj|solutionrelative:ajudge.domain\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8185308D-DBD7-4E5D-83E3-816B8E288E2A}|AJudge.Infrastructure\\AJudge.Infrastructure.csproj|e:\\3-.net\\9-projects\\temp\\leetcode_lite\\source\\repos\\ajudge\\ajudge.infrastructure\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8185308D-DBD7-4E5D-83E3-816B8E288E2A}|AJudge.Infrastructure\\AJudge.Infrastructure.csproj|solutionrelative:ajudge.infrastructure\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|e:\\3-.net\\9-projects\\temp\\leetcode_lite\\source\\repos\\ajudge\\ajudge\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|d:\\leetcode_lite\\source\\repos\\ajudge\\ajudge\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F9ADD2AF-EECC-4489-A272-C45B6DBDE949}|AJudge\\AJudge.csproj|solutionrelative:ajudge\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8185308D-DBD7-4E5D-83E3-816B8E288E2A}|AJudge.Infrastructure\\AJudge.Infrastructure.csproj|d:\\leetcode_lite\\source\\repos\\ajudge\\ajudge.infrastructure\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8185308D-DBD7-4E5D-83E3-816B8E288E2A}|AJudge.Infrastructure\\AJudge.Infrastructure.csproj|solutionrelative:ajudge.infrastructure\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,80 +22,46 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\Data\\ApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "AJudge.Infrastructure\\Data\\ApplicationDbContext.cs",
-              "ToolTip": "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\Data\\ApplicationDbContext.cs",
-              "RelativeToolTip": "AJudge.Infrastructure\\Data\\ApplicationDbContext.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAkwCEAAAArAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\Program.cs",
+              "RelativeDocumentMoniker": "AJudge\\Program.cs",
+              "ToolTip": "D:\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\Program.cs",
+              "RelativeToolTip": "AJudge\\Program.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAA0wB4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-17T12:53:10.729Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UserResponseDTO.cs",
-              "DocumentMoniker": "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\DtO\\UserDTOS\\UserResponseDTO.cs",
-              "RelativeDocumentMoniker": "AJudge.Application\\DtO\\UserDTOS\\UserResponseDTO.cs",
-              "ToolTip": "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\DtO\\UserDTOS\\UserResponseDTO.cs",
-              "RelativeToolTip": "AJudge.Application\\DtO\\UserDTOS\\UserResponseDTO.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAxwAgAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-17T12:25:49.184Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "User.cs",
-              "DocumentMoniker": "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\Entities\\User.cs",
-              "RelativeDocumentMoniker": "AJudge.Domain\\Entities\\User.cs",
-              "ToolTip": "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Domain\\Entities\\User.cs",
-              "RelativeToolTip": "AJudge.Domain\\Entities\\User.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAB4AAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-14T00:14:45.436Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "AJudge\\Controllers\\UserController.cs",
-              "ToolTip": "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\Controllers\\UserController.cs",
-              "RelativeToolTip": "AJudge\\Controllers\\UserController.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAwwDAAAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-17T11:04:00.136Z",
+              "WhenOpened": "2025-04-18T14:27:25.286Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UserResponse_RelatedInfoDTO.cs",
-              "DocumentMoniker": "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\DtO\\UserDTOS\\UserResponse_RelatedInfoDTO.cs",
-              "RelativeDocumentMoniker": "AJudge.Application\\DtO\\UserDTOS\\UserResponse_RelatedInfoDTO.cs",
-              "ToolTip": "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Application\\DtO\\UserDTOS\\UserResponse_RelatedInfoDTO.cs",
-              "RelativeToolTip": "AJudge.Application\\DtO\\UserDTOS\\UserResponse_RelatedInfoDTO.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAAwBgAAAAMAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "D:\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "AJudge.Infrastructure\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "D:\\leetCode_lite\\source\\repos\\AJudge\\AJudge.Infrastructure\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "AJudge.Infrastructure\\Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAywCEAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-17T11:16:39.54Z"
+              "WhenOpened": "2025-04-18T13:06:42.76Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Program.cs",
-              "DocumentMoniker": "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\Program.cs",
-              "RelativeDocumentMoniker": "AJudge\\Program.cs",
-              "ToolTip": "E:\\3-.NET\\9-Projects\\Temp\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\Program.cs",
-              "RelativeToolTip": "AJudge\\Program.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "FriendsController.cs",
+              "DocumentMoniker": "D:\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\Controllers\\FriendsController.cs",
+              "RelativeDocumentMoniker": "AJudge\\Controllers\\FriendsController.cs",
+              "ToolTip": "D:\\leetCode_lite\\source\\repos\\AJudge\\AJudge\\Controllers\\FriendsController.cs",
+              "RelativeToolTip": "AJudge\\Controllers\\FriendsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-13T23:53:00.077Z"
+              "WhenOpened": "2025-04-18T12:42:27.797Z",
+              "EditorCaption": ""
             }
           ]
         }

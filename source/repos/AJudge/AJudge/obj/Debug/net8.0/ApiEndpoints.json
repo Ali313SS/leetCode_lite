@@ -1,5 +1,37 @@
 [
   {
+    "ContainingType": "AJudge.Controllers.FriendsController",
+    "Method": "AddFriend",
+    "RelativePath": "api/Friends",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "AJudge.Controllers.AddFriendRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AJudge.Controllers.FriendsController",
+    "Method": "RemoveFriend",
+    "RelativePath": "api/Friends",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "AJudge.Controllers.RemoveFriendRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "AJudge.Controllers.TeamsController",
     "Method": "CreateTeam",
     "RelativePath": "api/Teams",

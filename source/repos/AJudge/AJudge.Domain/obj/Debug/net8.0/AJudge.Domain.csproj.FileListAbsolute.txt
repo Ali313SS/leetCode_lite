@@ -58,3 +58,15 @@ A:\Test\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.
 A:\Test\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\refint\AJudge.Domain.dll
 A:\Test\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.pdb
 A:\Test\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\ref\AJudge.Domain.dll
+D:\leetCode_lite\source\repos\AJudge\AJudge.Domain\bin\Debug\net8.0\AJudge.Domain.deps.json
+D:\leetCode_lite\source\repos\AJudge\AJudge.Domain\bin\Debug\net8.0\AJudge.Domain.dll
+D:\leetCode_lite\source\repos\AJudge\AJudge.Domain\bin\Debug\net8.0\AJudge.Domain.pdb
+D:\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.AssemblyInfoInputs.cache
+D:\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.AssemblyInfo.cs
+D:\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.csproj.CoreCompileInputs.cache
+D:\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.sourcelink.json
+D:\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.dll
+D:\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\refint\AJudge.Domain.dll
+D:\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\AJudge.Domain.pdb
+D:\leetCode_lite\source\repos\AJudge\AJudge.Domain\obj\Debug\net8.0\ref\AJudge.Domain.dll
