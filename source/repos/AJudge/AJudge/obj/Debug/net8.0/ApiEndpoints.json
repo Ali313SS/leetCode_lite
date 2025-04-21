@@ -32,6 +32,38 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "AJudge.Controllers.ProblemController",
+    "Method": "CreateProblem",
+    "RelativePath": "api/Problem/CreateProblem",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "problem",
+        "Type": "AJudge.Application.DTO.ProblemsDTO.ProblemDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AJudge.Controllers.ProblemController",
+    "Method": "GetProblem",
+    "RelativePath": "api/Problem/GetProblem",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "problem",
+        "Type": "AJudge.Application.DTO.ProblemsDTO.ProblemDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "AJudge.Controllers.TeamsController",
     "Method": "CreateTeam",
     "RelativePath": "api/Teams",
@@ -41,13 +73,13 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "AJudge.Application.DtO.CreateTeamDto",
+        "Type": "AJudge.Application.DTO.TeamDTOS.CreateTeamDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "AJudge.Application.DtO.TeamResponseDto",
+        "Type": "AJudge.Application.DTO.TeamDTOS.TeamResponseDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -73,7 +105,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "AJudge.Application.DtO.TeamResponseDto",
+        "Type": "AJudge.Application.DTO.TeamDTOS.TeamResponseDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -199,7 +231,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "AJudge.Application.DtO.LoginRequest",
+        "Type": "AJudge.Application.DTO.AuthDTO.LoginRequest",
         "IsRequired": true
       }
     ],
@@ -215,7 +247,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "AJudge.Application.DtO.RegisterRequest",
+        "Type": "AJudge.Application.DTO.AuthDTO.RegisterRequest",
         "IsRequired": true
       }
     ],

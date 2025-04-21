@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AJudge.Application.DtO.UserDTOS
+namespace AJudge.Application.DTO.UserDTOS
 {
     public class UserResponseDTO
     {

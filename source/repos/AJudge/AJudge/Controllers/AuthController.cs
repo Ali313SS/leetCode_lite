@@ -8,7 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using AJudge.Application.DtO;
+using AJudge.Application.DTO.AuthDTO;
 
 namespace AJudge.Controllers
 {

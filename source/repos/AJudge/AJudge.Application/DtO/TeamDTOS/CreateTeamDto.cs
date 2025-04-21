@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AJudge.Application.DtO
+namespace AJudge.Application.DTO.TeamDTOS
 {
     public class CreateTeamDto
     {

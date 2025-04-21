@@ -4,6 +4,7 @@ using AJudge.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AJudge.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250421055818_updateProblemEntity")]
+    partial class updateProblemEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -164,35 +167,6 @@ namespace AJudge.Infrastructure.Migrations
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("AJudge.Domain.Entities.InputOutputTestCase", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Input")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Output")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProblemId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TestCaseId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProblemId");
-
-                    b.ToTable("InputOutputTestCase");
-                });
-
             modelBuilder.Entity("AJudge.Domain.Entities.Problem", b =>
                 {
                     b.Property<int>("ProblemId")
@@ -235,8 +209,13 @@ namespace AJudge.Infrastructure.Migrations
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.Property<int>("numberOfTestCases")
-                        .HasColumnType("int");
+                    b.Property<string>("SampleInput")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SampleOutput")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProblemId");
 
@@ -490,7 +469,7 @@ namespace AJudge.Infrastructure.Migrations
 
                     b.HasIndex("TagsTagId");
 
-                    b.ToTable("ProblemTags", (string)null);
+                    b.ToTable("ProblemTag");
                 });
 
             modelBuilder.Entity("AJudge.Domain.Entities.Announcement", b =>
@@ -562,18 +541,6 @@ namespace AJudge.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Leader");
-                });
-
-            modelBuilder.Entity("AJudge.Domain.Entities.InputOutputTestCase", b =>
-                {
-                    b.HasOne("AJudge.Domain.Entities.Problem", "Problem")
-                        .WithMany("InputOutputTestCases")
-                        .HasForeignKey("ProblemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_ProblemTestCases_ProblemId");
-
-                    b.Navigation("Problem");
                 });
 
             modelBuilder.Entity("AJudge.Domain.Entities.Problem", b =>
@@ -751,11 +718,6 @@ namespace AJudge.Infrastructure.Migrations
             modelBuilder.Entity("AJudge.Domain.Entities.Group", b =>
                 {
                     b.Navigation("Contests");
-                });
-
-            modelBuilder.Entity("AJudge.Domain.Entities.Problem", b =>
-                {
-                    b.Navigation("InputOutputTestCases");
                 });
 
             modelBuilder.Entity("AJudge.Domain.Entities.Team", b =>
