@@ -8,7 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using AJudge.Application.DtO;
+using AJudge.Application.DTO.AuthDTO;
 
 namespace AJudge.Controllers
 {
@@ -28,7 +28,7 @@ namespace AJudge.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Register([FromBody] RegisterRequest request)
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
           
             if (_context.Users.Any(u => u.Email == request.Email|| u.Username==request.Username))
@@ -47,14 +47,14 @@ namespace AJudge.Controllers
                 PasswordHash = hashedPassword
             };
 
-            _context.Users.Add(user);
-            _context.SaveChanges();
+             await _context.Users.AddAsync(user);
+            await  _context.SaveChangesAsync();
 
             return Ok("User registered successfully.");
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginRequest request)
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             // Retrieve the user by email
             var user = _context.Users.FirstOrDefault(u => u.Email == request.Email);

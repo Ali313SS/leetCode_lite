@@ -2,7 +2,8 @@
 using AJudge.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AJudge.Application.DtO.UserDTOS;
+using AJudge.Application.DTO.AuthDTO;
+using AJudge.Application.DTO.UserDTOS;
 
 namespace AJudge.Controllers
 {

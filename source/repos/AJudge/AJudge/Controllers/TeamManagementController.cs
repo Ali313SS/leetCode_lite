@@ -1,5 +1,4 @@
-﻿using AJudge.Application.DtO;
-using AJudge.Domain.Entities;
+﻿using AJudge.Domain.Entities;
 using AJudge.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
@@ -7,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using AJudge.Application.DTO.TeamDTOS;
 
 namespace AJudge.Controllers
 {
