@@ -31,6 +31,7 @@ namespace AJudge.Controllers
 
 
 
+        
         [HttpGet("GetUserGroupsInfo/{id:int}")]
         public async Task<IActionResult> GetUserGroupsName(int id)
         {
@@ -106,7 +107,7 @@ namespace AJudge.Controllers
 
 
 
-
+       
 
 
 

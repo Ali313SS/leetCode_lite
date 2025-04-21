@@ -95,6 +95,22 @@
   },
   {
     "ContainingType": "AJudge.Controllers.UserController",
+    "Method": "GetUserGroupsName",
+    "RelativePath": "api/User",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AJudge.Controllers.UserController",
     "Method": "GetUserCoachesName",
     "RelativePath": "api/User/GetUserCoachesInfo/{id}",
     "HttpMethod": "GET",
@@ -113,22 +129,6 @@
     "ContainingType": "AJudge.Controllers.UserController",
     "Method": "GetUserFriendsName",
     "RelativePath": "api/User/GetUserFriendsInfo/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "AJudge.Controllers.UserController",
-    "Method": "GetUserGroupsName",
-    "RelativePath": "api/User/GetUserGroupsInfo/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
