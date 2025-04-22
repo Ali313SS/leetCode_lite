@@ -1,15 +1,29 @@
-﻿using AJudge.Domain.Entities;
+﻿//using AJudge.Domain.Entities;
+//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+
+//namespace AJudge.Domain.RepoContracts
+//{
+//    public interface IUnitOfWork:IDisposable
+//    {
+//         IProblemRepository Problem { get;  }
+//        Task CompleteAsync();
+//        Task<int> SaveChangesAsync();
+
+//    }
+//}
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AJudge.Domain.RepoContracts
 {
-    public interface IUnitOfWork:IDisposable
+    public interface IUnitOfWork : IDisposable
     {
-         IProblemRepository Problem { get;  }
-        Task CompleteAsync();
+        IProblemRepository Problem { get; }
+        Task<int> SaveChangesAsync();
     }
 }

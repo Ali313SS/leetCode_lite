@@ -19,6 +19,26 @@ namespace AJudge.Infrastructure.Repositories
             _context = context;
         }
 
+        public Task AddAsync(T entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteAsync(T entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<T> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<T> GetByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<T?> GetSpecific(Expression<Func<T, bool>> predicate, string[]? includes = null)
         {
             IQueryable<T> query = _context.Set<T>();
@@ -31,7 +51,11 @@ namespace AJudge.Infrastructure.Repositories
             }
             return await query.FirstOrDefaultAsync(predicate);
         }
-        
+
+        public Task<List<T>> GetSpecificList(Expression<Func<T, bool>> predicate, string[]? includes = null)
+        {
+            throw new NotImplementedException();
+        }
     }
         
 

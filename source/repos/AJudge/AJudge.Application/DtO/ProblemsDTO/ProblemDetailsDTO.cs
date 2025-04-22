@@ -22,7 +22,7 @@ namespace AJudge.Application.DtO.ProblemsDTO
 
 
 
-        public static ProblemDetailsDTO ConvertToProblemDetalsDTO(Problem problem, string submissionState, List<string>tagsNames, InputOutputTestCasesDTO inputOutputTestCases)
+        public static ProblemDetailsDTO ConvertToProblemDetailsDTO(Problem problem, string submissionState, List<string>tagsNames, InputOutputTestCasesDTO inputOutputTestCases)
         {
             return new ProblemDetailsDTO
             {

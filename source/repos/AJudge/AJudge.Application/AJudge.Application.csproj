@@ -9,5 +9,10 @@
   <ItemGroup>
     <ProjectReference Include="..\AJudge.Domain\AJudge.Domain.csproj" />
   </ItemGroup>
-
+<ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.15" />
+</ItemGroup>
+<ItemGroup>
+    <ProjectReference Include="..\AJudge.Infrastructure\AJudge.Infrastructure.csproj" />
+</ItemGroup>
 </Project>

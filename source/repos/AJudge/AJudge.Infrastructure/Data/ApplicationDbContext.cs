@@ -23,6 +23,8 @@ namespace AJudge.Infrastructure.Data
         public DbSet<Problem> Problems { get; set; }
         public DbSet<Statistics> Statistics { get; set; }
         public DbSet<Submission> Submission { get; set; }
+        public DbSet<InputOutputTestCase> InputOutputTestCases { get; set; }
+
         public DbSet<Tag> Tags { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Team> Teams { get; set; }

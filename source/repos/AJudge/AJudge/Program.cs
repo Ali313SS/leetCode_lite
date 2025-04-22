@@ -10,7 +10,8 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 using AJudge.Domain.RepoContracts;
 using AJudge.Infrastructure.Repositories;
-
+using AJudge.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
 namespace AJudge
 {
     public class Program
@@ -32,14 +33,15 @@ namespace AJudge
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddSingleton<PasswordHasher>();
-            builder.Services.AddTransient<IProblemService, ProblemService>();
+            builder.Services.AddScoped<IProblemService, ProblemService>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-        
+
             // Ensure the Microsoft.EntityFrameworkCore.SqlServer package is installed
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnstring"));
             });
+            
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>

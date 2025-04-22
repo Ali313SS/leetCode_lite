@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace AJudge.Domain.RepoContracts
 {
-    public interface IProblemRepository:IBaseRepository<Problem>
+    public interface IProblemRepository : IBaseRepository<Problem>
     {
-        Task<List<Problem>>? GetAllInPage(string sortBy,bool isAssending=true,int pageNumber=1,int pageSize=100);
+        Task<List<Problem>>? GetAllInPage(string sortBy, bool isAssending = true, int pageNumber = 1, int pageSize = 100);
     }
 }
+
