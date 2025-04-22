@@ -12,6 +12,7 @@ namespace AJudge.Domain.Entities
     {
         [Key]
         public int ContestId { get; set; }
+        public string Name { get; set; }
         public int GroupContestId { get; set; }
         public DateTime BeginTime { get; set; }
         public DateTime EndTime { get; set; }      
