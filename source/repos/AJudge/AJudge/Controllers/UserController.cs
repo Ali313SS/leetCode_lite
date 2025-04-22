@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AJudge.Application.DTO.AuthDTO;
 using AJudge.Application.DTO.UserDTOS;
+using System.Reflection.Metadata.Ecma335;
 
 namespace AJudge.Controllers
 {
@@ -30,9 +31,25 @@ namespace AJudge.Controllers
           return Ok(userResponseDTO);     
         }
 
+        [HttpGet("{name}")]   
+        public async Task<IActionResult> GetUser(string name)
+        {
+            User? user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Username == name);
+
+            if (user == null)
+                return NotFound("No Such User");
+
+            UserResponseDTO userResponseDTO = UserResponseDTO.ConvertToUserResponse(user);
+
+            return Ok(userResponseDTO);
+        }
 
 
-        
+
+                  
+
+
+
         [HttpGet("GetUserGroupsInfo/{id:int}")]
         public async Task<IActionResult> GetUserGroupsName(int id)
         {
