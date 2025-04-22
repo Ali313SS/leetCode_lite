@@ -79,8 +79,8 @@ namespace AJudge.Application.services
 
             var testCases = new InputOutputTestCasesDTO
             {
-                InputTetCase = problem.InputOutputTestCases.Select(tc => tc.Input).ToList(),
-                OutPutTestCases = problem.InputOutputTestCases.Select(tc => tc.Output).ToList()
+//                InputTetCase = problem.InputOutputTestCases.Select(tc => tc.Input).ToList(),
+  //              OutPutTestCases = problem.InputOutputTestCases.Select(tc => tc.Output).ToList()
             };
 
             ProblemDetailsDTO problemDEtailsDTO = ProblemDetailsDTO.ConvertToProblemDetalsDTO(problem, state, tagsName, testCases);

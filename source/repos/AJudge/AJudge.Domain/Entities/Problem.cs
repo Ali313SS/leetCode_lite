@@ -26,6 +26,6 @@ namespace AJudge.Domain.Entities
         Contest Contest { get; set; }
         public ICollection<Tag> Tags { get; set; } = new List<Tag>();
         public ICollection<Submission> Submissions { get; set; } = new List<Submission>();
-        public ICollection<InputOutputTestCase> InputOutputTestCases { get; set; } = new List<InputOutputTestCase>();
+        public ICollection<TestCase> TestCases { get; set; } = new List<TestCase>();
     }
 }

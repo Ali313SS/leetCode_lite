@@ -158,10 +158,9 @@ namespace AJudge.Infrastructure.Data
                 .HasMany(p => p.Tags)
                 .WithMany(t => t.Problems)
                 .UsingEntity(j => j.ToTable("ProblemTags"));
-            modelBuilder.Entity<Problem>().HasMany(p => p.InputOutputTestCases).WithOne(t => t.Problem).HasConstraintName("FK_ProblemTestCases_ProblemId").OnDelete(DeleteBehavior.Cascade);
-
-
-
+            modelBuilder.Entity<Problem>().HasMany(p => p.TestCases).WithOne(tc => tc.Problem)
+                .HasForeignKey(tc => tc.ProblemId)
+                .OnDelete(DeleteBehavior.Cascade);
 
         }
 
