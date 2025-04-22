@@ -7,12 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 namespace AJudge.Infrastructure.Data
 {
-    public class ApplicationDbContext:DbContext
+    public class ApplicationDbContext : DbContext
     {
-       
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            
+
         }
 
         public DbSet<Announcement> Announcements { get; set; }
@@ -61,6 +61,27 @@ namespace AJudge.Infrastructure.Data
             .UsingEntity(j => j.ToTable("GroupMembers"));
 
 
+            //modelBuilder.Entity<RequestTojoinGroup>().HasKey(x => x.Id);
+            //modelBuilder.Entity<RequestTojoinGroup>()
+            //    .HasOne(x => x.User);
+            //modelBuilder.Entity<RequestTojoinGroup>()
+            //    .HasOne(x => x.Group);            
+
+
+
+            modelBuilder.Entity<RequestTojoinGroup>().HasOne(r => r.User).WithMany()
+    .HasForeignKey(r => r.UserId)
+    .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<RequestTojoinGroup>().HasOne(r => r.Group).WithMany()
+    .HasForeignKey(r => r.GroupId)
+    .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Group>().HasMany(x => x.RequestsTojoinGroup)
+              .WithMany(u => u.RequestsTojoinGroup).UsingEntity(j => j.ToTable("RequestsTojoinGroup"));
+
+            
+
+            
+            
 
 
             modelBuilder.Entity<Vote>()

@@ -30,7 +30,9 @@ namespace AJudge
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddSingleton<PasswordHasher>();
-        
+
+            builder.Services.AddScoped<IGroupServices, GroupServices>();
+
             // Ensure the Microsoft.EntityFrameworkCore.SqlServer package is installed
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
