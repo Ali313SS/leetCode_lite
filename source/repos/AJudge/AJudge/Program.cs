@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using AJudge.Domain.RepoContracts;
+using AJudge.Infrastructure.Repositories;
 
 namespace AJudge
 {
@@ -32,6 +34,9 @@ namespace AJudge
             builder.Services.AddSingleton<PasswordHasher>();
 
             builder.Services.AddScoped<IGroupServices, GroupServices>();
+
+            builder.Services.AddTransient<IProblemService, ProblemService>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Ensure the Microsoft.EntityFrameworkCore.SqlServer package is installed
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
