@@ -16,13 +16,13 @@ namespace AJudge.Application.DtO.ProblemsDTO
         public string OutputFormat { get; set; }
         public string ProblemSource { get; set; }
         public string SubmissionState { get; set; }
-        public List<string> TagsName { get; set; } 
-        public InputOutputTestCasesDTO InputOutputTestCases { get; set; } 
-       
+        public List<string> TagsName { get; set; }
+        public InputOutputTestCasesDTO InputOutputTestCases { get; set; }
 
 
 
-        public static ProblemDetailsDTO ConvertToProblemDetalsDTO(Problem problem, string submissionState, List<string>tagsNames, InputOutputTestCasesDTO inputOutputTestCases)
+
+        public static ProblemDetailsDTO ConvertToProblemDetalsDTO(Problem problem, string submissionState, List<string> tagsNames, InputOutputTestCasesDTO inputOutputTestCases)
         {
             return new ProblemDetailsDTO
             {
@@ -37,7 +37,7 @@ namespace AJudge.Application.DtO.ProblemsDTO
                 InputOutputTestCases = inputOutputTestCases
             };
 
-                
+
 
         }
     }

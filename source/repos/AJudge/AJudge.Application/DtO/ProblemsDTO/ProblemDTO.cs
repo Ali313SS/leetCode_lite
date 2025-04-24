@@ -8,20 +8,23 @@ using System.Threading.Tasks;
 
 namespace AJudge.Application.DTO.ProblemsDTO
 {
-   public class ProblemDTO
+    public class ProblemDTO
     {
         public string ProblemSource { get; set; }
         public string ProblemName { get; set; }
         public int Rating { get; set; }
-        //public string? ProblemId { get; set; }
+        public string? ProblemId { get; set; }
         [AllowNull]
         public string problemLink { get; set; }
+        public int ContestId { get; set; }
+        public int NumberOfTestCases { get; set; }
 
-
-        public static ProblemDTO ConvertToProblemDTO(Problem  problem)
+        public static ProblemDTO ConvertToProblemDTO(Problem problem)
         {
             return new ProblemDTO
             {
+                ContestId = problem.ContestId,
+                NumberOfTestCases = problem.numberOfTestCases,
                 ProblemSource = problem.ProblemSource,
                 problemLink = problem.ProblemLink,
                 ProblemName = problem.ProblemName,
