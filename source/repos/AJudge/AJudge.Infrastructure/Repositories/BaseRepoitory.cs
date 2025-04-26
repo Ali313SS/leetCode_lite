@@ -19,6 +19,16 @@ namespace AJudge.Infrastructure.Repositories
             _context = context;
         }
 
+        public async Task<IEnumerable<T>?> GetAll()
+        {
+            return await _context.Set<T>().ToListAsync();
+        }
+
+        public IQueryable<T> GetQuery()
+        {
+            return _context.Set<T>().AsQueryable();
+        }
+
         public async Task<T?> GetSpecific(Expression<Func<T, bool>> predicate, string[]? includes = null)
         {
             IQueryable<T> query = _context.Set<T>();

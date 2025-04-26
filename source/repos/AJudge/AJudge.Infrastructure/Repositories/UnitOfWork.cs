@@ -12,11 +12,11 @@ namespace AJudge.Infrastructure.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private  readonly ApplicationDbContext _context;
-        public IProblemRepository Problem { get; private set; }
+        public IBaseRepository<Problem> Problem { get; private set; }
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
-            Problem=new ProblemRepository(_context);   
+            Problem=new BaseRepoitory<Problem>(_context);   
         }
 
         public void Dispose()

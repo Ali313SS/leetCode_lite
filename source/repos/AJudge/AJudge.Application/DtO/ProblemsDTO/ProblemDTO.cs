@@ -13,7 +13,7 @@ namespace AJudge.Application.DTO.ProblemsDTO
         public string ProblemSource { get; set; }
         public string ProblemName { get; set; }
         public int Rating { get; set; }
-        public string? ProblemId { get; set; }
+        public int? ProblemId { get; set; }
         [AllowNull]
         public string problemLink { get; set; }
         public int ContestId { get; set; }
@@ -28,9 +28,12 @@ namespace AJudge.Application.DTO.ProblemsDTO
                 ProblemSource = problem.ProblemSource,
                 problemLink = problem.ProblemLink,
                 ProblemName = problem.ProblemName,
-                Rating = problem.Rating
+                Rating = problem.Rating,
+                ProblemId=problem.ProblemId
             };
 
         }
+
+      //  public static ProblemDTO ConvertToPageDetails()
     }
 }

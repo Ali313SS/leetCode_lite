@@ -10,5 +10,7 @@ namespace AJudge.Domain.RepoContracts
     public interface IBaseRepository<T>where T : class
     {
         Task<T?> GetSpecific(Expression<Func<T, bool>> predicate, string[]? includes = null);
+        Task<IEnumerable<T>?> GetAll();
+        IQueryable<T> GetQuery();
     }
 }

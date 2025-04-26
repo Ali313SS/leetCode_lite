@@ -46,13 +46,13 @@ namespace AJudge.Infrastructure.Migrations
                         column: x => x.RequestsTojoinGroupGroupId,
                         principalTable: "Groups",
                         principalColumn: "GroupId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_RequestsTojoinGroup_Users_RequestsTojoinGroupUserId",
                         column: x => x.RequestsTojoinGroupUserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

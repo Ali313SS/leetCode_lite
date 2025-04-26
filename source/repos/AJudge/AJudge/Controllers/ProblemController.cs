@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using AJudge.Application.DTO.GroupDTO;
 using System;
+using System.Security.Claims;
 namespace AJudge.Controllers
 {
     [Route("api/[controller]")]
@@ -38,37 +39,65 @@ namespace AJudge.Controllers
         }
 
         [HttpGet("{problemName}")]
+      
         public async Task<IActionResult> GetProblem(string problemName)
         {
-            ProblemDetailsDTO? problemDEtailsDTO = await _problemService.GetProblemByName(problemName);
+            int? userId = null;
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                if(userIdClaim != null && int.TryParse(userIdClaim?.Value, out int parsedId))
+                {
+                    userId = parsedId;  
+                }
+            }
+            ProblemDetailsDTO? problemDEtailsDTO = await _problemService.GetProblemByName(problemName, userId);
+
+            
+
             if (problemDEtailsDTO == null)
                 return NotFound("No such Problem");
             return Ok(problemDEtailsDTO);
         }
 
-        [HttpGet("page")]
-        public async Task<IActionResult> GetAllProblemsByPerSpecificPage(string? sortBy, bool isAssending = true, int pageNumber = 1, int pageSize = 100)
-        {
-            List<ProblemDTO> problemsDTO = await _problemService.GetAllProblems(sortBy, isAssending, pageNumber, pageSize);
-            if (problemsDTO == null)
-                return NotFound("No such Problem");
 
-            return Ok(problemsDTO);
+
+
+
+        [HttpGet("page")]
+        public async Task<IActionResult> GetAllProblemsPerSpecificPage(string? sortBy, bool isAssending = true, int pageNumber = 1, int pageSize = 100)
+        {
+
+            var sortByy = typeof(Problem).GetProperty(sortBy);
+            if(sortByy == null)
+            {
+                return BadRequest("No such property");
+            }
+            var page = await _problemService.GetAllProblemsInPage(sortBy, isAssending, pageNumber, pageSize);
+
+
+            if (page == null)
+                return NotFound("No such Page");
+
+            var DisPage=ProblemPageDTO.ConvertToProblemPageDTO(page);
+
+
+            return Ok(DisPage);
         }
 
 
 
-        //[HttpPost("CreateProblem")]
-        //public async Task<IActionResult> CreateProblem([FromBody] ProblemDTO problem)
-        //{
-        //    //var result = await _problemService.CreateProblem(problemDTO);
-        //    //return Ok(result);
-        //    return Ok();
-        //}
+            //[HttpPost("CreateProblem")]
+            //public async Task<IActionResult> CreateProblem([FromBody] ProblemDTO problem)
+            //{
+            //    //var result = await _problemService.CreateProblem(problemDTO);
+            //    //return Ok(result);
+            //    return Ok();
+            //}
 
 
 
-        [HttpPost("CreateProblem")]
+            [HttpPost("CreateProblem")]
         public async Task<IActionResult> CreateProblem([FromBody] ProblemDTO problemDto)
         {
             if (!ModelState.IsValid)

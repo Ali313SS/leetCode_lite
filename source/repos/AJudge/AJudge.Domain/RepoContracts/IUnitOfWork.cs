@@ -9,7 +9,7 @@ namespace AJudge.Domain.RepoContracts
 {
     public interface IUnitOfWork:IDisposable
     {
-         IProblemRepository Problem { get;  }
+         IBaseRepository<Problem> Problem { get;  }
         Task CompleteAsync();
     }
 }

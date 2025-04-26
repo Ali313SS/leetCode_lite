@@ -67,6 +67,10 @@ namespace AJudge.Infrastructure.Data
             //modelBuilder.Entity<RequestTojoinGroup>()
             //    .HasOne(x => x.Group);            
 
+            
+
+
+
 
 
             modelBuilder.Entity<RequestTojoinGroup>().HasOne(r => r.User).WithMany()

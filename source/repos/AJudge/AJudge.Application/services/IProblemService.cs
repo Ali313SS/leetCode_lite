@@ -15,12 +15,13 @@ namespace AJudge.Application.services
         Task<bool> ChangeProblemStatement(ProblemDTO problemDTO);
         Task<bool> DeleteProblem(int problemId);
         Task<ProblemDTO> GetProblem(int problemId);
-        Task<List<ProblemDTO>> GetAllProblems(string sortBy, bool isAsinding = true, int pageNumber = 1, int pageSize = 100);
+        Task<List<Problem>> GetAllProblems(int problemId);
+        Task<ProblemPagination> GetAllProblemsInPage(string sortBy, bool isAsinding = true, int pageNumber = 1, int pageSize = 100);
         Task<List<ProblemDTO>> GetProblemsByTag(string tag);
         Task<List<ProblemDTO>> GetProblemsByDifficulty(string difficulty);
         Task<List<ProblemDTO>> GetProblemsBySource(string source);
 
-        Task<ProblemDetailsDTO?> GetProblemByName(string name);
+        Task<ProblemDetailsDTO?> GetProblemByName(string name, int? userId);
     }
 
 }
