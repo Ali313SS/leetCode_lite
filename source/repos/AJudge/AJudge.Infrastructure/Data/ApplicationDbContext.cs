@@ -24,6 +24,8 @@ namespace AJudge.Infrastructure.Data
         public DbSet<Statistics> Statistics { get; set; }
         public DbSet<Submission> Submission { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<ProblemTag> ProblemTags { get; set; }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<UserTeam> UserTeams { get; set; }
@@ -165,6 +167,32 @@ namespace AJudge.Infrastructure.Data
             modelBuilder.Entity<Problem>().HasMany(p => p.TestCases).WithOne(tc => tc.Problem)
                 .HasForeignKey(tc => tc.ProblemId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+
+
+            // Configure many-to-many relationship
+            modelBuilder.Entity<ProblemTag>()
+                .HasKey(pt => new { pt.ProblemsId, pt.TagsId });
+            modelBuilder.Entity<Tag>()
+              .HasMany(t => t.Problems)
+              .WithMany(u => u.Tags)
+              .UsingEntity<ProblemTag>(
+                  join => join
+                      .HasOne(ut => ut.Problem)
+                      .WithMany(t =>t.ProblemTags)
+                      .HasForeignKey(ut => ut.ProblemsId),
+                  join => join
+                      .HasOne(ut => ut.Tag)
+                      .WithMany(u => u.ProblemTags)
+                      .HasForeignKey(ut => ut.TagsId),
+                  join =>
+                  {
+                      join.HasKey(ut => new { ut.TagsId, ut.ProblemsId });
+                      // Optional: customize table name or properties
+                      join.ToTable("ProblemTag");
+                  });
+
+
 
         }
 

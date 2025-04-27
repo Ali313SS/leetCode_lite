@@ -13,6 +13,8 @@ namespace AJudge.Domain.Entities
         
 
         // Navigation Properties       
-        public ICollection<Problem> Problems { get; set; } = new List<Problem>();  
+        public ICollection<Problem> Problems { get; set; } = new List<Problem>();
+        public ICollection<ProblemTag> ProblemTags { get; set; } = new List<ProblemTag>();
+
     }
 }

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using AJudge.Application.DTO.GroupDTO;
 using System;
 using System.Security.Claims;
+using static AJudge.Domain.Entities.Problem;
 namespace AJudge.Controllers
 {
     [Route("api/[controller]")]
@@ -37,6 +38,94 @@ namespace AJudge.Controllers
             _context = context;
             _problemService = problemService;
         }
+
+        [HttpGet("GetProblems")]
+        public async Task<ActionResult<IEnumerable<Problem>>> GetProblems(
+            [FromQuery] string tags,
+            [FromQuery] int? rating,
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 20,
+            [FromQuery] string status = null)
+        {
+            try
+            {
+                if (page < 1) page = 1;
+                if (pageSize < 1 || pageSize > 100) pageSize = 20;
+
+                var query = _context.Problems
+                    .Include(p => p.ProblemTags)
+                    .ThenInclude(pt => pt.Tag)
+                    .AsQueryable();
+
+                if (!string.IsNullOrWhiteSpace(tags))
+                {
+                    var tagsList = tags.Split(" and ", StringSplitOptions.RemoveEmptyEntries)
+                        .Select(t => t.Trim())
+                        .Where(t => !string.IsNullOrWhiteSpace(t))
+                        .ToList();
+
+                    if (tagsList.Any())
+                    {
+                        foreach (var tag in tagsList)
+                        {
+                            var tagLower = tag.ToLower();
+                            query = query.Where(p => p.ProblemTags.Any(pt =>
+                                EF.Functions.Like(pt.Tag.Name.ToLower(), tagLower)));
+                        }
+                    }
+                }
+
+                if (rating.HasValue)
+                {
+                    query = query.Where(p => p.Rating == rating.Value);
+                }
+
+                if (!string.IsNullOrWhiteSpace(status))
+                {
+                    if (Enum.TryParse<ProblemStatus>(status, true, out var problemStatus))
+                    {
+                        query = query.Where(p => p.Status == problemStatus);
+                    }
+                    else
+                    {
+                        return BadRequest(new { error = $"Invalid problem status: {status}" });
+                    }
+                }
+
+                var totalCount = await query.CountAsync();
+
+                var problems = await query
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+
+                var problemDtos = problems.Select(p => new Problem
+                {
+                    ProblemId = p.ProblemId,
+                    Rating = p.Rating,
+                    Status = p.Status,
+                  //  stringTags = p.ProblemTags.Select(pt => pt.Tag.Name).ToList()
+                });
+
+                return Ok(new
+                {
+                    data = problemDtos,
+                    pagination = new
+                    {
+                        currentPage = page,
+                        pageSize = pageSize,
+                        totalItems = totalCount,
+                        totalPages = (int)Math.Ceiling(totalCount / (double)pageSize)
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "error occure", error = ex.Message });
+            }
+        }
+
+
 
         [HttpGet("{problemName}")]
       

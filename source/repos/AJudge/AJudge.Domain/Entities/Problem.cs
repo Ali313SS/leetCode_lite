@@ -20,12 +20,23 @@ namespace AJudge.Domain.Entities
         public string OutputFormat { get; set; }
         public int numberOfTestCases { get; set; }
         public int Rating { get; set; }
-
+        public ProblemStatus Status { get; set; }
+        public enum ProblemStatus
+        {
+           Solved,
+           UnSolved,
+           Panding
+        }
         // Navigation Properties
         [ForeignKey("ContestId")]
         Contest Contest { get; set; }
-        public ICollection<Tag> Tags { get; set; } = new List<Tag>();
+         public ICollection<Tag> Tags { get; set; } = new List<Tag>();
+        //public ICollection<string> stringTags { get; set; } = new List<string>();
+
+
         public ICollection<Submission> Submissions { get; set; } = new List<Submission>();
         public ICollection<TestCase> TestCases { get; set; } = new List<TestCase>();
+        public ICollection<ProblemTag> ProblemTags { get; set; } = new List<ProblemTag>();
+
     }
 }
