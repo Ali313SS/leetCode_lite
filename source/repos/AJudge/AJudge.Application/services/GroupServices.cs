@@ -45,7 +45,7 @@ namespace AJudge.Application.services
 
         }
     
-        public async Task<bool> CreateGroup(GroupDTO group)
+        public async Task<GroupReturnDTO> CreateGroup(GroupDTO group)
         {
             var newGroup = new Group
             {
@@ -59,7 +59,22 @@ namespace AJudge.Application.services
             };
             await _context.Groups.AddAsync(newGroup);
             await _context.SaveChangesAsync();
-            return await Task.FromResult(true);
+            var groupreturn = new GroupReturnDTO
+            {
+                GroupId = newGroup.GroupId,
+                Name = newGroup.Name,
+                Privacy = newGroup.Privacy,
+                ProfilePicture = newGroup.ProfilePicture,
+                Description = newGroup.Description,
+                Contests = newGroup.Contests.Select(c => new CContest
+                {
+                    Id = c.ContestId,
+                    Name = c.Name,
+                    Created = c.BeginTime,
+                    Ended = c.EndTime
+                }).ToList(),
+            };
+            return await Task.FromResult(groupreturn);
 
         }
         public async Task<bool> DeleteGroup(int id)
@@ -170,7 +185,7 @@ namespace AJudge.Application.services
             {
                 try
                 {
-                    group.Managers.Remove(user);
+                    group.Managers.Remove(user);                    
                     await _context.SaveChangesAsync();
                     await transaction.CommitAsync();
                 }
@@ -181,6 +196,40 @@ namespace AJudge.Application.services
                 }
             }
             return await Task.FromResult(true);
+        }
+        public async Task<bool> DisableManager(int groupId, int userId)
+        {
+            var group = await _context.Groups
+                .Include(g => g.Managers)
+                .Include(g => g.Members)
+                .FirstOrDefaultAsync(g => g.GroupId == groupId);
+
+            if (group == null)
+            {
+                return false;
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+            if (user == null || !group.Managers.Any(u => u.UserId == userId))
+            {
+                return false;
+            }
+
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                group.Managers.Remove(user);
+                group.Members.Add(user);
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                return false;
+            }
+
+            return true;
         }
         public async Task<bool> RemoveMember(int groupId, int userId)
         {

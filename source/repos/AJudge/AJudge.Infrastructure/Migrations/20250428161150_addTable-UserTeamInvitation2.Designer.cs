@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AJudge.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250422200439_problemDo3r")]
-    partial class problemDo3r
+    [Migration("20250428161150_addTable-UserTeamInvitation2")]
+    partial class addTableUserTeamInvitation2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -215,6 +215,9 @@ namespace AJudge.Infrastructure.Migrations
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<int>("numberOfTestCases")
                         .HasColumnType("int");
 
@@ -223,6 +226,21 @@ namespace AJudge.Infrastructure.Migrations
                     b.HasIndex("ContestId");
 
                     b.ToTable("Problems");
+                });
+
+            modelBuilder.Entity("AJudge.Domain.Entities.ProblemTag", b =>
+                {
+                    b.Property<int>("TagsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProblemsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TagsId", "ProblemsId");
+
+                    b.HasIndex("ProblemsId");
+
+                    b.ToTable("ProblemTag", (string)null);
                 });
 
             modelBuilder.Entity("AJudge.Domain.Entities.RequestTojoinGroup", b =>
@@ -458,6 +476,21 @@ namespace AJudge.Infrastructure.Migrations
                     b.ToTable("UserTeams", (string)null);
                 });
 
+            modelBuilder.Entity("AJudge.Domain.Entities.UserTeamInvitation", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "TeamId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("UserTeamInvitation", (string)null);
+                });
+
             modelBuilder.Entity("AJudge.Domain.Entities.Vote", b =>
                 {
                     b.Property<int>("VoteId")
@@ -527,21 +560,6 @@ namespace AJudge.Infrastructure.Migrations
                     b.HasIndex("RequestsTojoinGroupUserId");
 
                     b.ToTable("RequestsTojoinGroup", (string)null);
-                });
-
-            modelBuilder.Entity("ProblemTag", b =>
-                {
-                    b.Property<int>("ProblemsProblemId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagsTagId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProblemsProblemId", "TagsTagId");
-
-                    b.HasIndex("TagsTagId");
-
-                    b.ToTable("ProblemTags", (string)null);
                 });
 
             modelBuilder.Entity("AJudge.Domain.Entities.Announcement", b =>
@@ -622,6 +640,25 @@ namespace AJudge.Infrastructure.Migrations
                         .HasForeignKey("ContestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("AJudge.Domain.Entities.ProblemTag", b =>
+                {
+                    b.HasOne("AJudge.Domain.Entities.Problem", "Problem")
+                        .WithMany("ProblemTags")
+                        .HasForeignKey("ProblemsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AJudge.Domain.Entities.Tag", "Tag")
+                        .WithMany("ProblemTags")
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Problem");
+
+                    b.Navigation("Tag");
                 });
 
             modelBuilder.Entity("AJudge.Domain.Entities.RequestTojoinGroup", b =>
@@ -741,6 +778,25 @@ namespace AJudge.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("AJudge.Domain.Entities.UserTeamInvitation", b =>
+                {
+                    b.HasOne("AJudge.Domain.Entities.Team", "Team")
+                        .WithMany("Invitations")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AJudge.Domain.Entities.User", "User")
+                        .WithMany("Invitations")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Team");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("AJudge.Domain.Entities.Vote", b =>
                 {
                     b.HasOne("AJudge.Domain.Entities.Blog", "Blog")
@@ -805,21 +861,6 @@ namespace AJudge.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProblemTag", b =>
-                {
-                    b.HasOne("AJudge.Domain.Entities.Problem", null)
-                        .WithMany()
-                        .HasForeignKey("ProblemsProblemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AJudge.Domain.Entities.Tag", null)
-                        .WithMany()
-                        .HasForeignKey("TagsTagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("AJudge.Domain.Entities.Blog", b =>
                 {
                     b.Navigation("Votes");
@@ -839,13 +880,22 @@ namespace AJudge.Infrastructure.Migrations
 
             modelBuilder.Entity("AJudge.Domain.Entities.Problem", b =>
                 {
+                    b.Navigation("ProblemTags");
+
                     b.Navigation("Submissions");
 
                     b.Navigation("TestCases");
                 });
 
+            modelBuilder.Entity("AJudge.Domain.Entities.Tag", b =>
+                {
+                    b.Navigation("ProblemTags");
+                });
+
             modelBuilder.Entity("AJudge.Domain.Entities.Team", b =>
                 {
+                    b.Navigation("Invitations");
+
                     b.Navigation("UserTeams");
                 });
 
@@ -860,6 +910,8 @@ namespace AJudge.Infrastructure.Migrations
                     b.Navigation("Friends");
 
                     b.Navigation("FriendsOf");
+
+                    b.Navigation("Invitations");
 
                     b.Navigation("LeadGroups");
 

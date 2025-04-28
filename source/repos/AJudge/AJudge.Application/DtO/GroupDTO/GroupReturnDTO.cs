@@ -20,7 +20,7 @@ namespace AJudge.Application.DTO.GroupDTO
     }
     public  class GroupReturnDTO
     {
-
+        public int GroupId { get; set; }
         public string Name { get; set; }
         public PrivacyType Privacy { get; set; }
         public string? Description { get; set; }
