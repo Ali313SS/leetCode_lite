@@ -149,7 +149,7 @@ namespace AJudge.Controllers
                 CoachId = Coach.UserId
             });
             await _context.SaveChangesAsync();
-            return Ok(result);
+            return Ok();
         }
         [HttpPost("Accept-Student")]
         [Authorize]
@@ -172,7 +172,7 @@ namespace AJudge.Controllers
                     CoachId = userId
                 });
                 await _context.SaveChangesAsync();
-                return Ok(existingRequest);
+                return Ok();
             }
             return BadRequest("You have not requested this coach.");
         }
@@ -192,7 +192,7 @@ namespace AJudge.Controllers
             {
                 _context.CoachRequests.Remove(existingRequest);
                 await _context.SaveChangesAsync();
-                return Ok(existingRequest);
+                return Ok("okey");
             }
             return BadRequest("You have not requested this coach.");
         }
@@ -232,7 +232,7 @@ namespace AJudge.Controllers
             {
                 _context.UserCoaches.Remove(existingRequest);
                 await _context.SaveChangesAsync();
-                return Ok(existingRequest);
+                return Ok();
             }
             return BadRequest("You have not requested this coach.");
         }
