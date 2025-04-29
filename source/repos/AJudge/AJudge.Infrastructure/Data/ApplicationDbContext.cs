@@ -19,6 +19,8 @@ namespace AJudge.Infrastructure.Data
         public DbSet<Blog> Blog { get; set; }
         public DbSet<ChatBot> ChatBots { get; set; }
         public DbSet<Contest> Contests { get; set; }
+        public DbSet<ContestGroupMembership> ContestGroupMemberships { get; set; }
+
         public DbSet<Group> Groups { get; set; }
         public DbSet<Problem> Problems { get; set; }
         public DbSet<Statistics> Statistics { get; set; }
@@ -191,6 +193,31 @@ namespace AJudge.Infrastructure.Data
                       // Optional: customize table name or properties
                       join.ToTable("ProblemTag");
                   });
+
+
+            modelBuilder.Entity<ContestGroupMembership>()
+    .HasKey(cgm => new { cgm.ContestId, cgm.GroupId });
+
+            modelBuilder.Entity<Group>()
+                .HasMany(c => c.Contests)
+                .WithMany(g => g.Groups)
+                .UsingEntity<ContestGroupMembership>(
+                    join => join
+                        .HasOne(cgm => cgm.Contest)
+                        .WithMany(c => c.GroupMemberships)
+                        .HasForeignKey(cgm => cgm.ContestId),
+                         join => join
+                           .HasOne(cgm => cgm.Group)
+                        .WithMany(g => g.ContestMemberships)
+                        .HasForeignKey(cgm => cgm.GroupId),
+                   
+                    join =>
+                    {
+                        join.HasKey(cgm => new { cgm.ContestId, cgm.GroupId });
+                        // Optional: customize table name
+                        join.ToTable("ContestGroupMemberships");
+                    });
+
 
 
 

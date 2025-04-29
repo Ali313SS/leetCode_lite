@@ -25,6 +25,7 @@ namespace AJudge.Domain.Entities
         public  ICollection<User> Managers { get; set; } = new List<User>();
         public ICollection<User> RequestsTojoinGroup { get; set; } = new List<User>();
         public ICollection<Contest> Contests { get; set; } = new List<Contest>();
+        public List<ContestGroupMembership> ContestMemberships { get; set; } = new List<ContestGroupMembership>();
 
     }
     public enum PrivacyType
