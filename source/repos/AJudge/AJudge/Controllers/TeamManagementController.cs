@@ -24,7 +24,7 @@ namespace AJudge.Controllers
             _logger = logger;
         }
 
-        [HttpPost]
+        [HttpPost("CreateTeam")]
         [Authorize]
         public async Task<ActionResult<TeamResponseDto>> CreateTeam([FromBody]CreateTeamDto dto)
         {         
@@ -63,8 +63,7 @@ namespace AJudge.Controllers
                 new TeamMemberDto
                 {
                     UserId = user.UserId,
-                    Username = user.Username,
-                    Email = user.Email
+                    Username = user.Username,                  
                 }
             }
             };
@@ -72,44 +71,90 @@ namespace AJudge.Controllers
             return CreatedAtAction(nameof(GetTeam), new { id = team.TeamId }, response);
         }
 
-        [HttpPost("{teamId}/join")]
-        public async Task<IActionResult> JoinTeam(int teamId)
+        [HttpPost("InviteUserToTeam")]
+        [Authorize]
+        public async Task<IActionResult> InviteUserToTeam(int teamId, string username)
         {
             var currentUserId = GetCurrentUserId();
-            var user = await _context.Users.FindAsync(currentUserId);
-            var team = await _context.Teams.FindAsync(teamId);
-
-            if (user == null)
+            var isUserInTeam = await _context.UserTeams
+                .AnyAsync(ut => ut.UserId == currentUserId && ut.TeamId == teamId);
+            if (!isUserInTeam)
             {
-                return Unauthorized();
+                return Unauthorized("You are not a member of this team");
             }
-
+            var team = await _context.Teams.FindAsync(teamId);
             if (team == null)
             {
                 return NotFound("Team not found");
             }
-
-            var existingMembership = await _context.UserTeams
-                .FirstOrDefaultAsync(ut => ut.UserId == currentUserId && ut.TeamId == teamId);
-
-            if (existingMembership != null)
+            var userToInvite = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            if (userToInvite == null)
+            {
+                return NotFound("User not found");
+            }
+            var isUserAlreadyInTeam = await _context.UserTeams
+                .AnyAsync(ut => ut.UserId == userToInvite.UserId && ut.TeamId == teamId);
+            if (isUserAlreadyInTeam)
             {
                 return BadRequest("User is already a member of this team");
             }
+            var existingInvitation = await _context.UserTeamInvitations
+            .FirstOrDefaultAsync(ut => ut.UserId == userToInvite.UserId && ut.TeamId == teamId);
+            if (existingInvitation != null)
+            {
+                return BadRequest("User already invited to this team");
+            }
+            var invitation = new UserTeamInvitation
+            {
+                UserId = userToInvite.UserId,
+                TeamId = team.TeamId,
+            };
+            _context.UserTeamInvitations.Add(invitation);
+            await _context.SaveChangesAsync();
+            return Ok("Invitation sent successfully");
 
-            var userTeam = new UserTeam
+        }
+        [HttpPost("accept-invitation")]
+        [Authorize]
+        public async Task<IActionResult> AcceptInvitation(int teamId)
+        {
+            var currentUserId = GetCurrentUserId();
+            var invitation = await _context.UserTeamInvitations
+                .FirstOrDefaultAsync(ut => ut.UserId == currentUserId && ut.TeamId == teamId);
+            if (invitation == null)
+            {
+                return NotFound("No invitation found for this team");
+            }
+            var membership = new UserTeam
             {
                 UserId = currentUserId,
                 TeamId = teamId
             };
-
-            _context.UserTeams.Add(userTeam);
+            var team = await _context.Teams.FindAsync(teamId);
+            _context.UserTeams.Add(membership);            
+            _context.UserTeamInvitations.Remove(invitation);
             await _context.SaveChangesAsync();
-
-            return Ok();
+            return Ok("Invitation accepted successfully");
+        }
+        [HttpPost("reject-invitation")]
+        [Authorize]
+        public async Task<IActionResult> RejectInvitation(int teamId)
+        {
+            var currentUserId = GetCurrentUserId();
+            var invitation = await _context.UserTeamInvitations
+                .FirstOrDefaultAsync(ut => ut.UserId == currentUserId && ut.TeamId == teamId);
+            if (invitation == null)
+            {
+                return NotFound("No invitation found for this team");
+            }
+            _context.UserTeamInvitations.Remove(invitation);
+            await _context.SaveChangesAsync();
+            return Ok("Invitation rejected successfully");
         }
 
+
         [HttpPost("{teamId}/leave")]
+        [Authorize]
         public async Task<IActionResult> LeaveTeam(int teamId)
         {
             var currentUserId = GetCurrentUserId();
@@ -124,14 +169,21 @@ namespace AJudge.Controllers
 
             _context.UserTeams.Remove(membership);
             await _context.SaveChangesAsync();
-
             return Ok();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<TeamResponseDto>> GetTeam(int id)
         {
-            var team = await _context.Teams
+            var currentUserId = GetCurrentUserId();
+            var isUserInTeam = await _context.UserTeams
+                .AnyAsync(ut => ut.UserId == currentUserId && ut.TeamId == id);
+            if (!isUserInTeam)
+            {
+                return Unauthorized("You are not a member of this team");
+            }
+
+                var team = await _context.Teams
                 .Include(t => t.UserTeams)
                 .ThenInclude(ut => ut.User)
                 .FirstOrDefaultAsync(t => t.TeamId == id);
@@ -149,14 +201,59 @@ namespace AJudge.Controllers
                 Members = team.UserTeams.Select(ut => new TeamMemberDto
                 {
                     UserId = ut.User.UserId,
-                    Username = ut.User.Username,
-                    Email = ut.User.Email
+                    Username = ut.User.Username,                 
                 }).ToList()
             };
 
             return Ok(response);
         }
-
+        [HttpGet("MyTeams")]
+        public async Task<ActionResult<IEnumerable<TeamResponseDto>>> MyTeams()
+        {
+            var currentUserId = GetCurrentUserId();
+            var teams = await _context.UserTeams
+                .Include(ut => ut.Team)
+                .ThenInclude(t => t.UserTeams)
+                .ThenInclude(ut => ut.User)
+                .Where(ut => ut.UserId == currentUserId)
+                .Select(ut => new TeamResponseDto
+                {
+                    TeamId = ut.Team.TeamId,
+                    Name = ut.Team.Name,
+                    CreatedAt = ut.Team.CreatedAt,
+                    Members = ut.Team.UserTeams.Select(u => new TeamMemberDto
+                    {
+                        UserId = u.User.UserId,
+                        Username = u.User.Username,                       
+                    }).ToList()
+                })
+                .ToListAsync();
+            return Ok(teams);
+        }
+        [HttpGet("GetMyInvitations")]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<TeamResponseDto>>> GetMyInvitation()
+        {
+            var currentUserId = GetCurrentUserId();
+            var invitations = await _context.UserTeamInvitations
+                .Include(ut => ut.Team)
+                .ThenInclude(t => t.UserTeams)
+                .ThenInclude(ut => ut.User)
+                .Where(ut => ut.UserId == currentUserId)
+                .Select(ut => new TeamResponseDto
+                {
+                    TeamId = ut.Team.TeamId,
+                    Name = ut.Team.Name,
+                    CreatedAt = ut.Team.CreatedAt,
+                    Members = ut.Team.UserTeams.Select(u => new TeamMemberDto
+                    {
+                        UserId = u.User.UserId,
+                        Username = u.User.Username,
+                    }).ToList()
+                })
+                .ToListAsync();
+            return Ok(invitations);
+        }
 
         private int GetCurrentUserId()
         {

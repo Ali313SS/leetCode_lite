@@ -12,13 +12,14 @@ namespace AJudge.Application.services
         Task<GroupReturnDTO> GetGroupById(int id);
         Task<String> joinGroup(int groupId, int userId);
         Task<bool> LeaveGroup(int groupId, int userId);
-        Task<bool> CreateGroup(GroupDTO group);
+        Task<GroupReturnDTO> CreateGroup(GroupDTO group);
         Task<bool> UpdateGroup(GroupDTO group);
         Task<bool> DeleteGroup(int id);
         Task<bool> RemoveMember(int groupId, int userId);
         Task<bool> AddMember(int groupId, int userId);
         Task<bool> AddManager(int groupId, int userId);
         Task<bool> RemoveManager(int groupId, int userId);
+        Task<bool> DisableManager(int groupId, int userId);
         Task<bool> AcceptRequest(int groupId, int userId);
         Task<bool> RejectRequest(int groupId, int userId);
         Task<List<MemberDTO>> GroupMembers(int groupId);

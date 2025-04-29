@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AJudge.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250427145739_updateTagsEntity")]
-    partial class updateTagsEntity
+    [Migration("20250428151944_addTable-UserTeamInvitation")]
+    partial class addTableUserTeamInvitation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -220,10 +220,6 @@ namespace AJudge.Infrastructure.Migrations
 
                     b.Property<int>("numberOfTestCases")
                         .HasColumnType("int");
-
-                    b.Property<string>("stringTags")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProblemId");
 
@@ -478,6 +474,21 @@ namespace AJudge.Infrastructure.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("UserTeams", (string)null);
+                });
+
+            modelBuilder.Entity("AJudge.Domain.Entities.UserTeamInvitation", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "TeamId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("UserTeamInvitation");
                 });
 
             modelBuilder.Entity("AJudge.Domain.Entities.Vote", b =>
@@ -767,6 +778,25 @@ namespace AJudge.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("AJudge.Domain.Entities.UserTeamInvitation", b =>
+                {
+                    b.HasOne("AJudge.Domain.Entities.Team", "Team")
+                        .WithMany("Invitations")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AJudge.Domain.Entities.User", "User")
+                        .WithMany("Invitations")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Team");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("AJudge.Domain.Entities.Vote", b =>
                 {
                     b.HasOne("AJudge.Domain.Entities.Blog", "Blog")
@@ -864,6 +894,8 @@ namespace AJudge.Infrastructure.Migrations
 
             modelBuilder.Entity("AJudge.Domain.Entities.Team", b =>
                 {
+                    b.Navigation("Invitations");
+
                     b.Navigation("UserTeams");
                 });
 
@@ -878,6 +910,8 @@ namespace AJudge.Infrastructure.Migrations
                     b.Navigation("Friends");
 
                     b.Navigation("FriendsOf");
+
+                    b.Navigation("Invitations");
 
                     b.Navigation("LeadGroups");
 

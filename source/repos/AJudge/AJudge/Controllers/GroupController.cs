@@ -5,6 +5,8 @@ using AJudge.Application.services;
 using AJudge.Application.DTO.GroupDTO;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using AJudge.Domain.Entities;
+using Azure;
 namespace AJudge.Controllers
 {
     [Route("api/[controller]")]
@@ -20,15 +22,14 @@ namespace AJudge.Controllers
 
         [HttpPost]
         [Route("createGroup")]
-        public async Task<IActionResult> CreateGroup([FromBody] GroupDTO group)
+        public async Task<ActionResult<GroupReturnDTO>> CreateGroup([FromBody] GroupDTO group)
         {
             if (group == null)
                 return BadRequest("Group data is null.");
             var userId = GetUserIdFromToken();
             group.GroupLeader = userId;
             var result = await _groupServices.CreateGroup(group);
-            if (result)
-                return Ok("Group created successfully.");
+            return result;
             return BadRequest("Group creation failed.");
         }
 
@@ -78,6 +79,7 @@ namespace AJudge.Controllers
                 return Ok("Member removed.");
             return BadRequest("Failed to remove member.");
         }
+        
         [HttpPost]
         [Route("JoinGroup")]
         public async Task<IActionResult> JoinGroup(int groupId)
@@ -125,7 +127,20 @@ namespace AJudge.Controllers
                 return Ok("Manager removed.");
             return BadRequest("Failed to remove manager.");
         }
-
+        [HttpPut]
+        [Route("DisableManager")]
+        public async Task<IActionResult> DisableManager(int groupId, int userId)
+        {
+            var userIdFromToken = GetUserIdFromToken();
+            if (_groupServices.UserManagerInGroup(groupId, userIdFromToken).Result == false)
+            {
+                return Unauthorized("You are not a manager of this group.");
+            }
+            var result = await _groupServices.DisableManager(groupId, userId);
+            if (result)
+                return Ok("Manager disabled.");
+            return BadRequest("Failed to disable manager.");
+        }
         [HttpPost]
         [Route("AcceptRequest")]
 

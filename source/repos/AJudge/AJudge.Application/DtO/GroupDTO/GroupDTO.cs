@@ -9,6 +9,7 @@ namespace AJudge.Application.DTO.GroupDTO
 {
    public class GroupDTO
     {
+        public int GroupId { get; set; }
         public string Name { get; set; }
         public int GroupLeader { get; set; }
         public PrivacyType Privacy { get; set; }

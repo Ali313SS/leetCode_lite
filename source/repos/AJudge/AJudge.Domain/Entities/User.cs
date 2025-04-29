@@ -22,8 +22,9 @@ namespace AJudge.Domain.Entities
 
         // Navigation Properties
         //public ICollection<UserTeam> UserTeams { get; set; } = new List<UserTeam>();
-        public ICollection<UserTeam> UserTeams { get; set; } = new List<UserTeam>();
-        public ICollection<Team> Teams { get; set; } = new List<Team>();
+        public virtual ICollection<UserTeam> UserTeams { get; set; } = new List<UserTeam>();
+        public virtual ICollection<Team> Teams { get; set; } = new List<Team>();
+        public virtual ICollection<UserTeamInvitation> Invitations { get; set; } = new List<UserTeamInvitation>();
 
 
         public ICollection<Group> MembersGroups { get; set; } = new List<Group>();
@@ -46,6 +47,7 @@ namespace AJudge.Domain.Entities
 
         // to define the self relation of user Coaches
         public ICollection<UserCoaches> UserCoaches { get; set; } = new List<UserCoaches>();
+        public virtual ICollection<CoachRequest> CoachRequests { get; set; } = new List<CoachRequest>();
         public ICollection<UserCoaches> CoachedByhim { get; set; } = new List<UserCoaches>();
 
 

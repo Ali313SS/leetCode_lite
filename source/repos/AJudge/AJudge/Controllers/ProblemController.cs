@@ -261,6 +261,7 @@ namespace AJudge.Controllers
                 existingProblem.ProblemLink = problemDto.problemLink ?? existingProblem.ProblemLink;
                 existingProblem.ProblemName = problemDto.ProblemName ?? existingProblem.ProblemName;
                 existingProblem.Rating = problemDto.Rating > 0 ? problemDto.Rating : existingProblem.Rating;
+                existingProblem.ProblemSourceID = problemDto.ProblemSourceID ?? existingProblem.ProblemSourceID;
                 existingProblem.ContestId = problemDto.ContestId > 0 ? problemDto.ContestId : existingProblem.ContestId;
                 existingProblem.numberOfTestCases = problemDto.NumberOfTestCases > 0 ? problemDto.NumberOfTestCases : existingProblem.numberOfTestCases;
                 existingProblem.Description = "string...."; 

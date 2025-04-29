@@ -11,6 +11,8 @@ namespace AJudge.Application.DTO.ProblemsDTO
     public class ProblemDTO
     {
         public string ProblemSource { get; set; }
+        public string ProblemSourceID { get; set; }
+
         public string ProblemName { get; set; }
         public int Rating { get; set; }
         public int? ProblemId { get; set; }
@@ -24,6 +26,8 @@ namespace AJudge.Application.DTO.ProblemsDTO
             return new ProblemDTO
             {
                 ContestId = problem.ContestId,
+                ProblemSourceID = problem.ProblemSourceID,
+
                 NumberOfTestCases = problem.numberOfTestCases,
                 ProblemSource = problem.ProblemSource,
                 problemLink = problem.ProblemLink,

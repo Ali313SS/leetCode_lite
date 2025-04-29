@@ -14,9 +14,10 @@ namespace AJudge.Domain.Entities
             public DateTime CreatedAt { get; set; }
       //  public int UserTeams { get; set; }
         // Navigation Properties
-         public ICollection<User> Users { get; set; } = new List<User>();
+         public  ICollection<User> Members { get; set; } = new List<User>();
 
-        public ICollection<UserTeam> UserTeams { get; set; } = new List<UserTeam>();
+        public virtual ICollection<UserTeam> UserTeams { get; set; } = new List<UserTeam>();
+        public virtual ICollection<UserTeamInvitation> Invitations { get; set; } = new List<UserTeamInvitation>();
 
     }
 }
