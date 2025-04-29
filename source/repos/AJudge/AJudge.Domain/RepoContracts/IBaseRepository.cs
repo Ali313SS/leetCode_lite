@@ -11,6 +11,14 @@ namespace AJudge.Domain.RepoContracts
     {
         Task<T?> GetSpecific(Expression<Func<T, bool>> predicate, string[]? includes = null);
         Task<IEnumerable<T>?> GetAll();
+      
+        Task<T?> Create(T item);
+        T? Update(T item);
+        Task Delete(int id);
+
+
+
+        Task<T?> GetById(int id);
         IQueryable<T> GetQuery();
     }
 }

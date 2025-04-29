@@ -13,10 +13,14 @@ namespace AJudge.Infrastructure.Repositories
     {
         private  readonly ApplicationDbContext _context;
         public IBaseRepository<Problem> Problem { get; private set; }
+        public IBaseRepository<User> User { get; private set; }
+        public IBlogRepository Blog { get; private set; }
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
-            Problem=new BaseRepoitory<Problem>(_context);   
+            Problem=new BaseRepoitory<Problem>(_context); 
+            User=new BaseRepoitory<User>(_context); 
+            Blog=new BlogRepository(_context);
         }
 
         public void Dispose()
@@ -28,6 +32,18 @@ namespace AJudge.Infrastructure.Repositories
         {
            await _context.SaveChangesAsync();
         }
-         
+
+        public void Attach<T>(T item)
+        {
+              _context.Attach(item);
+        }
+
+        public void MarkModified<T>(T item, string[] propertyNames)
+        {
+            foreach(var prop in propertyNames)
+            {
+                _context.Entry(item).Property(prop).IsModified = true;
+            }
+        }
     }
 }

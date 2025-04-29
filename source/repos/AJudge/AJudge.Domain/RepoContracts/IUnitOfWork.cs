@@ -10,6 +10,10 @@ namespace AJudge.Domain.RepoContracts
     public interface IUnitOfWork:IDisposable
     {
          IBaseRepository<Problem> Problem { get;  }
+         IBaseRepository<User> User { get;  }
+         IBlogRepository Blog { get;  }
         Task CompleteAsync();
+        void Attach<T>(T item);
+        void MarkModified<T>(T item, string[] propertyNames);
     }
 }

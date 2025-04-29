@@ -19,10 +19,44 @@ namespace AJudge.Infrastructure.Repositories
             _context = context;
         }
 
+        public async Task<T?> Create(T item)
+        {
+            await _context.Set<T>().AddAsync(item);
+            return item;    
+        }
+
+        public async Task Delete(int id)
+        {
+            T? item = await GetById(id);
+            if (item == null)
+                return;
+            _context.Set<T>().Remove(item);
+            
+        }
+        public T? Update(T item)
+        {
+            _context.Set<T>().Update(item);
+            return item;
+        }
+            
+           
+
+
         public async Task<IEnumerable<T>?> GetAll()
         {
             return await _context.Set<T>().ToListAsync();
         }
+
+      
+
+            public async Task<T?> GetById(int id)
+        {
+            return await _context.Set<T>().FindAsync(id);
+        }
+
+      
+
+       
 
         public IQueryable<T> GetQuery()
         {
@@ -41,7 +75,8 @@ namespace AJudge.Infrastructure.Repositories
             }
             return await query.FirstOrDefaultAsync(predicate);
         }
-        
+
+      
     }
         
 
