@@ -4,6 +4,7 @@ using AJudge.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AJudge.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250430155135_addCommentTableAdAssotiateTheRelationWithBlog")]
+    partial class addCommentTableAdAssotiateTheRelationWithBlog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,14 +130,9 @@ namespace AJudge.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BlogId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Comment");
                 });
@@ -553,11 +551,8 @@ namespace AJudge.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VoteId"));
 
-                    b.Property<int?>("BlogId")
+                    b.Property<int>("BlogId")
                         .HasColumnType("int");
-
-                    b.Property<Guid?>("CommentId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -569,20 +564,9 @@ namespace AJudge.Infrastructure.Migrations
 
                     b.HasIndex("BlogId");
 
-                    b.HasIndex("CommentId");
+                    b.HasIndex("UserId");
 
-                    b.HasIndex("UserId", "BlogId")
-                        .IsUnique()
-                        .HasFilter("[BlogId] IS NOT NULL");
-
-                    b.HasIndex("UserId", "CommentId")
-                        .IsUnique()
-                        .HasFilter("[CommentId] IS NOT NULL");
-
-                    b.ToTable("Votes", t =>
-                        {
-                            t.HasCheckConstraint("CK_Vote_CommentOrBlog", "(CommentId IS NOT NULL AND BlogId IS NULL) OR (CommentId IS NULL AND BlogId IS NOT NULL)");
-                        });
+                    b.ToTable("Votes");
                 });
 
             modelBuilder.Entity("GroupUser", b =>
@@ -695,18 +679,10 @@ namespace AJudge.Infrastructure.Migrations
                     b.HasOne("AJudge.Domain.Entities.Blog", "Blog")
                         .WithMany("Comments")
                         .HasForeignKey("BlogId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
-
-                    b.HasOne("AJudge.Domain.Entities.User", "User")
-                        .WithMany("Comments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Blog");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("AJudge.Domain.Entities.Contest", b =>
@@ -919,12 +895,8 @@ namespace AJudge.Infrastructure.Migrations
                     b.HasOne("AJudge.Domain.Entities.Blog", "Blog")
                         .WithMany("Votes")
                         .HasForeignKey("BlogId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("AJudge.Domain.Entities.Comment", "Comment")
-                        .WithMany("Votes")
-                        .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AJudge.Domain.Entities.User", "Voter")
                         .WithMany("Votes")
@@ -933,8 +905,6 @@ namespace AJudge.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Blog");
-
-                    b.Navigation("Comment");
 
                     b.Navigation("Voter");
                 });
@@ -991,11 +961,6 @@ namespace AJudge.Infrastructure.Migrations
                     b.Navigation("Votes");
                 });
 
-            modelBuilder.Entity("AJudge.Domain.Entities.Comment", b =>
-                {
-                    b.Navigation("Votes");
-                });
-
             modelBuilder.Entity("AJudge.Domain.Entities.Contest", b =>
                 {
                     b.Navigation("Announcements");
@@ -1038,8 +1003,6 @@ namespace AJudge.Infrastructure.Migrations
                     b.Navigation("CoachRequests");
 
                     b.Navigation("CoachedByhim");
-
-                    b.Navigation("Comments");
 
                     b.Navigation("CompeteContests");
 

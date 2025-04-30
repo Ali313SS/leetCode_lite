@@ -2,9 +2,8 @@
 using AJudge.Domain.Entities;
 using AJudge.Domain.RepoContracts;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.CompilerServices;
+using System.Security.Claims;
 
 namespace AJudge.Controllers
 {
@@ -63,11 +62,10 @@ namespace AJudge.Controllers
         }
 
         [HttpPut("{id:int}")]
-       // [Authorize]
+        [Authorize]
         public async Task<IActionResult> UpdateBlog(int id,UpdateBlogDTO request)
         {
 
-           
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
@@ -76,6 +74,13 @@ namespace AJudge.Controllers
             Blog? blog = await _unitOfWork.Blog.GetBlogById(id, new[] { "Author", "Votes" });
             if (blog == null)
                 return NotFound("No such blog");
+
+            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (blog.AuthorUserId.ToString() != currentUserId)
+            {
+                return Forbid("You are not the author of this blog.");
+            } 
 
 
             _unitOfWork.Attach(blog);
@@ -92,21 +97,23 @@ namespace AJudge.Controllers
 
 
 
-
-
-
-
-
         [HttpDelete("{id:int}")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> DeleteBlog(int id)
         {
 
             Blog? blog = await _unitOfWork.Blog.GetById(id);
             if (blog == null)
                 return NotFound("no such  blog");
-            
-           await  _unitOfWork.Blog.Delete(id);
+
+            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (blog.AuthorUserId.ToString() != currentUserId)
+            {
+                return Forbid("You are not the author of this blog.");
+            }
+
+            await  _unitOfWork.Blog.Delete(id);
             await _unitOfWork.CompleteAsync();
             return NoContent();
 

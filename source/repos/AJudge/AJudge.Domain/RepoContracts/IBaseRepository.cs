@@ -14,11 +14,13 @@ namespace AJudge.Domain.RepoContracts
       
         Task<T?> Create(T item);
         T? Update(T item);
-        Task Delete(int id);
-
-
-
-        Task<T?> GetById(int id);
+        Task<bool> Delete<K>(K id);
+        Task<T?> GetById<K>(K id, bool track = true);
+        Task<T?> GetById<K>(K id);
+        //Task<T?> GetById(Guid id);
+        Task<List<T>> GetAllUsingPredict(Expression<Func<T, bool>> predict, string[]? includes);
+       // Task<T?> GetById(int id);
+        Task<T?> GetById(Expression<Func<T, bool>> predict, string[]? includes);
         IQueryable<T> GetQuery();
     }
 }

@@ -11,6 +11,9 @@ namespace AJudge.Domain.RepoContracts
     {
          IBaseRepository<Problem> Problem { get;  }
          IBaseRepository<User> User { get;  }
+        public IBaseRepository<Vote> Vote { get; }
+
+        IBaseRepository<Comment> Comment { get;  }
          IBlogRepository Blog { get;  }
         Task CompleteAsync();
         void Attach<T>(T item);

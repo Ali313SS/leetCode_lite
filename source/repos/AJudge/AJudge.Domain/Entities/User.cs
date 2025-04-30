@@ -57,6 +57,7 @@ namespace AJudge.Domain.Entities
         public ICollection<UserFriend> Friends { get; set; } = new List<UserFriend>();
         public ICollection<UserFriend> FriendsOf { get; set; } = new List<UserFriend>();
 
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
 
     }

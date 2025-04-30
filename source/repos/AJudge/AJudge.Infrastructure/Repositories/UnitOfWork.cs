@@ -14,13 +14,17 @@ namespace AJudge.Infrastructure.Repositories
         private  readonly ApplicationDbContext _context;
         public IBaseRepository<Problem> Problem { get; private set; }
         public IBaseRepository<User> User { get; private set; }
+        public IBaseRepository<Vote> Vote { get; private set; }
+        public IBaseRepository<Comment> Comment { get; private set; }
         public IBlogRepository Blog { get; private set; }
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
             Problem=new BaseRepoitory<Problem>(_context); 
+            Vote=new BaseRepoitory<Vote>(_context); 
             User=new BaseRepoitory<User>(_context); 
             Blog=new BlogRepository(_context);
+            Comment=new BaseRepoitory<Comment>(_context);
         }
 
         public void Dispose()

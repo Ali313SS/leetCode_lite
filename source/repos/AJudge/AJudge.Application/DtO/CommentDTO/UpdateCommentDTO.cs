@@ -1,21 +1,20 @@
 ﻿using AJudge.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 
-namespace AJudge.Application.DtO.BlogDTO
+namespace AJudge.Application.DtO.CommentDTO
 {
-    public class UpdateBlogDTO
+    public class UpdateCommentDTO
     {
         [Required]
         public string Content { get; set; }
-      
-        public static  Blog  ConvertToComment(UpdateBlogDTO request)
+
+        public static Comment ConvertToComment(UpdateCommentDTO request)
         {
-            return new Blog
+            return new Comment
             {
                 Content = request.Content,
-              
+
             };
         }
-
     }
 }

@@ -236,7 +236,44 @@ namespace AJudge.Infrastructure.Data
                 .WithMany(x => x.CoachRequests)
                 .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
- 
+
+
+
+            modelBuilder.Entity<Comment>().HasOne(x => x.Blog).WithMany(x => x.Comments)
+                .HasForeignKey(x => x.BlogId).IsRequired().OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Comment>().Property(e => e.Id)
+              .HasDefaultValueSql("NEWSEQUENTIALID()");
+
+
+
+            modelBuilder.Entity<Comment>().HasMany(x => x.Votes).WithOne(x => x.Comment)
+                .HasForeignKey(x => x.CommentId).IsRequired(false).OnDelete(DeleteBehavior.Cascade);
+
+
+            modelBuilder.Entity<Blog>().HasMany(x => x.Votes).WithOne(x => x.Blog)
+                .HasForeignKey(x => x.BlogId).IsRequired(false).OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Vote>().HasIndex(v => new { v.UserId, v.BlogId })
+            .IsUnique()
+            .HasFilter("[BlogId] IS NOT NULL");
+
+            modelBuilder.Entity<Vote>().HasIndex(v => new { v.UserId, v.CommentId })
+                  .IsUnique()
+                  .HasFilter("[CommentId] IS NOT NULL");
+
+
+            modelBuilder.Entity<User>().HasMany(x=>x.Comments).WithOne(x=>x.User)
+                .HasForeignKey(x => x.UserId).IsRequired().OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Vote>().Property(x => x.BlogId).IsRequired(false);
+
+
+            modelBuilder.Entity<Vote>()
+           .HasCheckConstraint("CK_Vote_CommentOrBlog",
+               "(CommentId IS NOT NULL AND BlogId IS NULL) OR (CommentId IS NULL AND BlogId IS NOT NULL)");
+        
+
         }
 
     }
