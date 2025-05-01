@@ -1,5 +1,9 @@
 
-﻿using AJudge.Application.services;
+using System.Security.Claims;
+using AJudge.Application.DtO.ContestDTO;
+using AJudge.Application.DtO.ProblemsDTO;
+using AJudge.Application.DTO.ProblemsDTO;
+using AJudge.Application.services;
 using AJudge.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -20,38 +24,62 @@ namespace AJudge.Controllers
         {
             _ContestServices = ContestServices;
         }
-        [HttpGet]
         
-        public async Task<ActionResult<IEnumerable<Contest>>> GetAllContests()
+        [HttpGet("Contest")]
+        public async Task<IActionResult> GetAllContestPerSpecificPage(string? sortBy, bool isAssending = true, int pageNumber = 1, int pageSize = 20)
         {
-            return await _ContestServices.GetAllContestsAsync();
+
+            var sortByy = typeof(Contest).GetProperty(sortBy);
+            if (sortByy == null)
+            {
+                return BadRequest("No such property");
+            }
+            var page = await _ContestServices.GetAllContestInPage(sortBy, isAssending, pageNumber, pageSize);
+
+
+            if (page == null)
+                return NotFound("No such Page");
+
+            var DisPage = ContestPageDto.ConvertToContestDto(page);
+
+
+            return Ok(DisPage);
         }
+
 
         [HttpGet("{id}/Getcontest")]
         [Authorize]
 
-        public async Task<ActionResult<Contest>> GetContestById(int id)
+        public async Task<ActionResult> GetContestById(int id)
         {
             var contest = await _ContestServices.GetContestByIdAsync(id);
             if (contest == null)
             {
                 return NotFound();
             }
-            return contest;
+          
+            return Ok(new { Name = contest });
+        }
+        
+        [HttpGet("{id}/Contestproblems")]
+        [Authorize]
+
+        public async Task<ActionResult<IEnumerable<ProblemDTO>>> GetContestProblems(int id)
+        {
+            var contest = await _ContestServices.GetContestByIdAsync(id);
+            if (contest == null)
+            {
+                return NotFound();
+            }
+
+            var problemDetails = await _ContestServices.GetProblemNameAndLinkByContestIdAsync(id);
+            return Ok(problemDetails);
         }
 
-        [HttpGet("{id}/Contestproblems")]
-        public async Task<ActionResult<IEnumerable<Problem>>> GetContestProblems(int id)
-        {
-            var contest = await _ContestServices.GetContestByIdAsync(id);
-            if (contest == null)
-            {
-                return NotFound();
-            }
-            return await _ContestServices.GetProblemsByContestIdAsync(id);
-        }
 
         [HttpPut("{id}/updatecontest")]
+        [Authorize]
+
         public async Task<ActionResult<Contest>> UpdateContest(int id, UpdateContestRequest contestData)
         {
             var updatedContest = await _ContestServices.UpdateContestAsync(id, contestData);
@@ -65,6 +93,8 @@ namespace AJudge.Controllers
         
 
         [HttpGet("{id}/ContestByGroupId")]
+        [Authorize]
+
         public async Task<ActionResult<IEnumerable<Contest>>> GetContestsByGroupId(int id)
         {
             var group = await _ContestServices.GetGroupByIdAsync(id);
@@ -76,6 +106,8 @@ namespace AJudge.Controllers
         }
 
         [HttpPost("AddContestTOGroup")]
+        [Authorize]
+
         public async Task<ActionResult> AddContestToGroup(ContestGroupRequest request)
         {
             var success = await _ContestServices.AddContestToGroupAsync(request.ContestId, request.GroupId);
@@ -87,6 +119,8 @@ namespace AJudge.Controllers
         }
 
         [HttpPost("removeContestFromGroup")]
+        [Authorize]
+
         public async Task<ActionResult> RemoveContestFromGroup(ContestGroupRequest request)
         {
             var success = await _ContestServices.RemoveContestFromGroupAsync(request.ContestId, request.GroupId);

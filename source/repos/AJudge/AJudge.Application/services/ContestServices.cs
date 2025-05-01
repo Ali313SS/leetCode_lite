@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using AJudge.Application.DtO.ProblemsDTO;
 using AJudge.Application.DTO.GroupDTO;
+using AJudge.Application.DTO.ProblemsDTO;
 using AJudge.Domain.Entities;
+using AJudge.Domain.RepoContracts;
 using AJudge.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,31 +17,35 @@ namespace AJudge.Application.services
     public class ContestServices : IContestServices
     {
         private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ContestServices(ApplicationDbContext context)
+        public ContestServices(ApplicationDbContext context, IUnitOfWork unitOfWork)
         {
             _context = context;
+            _unitOfWork = unitOfWork;
+
         }
 
-        public async Task<List<Contest>> GetAllContestsAsync()
+
+        public async Task<string> GetContestByIdAsync(int id)
         {
-            return await _context.Contests
-                .Include(c => c.Problems)
-                .ToListAsync();
+            var contest = await _context.Contests
+        .Where(c => c.ContestId == id)
+        .Select(c => c.Name)// Only select the Name property
+        .FirstOrDefaultAsync();
+
+            return contest;
         }
 
-        public async Task<Contest> GetContestByIdAsync(int id)
-        {
-            return await _context.Contests
-                .Include(c => c.Problems)
-                .FirstOrDefaultAsync(c => c.ContestId == id);
-        }
-
-        public async Task<List<Problem>> GetProblemsByContestIdAsync(int contestId)
+        public async Task<List<ProblemDTO>> GetProblemNameAndLinkByContestIdAsync(int contestId)
         {
             return await _context.Problems
-                .Where(p => p.ContestId == contestId)
-                .ToListAsync();
+                .Where(p => p.ContestId == contestId).Select(p => new ProblemDTO
+                {
+                    ProblemName = p.ProblemName,
+                    problemLink = p.ProblemLink
+                })
+        .ToListAsync();
         }
 
         public async Task<Contest> UpdateContestAsync(int id, UpdateContestRequest contestData)
@@ -141,5 +149,80 @@ namespace AJudge.Application.services
             await _context.SaveChangesAsync();
             return true;
         }
+        ///
+        public async Task<ContestPagination> GetAllContestInPage(string sortBy, bool isAsinding = true, int pageNumber = 1, int pageSize = 100)
+        {
+
+            IQueryable<Contest> query = _unitOfWork.Contest.GetQuery();
+
+
+
+            query = BuildSort(query, sortBy, isAsinding);
+
+            ContestPagination contestPage = await ContestPagination.GetPageDetail(query, pageNumber, pageSize);
+                
+            return contestPage;
+        }
+
+        private IQueryable<Contest> BuildSort(IQueryable<Contest> query, string? sortBy, bool isAssending = true)
+        {
+            if (!string.IsNullOrEmpty(sortBy))
+            {
+                var parameter = Expression.Parameter(typeof(Contest), "x");
+
+
+                var property = Expression.Property(parameter, sortBy);
+
+                var propertyType = property.Type;
+
+                var lambda = Expression.Lambda(property, parameter);
+
+                string methodName = isAssending ? "OrderBy" : "OrderByDescending";
+
+                var result = Expression.Call(
+
+                    typeof(Queryable),
+                    methodName,
+                    new Type[] { typeof(Contest), propertyType },
+                    query.Expression,
+                    Expression.Quote(lambda)
+                    );
+
+
+
+                query = query.Provider.CreateQuery<Contest>(result);
+
+            }
+            return query;
+        }
+    }
+
+    public class ContestPagination/*(List<Problem> Items, int count, int PageNumber , int pagesize )*/
+    {
+
+
+
+        public List<Contest> Items { get; private set; }
+        public int PageNumber { get; private set; }
+        public int TotalPages { get; private set; }// => (int)Math.Ceiling(count / (double)pagesize);
+        public bool HasPrevious => PageNumber > 1;
+        public bool HasNext => PageNumber < TotalPages;
+
+        public ContestPagination(List<Contest> items, int count, int pageNumber, int pageSize)
+        {
+            Items = items ?? new List<Contest>();  // Default to an empty list if null
+            PageNumber = pageNumber;
+            TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+        }
+
+        public static async Task<ContestPagination> GetPageDetail(IQueryable<Contest> source, int pageNumber = 1, int pageSize = 20)
+        {
+            var count = await source.CountAsync();
+            var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            return new ContestPagination(items, count, pageNumber, pageSize);
+        }
+
+
     }
 }

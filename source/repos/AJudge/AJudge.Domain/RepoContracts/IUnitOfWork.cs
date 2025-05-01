@@ -10,7 +10,9 @@ namespace AJudge.Domain.RepoContracts
     public interface IUnitOfWork:IDisposable
     {
          IBaseRepository<Problem> Problem { get;  }
-         IBaseRepository<User> User { get;  }
+
+        IBaseRepository<Contest> Contest { get; }
+        IBaseRepository<User> User { get;  }
         public IBaseRepository<Vote> Vote { get; }
 
         IBaseRepository<Comment> Comment { get;  }

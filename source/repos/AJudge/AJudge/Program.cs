@@ -34,7 +34,7 @@ namespace AJudge
             builder.Services.AddSingleton<PasswordHasher>();
 
             builder.Services.AddScoped<IGroupServices, GroupServices>();
-
+            builder.Services.AddScoped<IContestServices, ContestServices>();
             builder.Services.AddTransient<IProblemService, ProblemService>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
