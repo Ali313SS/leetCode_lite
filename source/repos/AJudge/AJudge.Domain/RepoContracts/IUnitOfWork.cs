@@ -16,6 +16,11 @@ namespace AJudge.Domain.RepoContracts
 
          IBaseRepository<Vote> Vote { get; }
 
+        IBaseRepository<Contest> Contest { get; }
+
+      //  IBaseRepository<User> User { get;  }
+      //  public IBaseRepository<Vote> Vote { get; }
+
         IBaseRepository<Comment> Comment { get;  }
          IBlogRepository Blog { get;  }
         Task CompleteAsync();

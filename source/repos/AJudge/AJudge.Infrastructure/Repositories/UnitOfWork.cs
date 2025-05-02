@@ -19,12 +19,13 @@ namespace AJudge.Infrastructure.Repositories
         public IBaseRepository<Vote> Vote { get; private set; }
         public IBaseRepository<Comment> Comment { get; private set; }
         public IBlogRepository Blog { get; private set; }
+        public IBaseRepository<Contest> Contest { get; private set; }
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
-            Problem=new BaseRepoitory<Problem>(_context); 
+            Problem=new BaseRepoitory<Problem>(_context);
+            Submission = new BaseRepoitory<Submission>(_context);
             Vote=new BaseRepoitory<Vote>(_context); 
-            Submission=new BaseRepoitory<Submission>(_context); 
             User=new BaseRepoitory<User>(_context); 
             Group=new BaseRepoitory<Group>(_context); 
             Blog=new BlogRepository(_context);
