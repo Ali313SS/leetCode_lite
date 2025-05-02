@@ -1,15 +1,8 @@
 ﻿using AJudge.Domain.RepoContracts;
 using AJudge.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-
 namespace AJudge.Infrastructure.Repositories
 {
     public class BaseRepoitory<T> : IBaseRepository<T> where T : class
@@ -147,7 +140,59 @@ namespace AJudge.Infrastructure.Repositories
 
             return await query.Where(predict).ToListAsync();
         }
+
+
+        public IQueryable<T> ApplySort(IQueryable<T> query, string sortBy,bool isAssending=true)
+        {
+
+            var parameter=Expression.Parameter(typeof(T),"x");
+            var property = Expression.Property(parameter, sortBy);
+            var lambda=Expression.Lambda(property, parameter);
+
+            var PropertyType=property.Type;
+
+            string methodName = isAssending ? "OrderBy" : "OrderByDescending";
+
+            var result = Expression.Call(
+                typeof(Queryable),
+                methodName,
+                new Type[] { typeof(T), PropertyType },
+                query.Expression,
+                Expression.Quote(lambda)
+                    );
+            query=query.Provider.CreateQuery<T>(result);
+
+            return query;
+
+        }
+        public IQueryable<T>ApplyFilter(IQueryable<T> query, string filterBy, string filterValue)
+        {
+            var parameter = Expression.Parameter(typeof(T), "x");
+            var property=Expression.Property(parameter, filterBy);
+
+            var propertyType=property.Type;
+            object convertedValue=Convert.ChangeType(filterValue, propertyType);
+
+            var constant = Expression.Constant(convertedValue,propertyType);
+            var equal=Expression.Equal(property, constant);
+            var lambda=Expression.Lambda<Func<T,bool>>(equal, parameter);
+
+            query=query.Where(lambda);
+            return query;   
+        }
+
+        public async Task<List<T>> GetAllApply(Expression<Func<T, bool>> predicate, string[]? includes = null)
+        {
+            IQueryable<T> query = _context.Set<T>();
+            if (includes != null)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+            return await query.Where(predicate).ToListAsync();
+        }
     }
-        
 
 }

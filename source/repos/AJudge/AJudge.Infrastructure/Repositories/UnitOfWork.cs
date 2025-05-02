@@ -13,6 +13,8 @@ namespace AJudge.Infrastructure.Repositories
     {
         private  readonly ApplicationDbContext _context;
         public IBaseRepository<Problem> Problem { get; private set; }
+        public IBaseRepository<Group> Group { get; private set; }
+        public IBaseRepository<Submission> Submission { get; private set; }
         public IBaseRepository<User> User { get; private set; }
         public IBaseRepository<Vote> Vote { get; private set; }
         public IBaseRepository<Comment> Comment { get; private set; }
@@ -22,7 +24,9 @@ namespace AJudge.Infrastructure.Repositories
             _context = context;
             Problem=new BaseRepoitory<Problem>(_context); 
             Vote=new BaseRepoitory<Vote>(_context); 
+            Submission=new BaseRepoitory<Submission>(_context); 
             User=new BaseRepoitory<User>(_context); 
+            Group=new BaseRepoitory<Group>(_context); 
             Blog=new BlogRepository(_context);
             Comment=new BaseRepoitory<Comment>(_context);
         }

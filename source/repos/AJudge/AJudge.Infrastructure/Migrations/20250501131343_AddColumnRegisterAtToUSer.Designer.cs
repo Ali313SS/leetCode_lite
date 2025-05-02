@@ -4,6 +4,7 @@ using AJudge.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AJudge.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250501131343_AddColumnRegisterAtToUSer")]
+    partial class AddColumnRegisterAtToUSer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -357,9 +360,6 @@ namespace AJudge.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubmissionId"));
 
-                    b.Property<int?>("GroupId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ProblemId")
                         .HasColumnType("int");
 
@@ -374,8 +374,6 @@ namespace AJudge.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("SubmissionId");
-
-                    b.HasIndex("GroupId");
 
                     b.HasIndex("ProblemId");
 
@@ -818,11 +816,6 @@ namespace AJudge.Infrastructure.Migrations
 
             modelBuilder.Entity("AJudge.Domain.Entities.Submission", b =>
                 {
-                    b.HasOne("AJudge.Domain.Entities.Group", "Group")
-                        .WithMany("Submissions")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
                     b.HasOne("AJudge.Domain.Entities.Problem", "Problem")
                         .WithMany("Submissions")
                         .HasForeignKey("ProblemId")
@@ -834,8 +827,6 @@ namespace AJudge.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Group");
 
                     b.Navigation("Problem");
 
@@ -1023,8 +1014,6 @@ namespace AJudge.Infrastructure.Migrations
             modelBuilder.Entity("AJudge.Domain.Entities.Group", b =>
                 {
                     b.Navigation("ContestMemberships");
-
-                    b.Navigation("Submissions");
                 });
 
             modelBuilder.Entity("AJudge.Domain.Entities.Problem", b =>

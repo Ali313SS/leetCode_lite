@@ -53,6 +53,7 @@ namespace AJudge.Infrastructure.Migrations
                     ProblemsTriedCount = table.Column<int>(type: "int", nullable: false),
                     ClubUniversity = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
+                   
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.UserId);

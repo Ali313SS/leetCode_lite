@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-
-namespace AJudge.Domain.Entities
+﻿namespace AJudge.Domain.Entities
 {
     public class User
     {
@@ -15,6 +7,7 @@ namespace AJudge.Domain.Entities
         public string Email { get; set; }
         public string PasswordHash { get; set; }
         public DateTime? BirthDate { get; set; }
+        public DateTime RegisterAt { get; set; }
         public string? ProfilePicture { get; set; }
         public DateTime? LastSeen { get; set; }
         public int ProblemsTriedCount { get; set; }

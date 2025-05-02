@@ -1,15 +1,10 @@
 ﻿using AJudge.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 namespace AJudge.Infrastructure.Data
 {
     public class ApplicationDbContext : DbContext
     {
-
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
@@ -202,7 +197,7 @@ namespace AJudge.Infrastructure.Data
                            .HasOne(cgm => cgm.Group)
                         .WithMany(g => g.ContestMemberships)
                         .HasForeignKey(cgm => cgm.GroupId),
-                   
+
                     join =>
                     {
                         join.HasKey(cgm => new { cgm.ContestId, cgm.GroupId });
@@ -226,7 +221,7 @@ namespace AJudge.Infrastructure.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Ignore the Coach navigation on CoachRequest to fix the relationship conflict'
-           
+
             //modelBuilder.Entity<CoachRequest>().Ignore(x => x.Coach);
 
             modelBuilder.Entity<CoachRequest>().HasKey(x => new { x.UserId, x.CoachId });
@@ -263,7 +258,7 @@ namespace AJudge.Infrastructure.Data
                   .HasFilter("[CommentId] IS NOT NULL");
 
 
-            modelBuilder.Entity<User>().HasMany(x=>x.Comments).WithOne(x=>x.User)
+            modelBuilder.Entity<User>().HasMany(x => x.Comments).WithOne(x => x.User)
                 .HasForeignKey(x => x.UserId).IsRequired().OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Vote>().Property(x => x.BlogId).IsRequired(false);
@@ -272,7 +267,17 @@ namespace AJudge.Infrastructure.Data
             modelBuilder.Entity<Vote>()
            .HasCheckConstraint("CK_Vote_CommentOrBlog",
                "(CommentId IS NOT NULL AND BlogId IS NULL) OR (CommentId IS NULL AND BlogId IS NOT NULL)");
-        
+
+
+
+            modelBuilder.Entity<Submission>()
+                .HasOne(x=>x.Group)
+                .WithMany(x=>x.Submissions)
+                .HasForeignKey(x=>x.GroupId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.SetNull);
+
+
 
         }
 

@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
 using AJudge.Domain.Entities;
 using AJudge.Infrastructure.Data;
 using AJudge.Application.services;
@@ -44,7 +42,9 @@ namespace AJudge.Controllers
             {
                 Username = request.Username,
                 Email = request.Email,
-                PasswordHash = hashedPassword
+                PasswordHash = hashedPassword,
+                RegisterAt = DateTime.UtcNow
+                
             };
 
              await _context.Users.AddAsync(user);

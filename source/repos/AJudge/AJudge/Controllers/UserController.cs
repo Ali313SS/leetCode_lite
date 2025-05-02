@@ -7,6 +7,8 @@ using AJudge.Application.DTO.UserDTOS;
 using System.Reflection.Metadata.Ecma335;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using AJudge.Domain.RepoContracts;
+using AJudge.Application.services;
 
 namespace AJudge.Controllers
 {
@@ -15,9 +17,13 @@ namespace AJudge.Controllers
     public class UserController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        public UserController(ApplicationDbContext context)
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUserService _userService;
+        public UserController(ApplicationDbContext context, IUnitOfWork unitOfWork, IUserService userService)
         {
             _context = context;
+            _unitOfWork = unitOfWork;
+            _userService= userService;
         }
 
         [HttpGet]   // get only the info of user no other related data like groups or friends etc
@@ -302,6 +308,30 @@ namespace AJudge.Controllers
 
 
 
+       [HttpGet("clubName/{clubName}")]
+       public async Task<IActionResult> GetAllUseInClub(string clubName ,bool isAssending=false,int pageNNumber=1,int pageSSize=20)
+       {
+            User? clubExist = await _unitOfWork.User.GetSpecific(x => x.ClubUniversity == clubName,null);
+            if (clubExist == null)
+                return NoContent();
+
+          
+            UserPagination users = await _userService.GetAllUserInClubPerPage(nameof(AJudge.Domain.Entities.User.ClubUniversity),
+                 clubName,nameof(AJudge.Domain.Entities.User.RegisterAt), isAssending, pageNNumber, pageSSize);
+
+            var response = new
+            {
+                ItemsResponse = users.Items.Select(x => UserResponseDTO.ConvertToUserResponse(x)).ToList(),
+                pagenumber = users.PageNumber,
+                totalPages = users.TotalPages,
+                hasPrevious = users.HasPrevious,
+                hasNext = users.HasNext
+            };
+
+            return Ok(response);
+       }
+     
+              
 
 
 

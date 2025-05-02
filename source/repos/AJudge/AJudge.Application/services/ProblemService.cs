@@ -149,20 +149,20 @@ namespace AJudge.Application.services
         }
     }
 
-    public class ProblemPagination/*(List<Problem> Items, int count, int PageNumber , int pagesize )*/
+    public class ProblemPagination
     {
        
            
 
         public List<Problem> Items { get; private set; }
         public int PageNumber { get; private set; }
-        public int TotalPages { get; private set; }// => (int)Math.Ceiling(count / (double)pagesize);
+        public int TotalPages { get; private set; }
         public bool HasPrevious  => PageNumber > 1;
         public bool HasNext  => PageNumber < TotalPages;
 
         public ProblemPagination(List<Problem> items, int count, int pageNumber, int pageSize)
         {
-            Items = items ?? new List<Problem>();  // Default to an empty list if null
+            Items = items ?? new List<Problem>();  
             PageNumber = pageNumber;
             TotalPages = (int)Math.Ceiling(count / (double)pageSize);
         }

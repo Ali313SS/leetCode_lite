@@ -204,6 +204,9 @@ namespace AJudge.Controllers
             return NotFound("Group not found.");
         }
 
+
+
+
         private int GetUserIdFromToken()
         {
             if (HttpContext.User.Identity is ClaimsIdentity identity)

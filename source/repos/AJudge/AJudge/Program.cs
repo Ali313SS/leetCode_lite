@@ -10,6 +10,7 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 using AJudge.Domain.RepoContracts;
 using AJudge.Infrastructure.Repositories;
+using System.Runtime.Serialization;
 
 namespace AJudge
 {
@@ -34,6 +35,8 @@ namespace AJudge
             builder.Services.AddSingleton<PasswordHasher>();
 
             builder.Services.AddScoped<IGroupServices, GroupServices>();
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<ISubmissionService, SubmissionService>();
 
             builder.Services.AddTransient<IProblemService, ProblemService>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -62,7 +65,7 @@ namespace AJudge
                 });
             builder.Services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "AJudge API", Version = "v1" });               
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "AJudge API", Version = "v1" });
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Name = "Authorization",
@@ -71,7 +74,7 @@ namespace AJudge
                     BearerFormat = "JWT",
                     In = ParameterLocation.Header,
                     Description = "Bearer {token}"
-                });                
+                });
                 options.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
@@ -86,7 +89,12 @@ namespace AJudge
             new string[] {}
         }
     });
-            });
+
+
+
+            }
+            
+            );
 
             var app = builder.Build();
 

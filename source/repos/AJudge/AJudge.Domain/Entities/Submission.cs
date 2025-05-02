@@ -19,6 +19,12 @@ namespace AJudge.Domain.Entities
         [ForeignKey("UserId")]
         public User User { get; set; }
         [ForeignKey("ProblemId")]
-        public Problem Problem { get; set; }      
+        public Problem Problem { get; set; }    
+        
+
+        public int? GroupId { get; set; }
+
+        [ForeignKey(nameof(Submission.GroupId))]
+        public Group Group { get; set; }      
     }
 }
