@@ -42,7 +42,7 @@ namespace AJudge.Controllers
         }
 
         [HttpGet("GetAllCommentsByUser")]
-        public async Task<IActionResult> GetAllCommetsByUserId()
+        public async Task<IActionResult> GetAllCommetsByUserId([FromQuery] int pageNumber = 1, [FromQuery] bool isAssending = false)
         {
 
             var userEXist = int.TryParse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value, out int result);
@@ -57,14 +57,22 @@ namespace AJudge.Controllers
                 return BadRequest("No such user");
 
 
-            List<Comment> comments = await _unitOfwork.Comment.GetAllUsingPredict(x => x.UserId == result, new[] { nameof(Comment.Blog), nameof(Comment.User), nameof(Comment.Votes) });
+           
 
-            if (comments.Count <= 0)
-                return Ok("no Comments to this user");
+            var comments = await _commentService.GetAllCommentInPage(x => x.UserId == result, nameof(Comment.CreatedAt), isAssending, pageNumber);
+            
 
-            var commentResponse = comments.Select(x=> CommentResponseDTO.ConvertToCommentResponseDTO(x)).ToList();
 
-            return Ok(commentResponse);
+            var respoonse = new
+            {
+                commentResponse = comments.Items.Select(x => CommentResponseDTO.ConvertToCommentResponseDTO(x)).ToList(),
+                pageNumber = comments.PageNumber,
+                totalPages = comments.TotalPages,
+                hasPrevious = comments.HasPrevious,
+                hasNext = comments.HasNext,
+
+            };
+            return Ok(respoonse);
 
         }
 
@@ -77,9 +85,8 @@ namespace AJudge.Controllers
             if (blog == null)
                 return NotFound("No such blog");
 
-            var comments =await  _commentService.GetAllCommentInPage(nameof(Comment.CreatedAt), isAssending, pageNumber);
-            if (comments.Items.Count <= 0)
-                return Ok("no Comments in this Blog");
+            var comments =await  _commentService.GetAllCommentInPage(x=>x.BlogId==id,nameof(Comment.CreatedAt), isAssending, pageNumber);
+          
 
 
             var respoonse = new

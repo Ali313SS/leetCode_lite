@@ -3,6 +3,7 @@ using AJudge.Domain.RepoContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,12 +17,13 @@ namespace AJudge.Application.services
             _unitOfWork = unitofWork;
         }
 
-        public async Task<Pagination<Comment>> GetAllCommentInPage(string sortBy, bool isAsinding = true, int pageNumber = 1, int pageSize = 20)
+        public async Task<Pagination<Comment>> GetAllCommentInPage(Expression<Func<Comment,bool>>pred,string sortBy, bool isAsinding = true, int pageNumber = 1, int pageSize = 20)
         {
             IQueryable<Comment> query = _unitOfWork.Comment.GetQuery();
-            query = _unitOfWork.Comment.ApplySort(query, sortBy, isAsinding);
+            query = query.Where(pred);
+           query = _unitOfWork.Comment.ApplySort(query, sortBy, isAsinding);
 
-            Pagination<Comment> commentPage = await Pagination<Comment>.GetPageDetails(query, 1, 10);
+            Pagination<Comment> commentPage = await Pagination<Comment>.GetPageDetails(query, pageNumber, 10);
             return commentPage;
         }
 
