@@ -15,8 +15,8 @@ namespace AJudge.Application.DtO.CommentDTO
         public string Content { get; set; }
         [Required]
         public int  BlogId { get; set; }
-        [Required]
-        public int UserId { get; set; }
+       // [Required]
+      //  public int UserId { get; set; }
 
         public static Comment ConvertToComment(CreateCommentDTO request)
         {
@@ -24,7 +24,7 @@ namespace AJudge.Application.DtO.CommentDTO
             {
                 Content = request.Content,
                 BlogId = request.BlogId,
-                UserId = request.UserId
+               // UserId = request.UserId
             };
         }
     }

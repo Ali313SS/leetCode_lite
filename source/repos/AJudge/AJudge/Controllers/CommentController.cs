@@ -1,5 +1,6 @@
 ﻿using AJudge.Application.DtO.BlogDTO;
 using AJudge.Application.DtO.CommentDTO;
+using AJudge.Application.services;
 using AJudge.Domain.Entities;
 using AJudge.Domain.RepoContracts;
 using AJudge.Infrastructure.Repositories;
@@ -20,9 +21,11 @@ namespace AJudge.Controllers
     {
 
         private readonly IUnitOfWork _unitOfwork;
-        public CommentController(IUnitOfWork unitOfwork)
+        private readonly ICommentService _commentService;
+        public CommentController(IUnitOfWork unitOfwork, ICommentService commentService)
         {
             _unitOfwork = unitOfwork;
+            _commentService= commentService;
         }
 
         [HttpGet("{id:guid}")]
@@ -38,16 +41,23 @@ namespace AJudge.Controllers
 
         }
 
-        [HttpGet("GetSpecificComments/{id:int}")]
-        public async Task<IActionResult> GetAllCommetsByUserId(int id)
+        [HttpGet("GetAllCommentsByUser")]
+        public async Task<IActionResult> GetAllCommetsByUserId()
         {
 
-            User? user = await _unitOfwork.User.GetById(id, false);
+            var userEXist = int.TryParse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value, out int result);
+
+
+            User? user = null;
+            if (userEXist)
+
+                user = await _unitOfwork.User.GetById(result);
+
             if (user == null)
-                return NotFound("no such User");
+                return BadRequest("No such user");
 
 
-            List<Comment> comments = await _unitOfwork.Comment.GetAllUsingPredict(x => x.UserId == id, new[] { nameof(Comment.Blog), nameof(Comment.User), nameof(Comment.Votes) });
+            List<Comment> comments = await _unitOfwork.Comment.GetAllUsingPredict(x => x.UserId == result, new[] { nameof(Comment.Blog), nameof(Comment.User), nameof(Comment.Votes) });
 
             if (comments.Count <= 0)
                 return Ok("no Comments to this user");
@@ -59,6 +69,31 @@ namespace AJudge.Controllers
         }
 
 
+        [HttpGet("GetAllCommentsByBlog/{id}")]
+        public async Task<IActionResult> GetAllCommentsByBlog(int id, [FromQuery]int pageNumber=1,[FromQuery]bool isAssending=false)
+        {
+
+            Blog? blog = await _unitOfwork.Blog.GetById(id);
+            if (blog == null)
+                return NotFound("No such blog");
+
+            var comments =await  _commentService.GetAllCommentInPage(nameof(Comment.CreatedAt), isAssending, pageNumber);
+            if (comments.Items.Count <= 0)
+                return Ok("no Comments in this Blog");
+
+
+            var respoonse = new
+            {
+                commentResponse = comments.Items.Select(x => CommentResponseDTO.ConvertToCommentResponseDTO(x)).ToList(),
+                pageNumber=comments.PageNumber,
+                totalPages=comments.TotalPages,
+                hasPrevious=comments.HasPrevious,
+                hasNext=comments.HasNext,
+
+            };
+            return Ok(respoonse);
+        }
+
 
 
 
@@ -69,20 +104,30 @@ namespace AJudge.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userEXist = int.TryParse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value, out int result);
+
+               
+                User? user = null;
+                if (userEXist)
+                
+                    user = await _unitOfwork.User.GetById(result);
+                
+                if (user == null)
+                    return BadRequest("No such user");
+
+
 
                 Blog? blog = await _unitOfwork.Blog.GetById(request.BlogId);
 
                 if (blog == null)
                     return BadRequest("the BlogId not Exist");
 
-                User? user = await _unitOfwork.User.GetById(request.UserId);
-
-                if (user == null)
-                    return BadRequest("the UserId not Exist");
+            
 
                
 
                 Comment comment = CreateCommentDTO.ConvertToComment(request);
+                comment.UserId = result;
 
                 await _unitOfwork.Comment.Create(comment);
                 await _unitOfwork.CompleteAsync();

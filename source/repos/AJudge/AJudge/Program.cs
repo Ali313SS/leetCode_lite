@@ -37,6 +37,7 @@ namespace AJudge
             builder.Services.AddScoped<IGroupServices, GroupServices>();
             builder.Services.AddScoped<ISubmissionService, SubmissionService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<ICommentService, CommentService>();
 
             builder.Services.AddTransient<IProblemService, ProblemService>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
