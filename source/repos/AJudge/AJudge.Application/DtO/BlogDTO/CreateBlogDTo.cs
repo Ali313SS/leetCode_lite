@@ -13,8 +13,8 @@ namespace AJudge.Application.DtO.BlogDTO
         [Required]
         public string Content { get; set; }
         public DateTime CreatedAt =>DateTime.Now;
-        [Required]
-        public int CreaterId { get; set; }
+       // [Required]
+     //   public int CreaterId { get; set; }
 
         public static  Blog  ConvertToBlog(CreateBlogDTo request)
         {
@@ -22,7 +22,7 @@ namespace AJudge.Application.DtO.BlogDTO
             {
                 Content = request.Content,
                 CreatedAt = request.CreatedAt,
-                AuthorUserId = request.CreaterId,
+               // AuthorUserId = request.CreaterId,
             };
         }
 

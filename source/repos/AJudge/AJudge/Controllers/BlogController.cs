@@ -46,7 +46,13 @@ namespace AJudge.Controllers
         public async Task<IActionResult> CreateBlog(CreateBlogDTo request)
         {
 
-            User? user = await _unitOfWork.User.GetById(request.CreaterId);
+             var userEXist = int.TryParse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value,out int result);
+
+            User? user=null;
+            if (userEXist)
+            {
+                user = await _unitOfWork.User.GetById(result);
+            }
             if (user == null)
                 return BadRequest("No such user");
             if (!ModelState.IsValid)
@@ -55,6 +61,7 @@ namespace AJudge.Controllers
             }
 
             Blog blog = CreateBlogDTo.ConvertToBlog(request);
+            blog.AuthorUserId = result;
             await _unitOfWork.Blog.Create(blog);
             await _unitOfWork.CompleteAsync();
             return CreatedAtAction(nameof(GetBlogById), new { id = blog.BlogId }, request);
