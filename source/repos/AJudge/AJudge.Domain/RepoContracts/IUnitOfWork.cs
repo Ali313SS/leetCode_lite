@@ -7,22 +7,24 @@ using System.Threading.Tasks;
 
 namespace AJudge.Domain.RepoContracts
 {
-    public interface IUnitOfWork:IDisposable
+    public interface IUnitOfWork : IDisposable
     {
-         IBaseRepository<Problem> Problem { get;  }
-         IBaseRepository<Group> Group { get;  }
-         IBaseRepository<Submission> Submission { get; }
-         IBaseRepository<User> User { get; }
+        IBaseRepository<Problem> Problem { get; }
+        IBaseRepository<Group> Group { get; }
+        IBaseRepository<Submission> Submission { get; }
+        IBaseRepository<User> User { get; }
 
-         IBaseRepository<Vote> Vote { get; }
+        IBaseRepository<Vote> Vote { get; }
 
         IBaseRepository<Contest> Contest { get; }
 
-      //  IBaseRepository<User> User { get;  }
-      //  public IBaseRepository<Vote> Vote { get; }
+        //  IBaseRepository<User> User { get;  }
+        //  public IBaseRepository<Vote> Vote { get; }
 
-        IBaseRepository<Comment> Comment { get;  }
-         IBlogRepository Blog { get;  }
+        IBaseRepository<UserFriend> UserFriends { get; } // Added UserFriends
+
+        IBaseRepository<Comment> Comment { get; }
+        IBlogRepository Blog { get; }
         Task CompleteAsync();
         void Attach<T>(T item);
         void MarkModified<T>(T item, string[] propertyNames);

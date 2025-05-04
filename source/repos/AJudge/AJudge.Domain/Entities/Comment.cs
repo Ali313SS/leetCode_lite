@@ -13,7 +13,7 @@ namespace AJudge.Domain.Entities
         public string Content { get; set; }
         public DateTime CreatedAt { get; set; }
 
-        public int BlogId { get; set; }
+        public int? BlogId { get; set; }
         [ForeignKey(nameof(Comment.BlogId))]
         public Blog Blog { get; set; }
 

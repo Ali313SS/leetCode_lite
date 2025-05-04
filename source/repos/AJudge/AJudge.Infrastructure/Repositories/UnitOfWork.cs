@@ -11,7 +11,7 @@ namespace AJudge.Infrastructure.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private  readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         public IBaseRepository<Problem> Problem { get; private set; }
         public IBaseRepository<Group> Group { get; private set; }
         public IBaseRepository<Submission> Submission { get; private set; }
@@ -20,36 +20,40 @@ namespace AJudge.Infrastructure.Repositories
         public IBaseRepository<Comment> Comment { get; private set; }
         public IBlogRepository Blog { get; private set; }
         public IBaseRepository<Contest> Contest { get; private set; }
+        public IBaseRepository<UserFriend> UserFriends { get; private set; } // Added UserFriends
+
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
-            Problem=new BaseRepoitory<Problem>(_context);
+            Problem = new BaseRepoitory<Problem>(_context);
             Submission = new BaseRepoitory<Submission>(_context);
-            Vote=new BaseRepoitory<Vote>(_context); 
-            User=new BaseRepoitory<User>(_context); 
-            Group=new BaseRepoitory<Group>(_context); 
-            Blog=new BlogRepository(_context);
-            Comment=new BaseRepoitory<Comment>(_context);
+            Vote = new BaseRepoitory<Vote>(_context);
+            User = new BaseRepoitory<User>(_context);
+            Group = new BaseRepoitory<Group>(_context);
+            Blog = new BlogRepository(_context);
+            Comment = new BaseRepoitory<Comment>(_context);
+            UserFriends = new BaseRepoitory<UserFriend>(_context); // Added UserFriends initialization
+
         }
 
         public void Dispose()
         {
-           _context.Dispose();
+            _context.Dispose();
         }
 
         public async Task CompleteAsync()
         {
-           await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         public void Attach<T>(T item)
         {
-              _context.Attach(item);
+            _context.Attach(item);
         }
 
         public void MarkModified<T>(T item, string[] propertyNames)
         {
-            foreach(var prop in propertyNames)
+            foreach (var prop in propertyNames)
             {
                 _context.Entry(item).Property(prop).IsModified = true;
             }

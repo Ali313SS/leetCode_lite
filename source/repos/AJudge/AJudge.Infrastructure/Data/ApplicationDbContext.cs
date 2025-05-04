@@ -29,6 +29,7 @@ namespace AJudge.Infrastructure.Data
         public DbSet<UserTeamInvitation> UserTeamInvitations { get; set; }
       
         public DbSet<Vote> Votes { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
 
         public DbSet<UserCoaches> UserCoaches { get; set; }
@@ -235,7 +236,7 @@ namespace AJudge.Infrastructure.Data
 
 
             modelBuilder.Entity<Comment>().HasOne(x => x.Blog).WithMany(x => x.Comments)
-                .HasForeignKey(x => x.BlogId).IsRequired().OnDelete(DeleteBehavior.SetNull);
+                .HasForeignKey(x => x.BlogId).IsRequired(false).OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Comment>().Property(e => e.Id)
               .HasDefaultValueSql("NEWSEQUENTIALID()");
