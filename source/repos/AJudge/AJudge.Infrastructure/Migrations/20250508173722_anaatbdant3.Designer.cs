@@ -4,6 +4,7 @@ using AJudge.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AJudge.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250508173722_anaatbdant3")]
+    partial class anaatbdant3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,7 +159,7 @@ namespace AJudge.Infrastructure.Migrations
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("GroupId")
+                    b.Property<int>("GroupContestId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -175,9 +178,22 @@ namespace AJudge.Infrastructure.Migrations
 
                     b.HasIndex("CreatorUserId");
 
+                    b.ToTable("Contests");
+                });
+
+            modelBuilder.Entity("AJudge.Domain.Entities.ContestGroupMembership", b =>
+                {
+                    b.Property<int>("ContestId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ContestId", "GroupId");
+
                     b.HasIndex("GroupId");
 
-                    b.ToTable("Contests", (string)null);
+                    b.ToTable("ContestGroupMemberships", (string)null);
                 });
 
             modelBuilder.Entity("AJudge.Domain.Entities.Group", b =>
@@ -211,7 +227,7 @@ namespace AJudge.Infrastructure.Migrations
 
                     b.HasIndex("LeaderUserId");
 
-                    b.ToTable("Groups", (string)null);
+                    b.ToTable("Groups");
                 });
 
             modelBuilder.Entity("AJudge.Domain.Entities.OrignalProblems", b =>
@@ -811,13 +827,24 @@ namespace AJudge.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.Navigation("Creator");
+                });
+
+            modelBuilder.Entity("AJudge.Domain.Entities.ContestGroupMembership", b =>
+                {
+                    b.HasOne("AJudge.Domain.Entities.Contest", "Contest")
+                        .WithMany("GroupMemberships")
+                        .HasForeignKey("ContestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("AJudge.Domain.Entities.Group", "Group")
-                        .WithMany("Contests")
+                        .WithMany("ContestMemberships")
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Creator");
+                    b.Navigation("Contest");
 
                     b.Navigation("Group");
                 });
@@ -909,8 +936,9 @@ namespace AJudge.Infrastructure.Migrations
             modelBuilder.Entity("AJudge.Domain.Entities.Submission", b =>
                 {
                     b.HasOne("AJudge.Domain.Entities.Group", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupId");
+                        .WithMany("Submissions")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("AJudge.Domain.Entities.Problem", "Problem")
                         .WithMany("Submissions")
@@ -1111,12 +1139,16 @@ namespace AJudge.Infrastructure.Migrations
                 {
                     b.Navigation("Announcements");
 
+                    b.Navigation("GroupMemberships");
+
                     b.Navigation("Problems");
                 });
 
             modelBuilder.Entity("AJudge.Domain.Entities.Group", b =>
                 {
-                    b.Navigation("Contests");
+                    b.Navigation("ContestMemberships");
+
+                    b.Navigation("Submissions");
                 });
 
             modelBuilder.Entity("AJudge.Domain.Entities.OrignalProblems", b =>

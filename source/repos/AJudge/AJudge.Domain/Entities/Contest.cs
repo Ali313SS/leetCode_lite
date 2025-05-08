@@ -13,7 +13,7 @@ namespace AJudge.Domain.Entities
       //  [Key]
         public int ContestId { get; set; }
         public string Name { get; set; }
-        public int GroupContestId { get; set; }
+        public int GroupId { get; set; }
         public DateTime BeginTime { get; set; }
         public DateTime EndTime { get; set; }      
         public string Status { get; set; }
@@ -24,13 +24,10 @@ namespace AJudge.Domain.Entities
         [ForeignKey("CreatorUserId")]
         public User Creator { get; set; }
 
-        //[ForeignKey("GroupContestId")]
-     //   public Group Group { get; set; }
+        [ForeignKey("GroupId")]        
+        public Group Group { get; set; }
         public ICollection<Problem> Problems { get; set; } = new List<Problem>();
-        public ICollection<Group> Groups { get; set; } = new List<Group>();
-
-        public List<ContestGroupMembership> GroupMemberships { get; set; } = new List<ContestGroupMembership>();
-
+               
         public ICollection<Announcement> Announcements { get; set; } = new List<Announcement>();
     }
 }

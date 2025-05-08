@@ -11,7 +11,7 @@ namespace AJudge.Application.services
 {
     public interface IProblemService
     {
-        Task<bool> AddProblem(ProblemDTO problemDTO);
+        Task<OrignalProblems> FetchProblem(FetchProblemDto problemDto);
         Task<bool> ChangeProblemStatement(ProblemDTO problemDTO);
         Task<bool> DeleteProblem(int problemId);
         Task<ProblemDTO> GetProblem(int problemId);

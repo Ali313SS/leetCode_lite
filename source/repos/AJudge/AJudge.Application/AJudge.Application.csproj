@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.12.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AJudge.Domain\AJudge.Domain.csproj" />
     <ProjectReference Include="..\AJudge.Infrastructure\AJudge.Infrastructure.csproj" />
   </ItemGroup>

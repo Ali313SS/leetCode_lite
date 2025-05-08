@@ -11,7 +11,7 @@ namespace AJudge.Application.DTO.ProblemsDTO
     public class ProblemDTO
     {
         public string ProblemSource { get; set; }
-        public string ProblemSourceID { get; set; }
+        public int? ProblemSourceID { get; set; }
 
         public string ProblemName { get; set; }
         public int Rating { get; set; }

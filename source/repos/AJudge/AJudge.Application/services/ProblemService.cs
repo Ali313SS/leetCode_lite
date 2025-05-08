@@ -1,7 +1,9 @@
 ﻿using AJudge.Application.DtO.ProblemsDTO;
 using AJudge.Application.DTO.ProblemsDTO;
+using AJudge.Application.Services;
 using AJudge.Domain.Entities;
 using AJudge.Domain.RepoContracts;
+using AJudge.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System;
@@ -16,15 +18,65 @@ namespace AJudge.Application.services
 {
     public class ProblemService : IProblemService
     {
-        private IUnitOfWork _unitOfWork;
-        public ProblemService(IUnitOfWork unitOfWork)
+        private IUnitOfWork _unitOfWork;       
+        private readonly ApplicationDbContext _context;
+        public ProblemService(IUnitOfWork unitOfWork,ApplicationDbContext context)
         {
             _unitOfWork=unitOfWork;
+            _context=context;
         }
 
-        public Task<bool> AddProblem(ProblemDTO problemDTO)
+        public Task<OrignalProblems> FetchProblem(FetchProblemDto problemDTO)
         {
-            throw new NotImplementedException();
+            
+            var getSoruceID=_context.Sources.FirstOrDefault(x=>x.SourceName==problemDTO.ProblemSource)?.SourceId; // Fetch the source from the database using the provided SourceId.
+            
+
+            if (getSoruceID == null)
+                return null; // Handle the case where the source ID is not found in the database.
+            var problemdId = getSoruceID.ToString().Length.ToString() + getSoruceID + problemDTO.ProblemId;
+            // include test cases
+            var problemexist = _context.OrignalProblems.Include(x => x.TestCases).FirstOrDefault(x => x.ProblemId == problemdId); // Fetch the problem from the database using the provided ProblemId.
+            
+            if (problemexist != null)
+            {              
+
+                return Task.FromResult(problemexist);
+            }
+            IFetchServices Fetch = FactoryFetch.GetFactory(problemDTO.ProblemSource); // Create an instance of the Fetch class to fetch the problem from the provided URL.
+            var problem = Fetch.FetchFrom(problemDTO.ProblemLink).Result; // Fetch the problem from the provided URL using the Fetch class.
+            if (problem == null)
+                return null; // Handle the case where the problem could not be fetched.
+            var SaveProblem = new OrignalProblems
+            {
+                ProblemId = getSoruceID.ToString().Length.ToString() + getSoruceID + problemDTO.ProblemId,
+                ProblemName = problem.ProblemName,
+                Description = problem.Description,
+                InputFormat = problem.InputFormat,
+                OutputFormat = problem.OutputFormat,
+                ProblemSource = problem.ProblemSource,
+                ProblemLink = problem.ProblemLink,
+                numberOfTestCases = problem.numberOfTestCases,
+                Rating = problem.Rating,
+                ProblemSourceID = (int)getSoruceID,
+                
+
+            };
+            
+            problem.TestCases.ToList().ForEach(x =>
+            {
+                var testCase = new OrignalTestCases
+                {
+                    Input = x.Input,
+                    Output = x.Output
+                };
+                SaveProblem.TestCases.Add(testCase); // Add the test case to the problem's TestCases collection.
+            });
+            
+            _context.OrignalProblems.Add(SaveProblem); // Add the problem to the database.
+            _context.SaveChangesAsync();
+           return Task.FromResult(SaveProblem); // Return the added problem.3
+
         }
 
         public Task<bool> ChangeProblemStatement(ProblemDTO problemDTO)
@@ -81,11 +133,11 @@ namespace AJudge.Application.services
 
             var testCases =  problem.TestCases.Select(x => new InputOutputTestCasesDTO
             {
-                InputTetCase = x.Input,
-                OutPutTestCases = x.Output
+                Input= x.Input,
+                Output = x.Output
 
-            }).FirstOrDefault();
-           
+            }).ToList();
+
             ProblemDetailsDTO problemDEtailsDTO = ProblemDetailsDTO.ConvertToProblemDetalsDTO(problem, state, tagsName, testCases);
             return problemDEtailsDTO;
         }
@@ -147,6 +199,8 @@ namespace AJudge.Application.services
             }
             return query;
         }
+
+
     }
 
     public class ProblemPagination

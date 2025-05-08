@@ -4,7 +4,9 @@ namespace AJudge.Application.DtO.ProblemsDTO
 {
     public class ProblemDetailsDTO
     {
+        
         public string ProblemName { get; set; }
+        public int SourceID { get; set; }
         public string ProblemDescription { get; set; }
         public int ProblemRating { get; set; }
         public string InputFormat { get; set; }
@@ -12,12 +14,12 @@ namespace AJudge.Application.DtO.ProblemsDTO
         public string ProblemSource { get; set; }
         public string SubmissionState { get; set; }
         public List<string> TagsName { get; set; }
-        public InputOutputTestCasesDTO InputOutputTestCases { get; set; }
+        public List<InputOutputTestCasesDTO> TestCases { get; set; }
 
 
 
 
-        public static ProblemDetailsDTO ConvertToProblemDetalsDTO(Problem problem, string submissionState, List<string> tagsNames, InputOutputTestCasesDTO inputOutputTestCases)
+        public static ProblemDetailsDTO ConvertToProblemDetalsDTO(Problem problem, string submissionState, List<string> tagsNames, List<InputOutputTestCasesDTO> testCases)
         {
             return new ProblemDetailsDTO
             {
@@ -29,7 +31,7 @@ namespace AJudge.Application.DtO.ProblemsDTO
                 ProblemSource = problem.ProblemSource,
                 SubmissionState = submissionState,
                 TagsName = tagsNames,
-                InputOutputTestCases = inputOutputTestCases
+                TestCases = testCases
             };
 
 

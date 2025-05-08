@@ -173,6 +173,7 @@ namespace AJudge.Controllers
         }
 
         [HttpGet("{id}")]
+        
         public async Task<ActionResult<TeamResponseDto>> GetTeam(int id)
         {
             var currentUserId = GetCurrentUserId();
@@ -206,7 +207,7 @@ namespace AJudge.Controllers
             };
 
             return Ok(response);
-        }
+        }        
         [HttpGet("MyTeams")]
         public async Task<ActionResult<IEnumerable<TeamResponseDto>>> MyTeams()
         {

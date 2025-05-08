@@ -8,7 +8,7 @@ namespace AJudge.Application.DtO.ProblemsDTO
 {
     public class InputOutputTestCasesDTO
     {
-       public  string InputTetCase { get; set; }
-        public string OutPutTestCases { get; set; }
+       public  string Input { get; set; }
+        public string Output { get; set; }
     }
 }

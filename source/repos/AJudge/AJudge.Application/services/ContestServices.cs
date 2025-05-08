@@ -99,11 +99,14 @@ namespace AJudge.Application.services
 
         public async Task<List<Contest>> GetContestsByGroupIdAsync(int groupId)
         {
-            return await _context.ContestGroupMemberships
-                .Where(cgm => cgm.GroupId == groupId)
-                .Include(cgm => cgm.Contest)
-                .ThenInclude(c => c.Problems)
-                .Select(cgm => cgm.Contest)
+            //return await _context.ContestGroupMemberships
+            //    .Where(cgm => cgm.GroupId == groupId)
+            //    .Include(cgm => cgm.Contest)
+            //    .ThenInclude(c => c.Problems)
+            //    .Select(cgm => cgm.Contest)
+            //    .ToListAsync();
+            return await _context.Contests
+                .Where(c => c.GroupId == groupId)                
                 .ToListAsync();
         }
 
@@ -117,36 +120,36 @@ namespace AJudge.Application.services
                 return false;
             }
 
-            var existingMembership = await _context.ContestGroupMemberships
-                .FirstOrDefaultAsync(cgm => cgm.ContestId == contestId && cgm.GroupId == groupId);
+            //var existingMembership = await _context.ContestGroupMemberships
+            //    .FirstOrDefaultAsync(cgm => cgm.ContestId == contestId && cgm.GroupId == groupId);
 
-            if (existingMembership == null)
-            {
-                var membership = new ContestGroupMembership
-                {
-                    ContestId = contestId,
-                    GroupId = groupId
-                };
+            //if (existingMembership == null)
+            //{
+            //    var membership = new ContestGroupMembership
+            //    {
+            //        ContestId = contestId,
+            //        GroupId = groupId
+            //    };
 
-                _context.ContestGroupMemberships.Add(membership);
-                await _context.SaveChangesAsync();
-            }
+            //    _context.ContestGroupMemberships.Add(membership);
+            //    await _context.SaveChangesAsync();
+            //}
 
             return true;
         }
 
         public async Task<bool> RemoveContestFromGroupAsync(int contestId, int groupId)
         {
-            var membership = await _context.ContestGroupMemberships
-                .FirstOrDefaultAsync(cgm => cgm.ContestId == contestId && cgm.GroupId == groupId);
+            //var membership = await _context.ContestGroupMemberships
+            //    .FirstOrDefaultAsync(cgm => cgm.ContestId == contestId && cgm.GroupId == groupId);
 
-            if (membership == null)
-            {
-                return false;
-            }
+            //if (membership == null)
+            //{
+            //    return false;
+            //}
 
-            _context.ContestGroupMemberships.Remove(membership);
-            await _context.SaveChangesAsync();
+            //_context.ContestGroupMemberships.Remove(membership);
+            //await _context.SaveChangesAsync();
             return true;
         }
         ///

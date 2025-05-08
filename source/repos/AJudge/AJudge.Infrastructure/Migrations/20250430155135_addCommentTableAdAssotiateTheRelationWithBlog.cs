@@ -52,7 +52,7 @@ namespace AJudge.Infrastructure.Migrations
                         column: x => x.BlogId,
                         principalTable: "Blog",
                         principalColumn: "BlogId",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
          //  migrationBuilder.CreateTable(

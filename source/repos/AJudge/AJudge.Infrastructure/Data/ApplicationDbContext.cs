@@ -14,14 +14,20 @@ namespace AJudge.Infrastructure.Data
         public DbSet<Blog> Blog { get; set; }
         public DbSet<ChatBot> ChatBots { get; set; }
         public DbSet<Contest> Contests { get; set; }
-        public DbSet<ContestGroupMembership> ContestGroupMemberships { get; set; }
+
 
         public DbSet<Group> Groups { get; set; }
         public DbSet<Problem> Problems { get; set; }
+
+        public DbSet<TestCase> TestCases { get; set; }
+        public DbSet<OrignalProblems> OrignalProblems { get; set; }
+        public DbSet<OrignalTestCases> OrignalTestCases { get; set; }
+
         public DbSet<Statistics> Statistics { get; set; }
         public DbSet<Submission> Submission { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<ProblemTag> ProblemTags { get; set; }
+        public DbSet<Sources> Sources { get; set; }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Team> Teams { get; set; }
@@ -36,6 +42,7 @@ namespace AJudge.Infrastructure.Data
         public DbSet<CoachRequest> CoachRequests { get; set; }
         public DbSet<UserFriend> UserFriend { get; set; }
 
+
         //public DbSet<Manager> Managers { get; set; }
         //public DbSet<ContestProblem> ContestProblems { get; set; }
         //public DbSet<ProblemTag> ProblemTags { get; set; }
@@ -49,6 +56,22 @@ namespace AJudge.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Sources>().HasKey(x => x.SourceId);
+            modelBuilder.Entity<Sources>().ToTable("Sources");
+            modelBuilder.Entity<OrignalProblems>().HasKey(x => x.ProblemId);
+            modelBuilder.Entity<OrignalProblems>().ToTable("OrignalProblems");
+            modelBuilder.Entity<OrignalProblems>().HasIndex(x => new { x.ProblemId })
+                .IsUnique()
+                .HasFilter("[ProblemId] IS NOT NULL");
+
+            modelBuilder.Entity<OrignalProblems>().HasMany(x => x.TestCases)
+                .WithOne(x => x.Problem);
+            modelBuilder.Entity<OrignalTestCases>().HasOne(x => x.Problem)
+                .WithMany(x => x.TestCases)
+                .HasForeignKey(x => x.ProblemId)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<OrignalTestCases>().ToTable("OrignalTestCases");
+
 
             modelBuilder.Entity<Group>().HasOne(x => x.Leader)
                 .WithMany(x => x.LeadGroups)
@@ -146,7 +169,7 @@ namespace AJudge.Infrastructure.Data
                 .WithMany(x => x.CoachedByhim)
                 .HasForeignKey(x => x.CoachId)
                 .OnDelete(DeleteBehavior.NoAction);
-
+            modelBuilder.Entity<Problem>().ToTable("Problems");
             modelBuilder.Entity<Problem>()
                 .HasMany(p => p.Tags)
                 .WithMany(t => t.Problems)
@@ -182,29 +205,17 @@ namespace AJudge.Infrastructure.Data
             modelBuilder.Entity<UserTeamInvitation>().HasKey(x => new { x.UserId, x.TeamId });
             modelBuilder.Entity<UserTeamInvitation>().ToTable("UserTeamInvitation");
 
-
-            modelBuilder.Entity<ContestGroupMembership>()
-    .HasKey(cgm => new { cgm.ContestId, cgm.GroupId });
-
+            
             modelBuilder.Entity<Group>()
                 .HasMany(c => c.Contests)
-                .WithMany(g => g.Groups)
-                .UsingEntity<ContestGroupMembership>(
-                    join => join
-                        .HasOne(cgm => cgm.Contest)
-                        .WithMany(c => c.GroupMemberships)
-                        .HasForeignKey(cgm => cgm.ContestId),
-                         join => join
-                           .HasOne(cgm => cgm.Group)
-                        .WithMany(g => g.ContestMemberships)
-                        .HasForeignKey(cgm => cgm.GroupId),
+                .WithOne(c => c.Group);
 
-                    join =>
-                    {
-                        join.HasKey(cgm => new { cgm.ContestId, cgm.GroupId });
-                        // Optional: customize table name
-                        join.ToTable("ContestGroupMemberships");
-                    });
+            modelBuilder.Entity<Contest>().HasOne(c => c.Group)
+                .WithMany(g => g.Contests)
+                .HasForeignKey(c => c.GroupId)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Group>().ToTable("Groups");
+            modelBuilder.Entity<Contest>().ToTable("Contests");
 
 
 
@@ -268,15 +279,6 @@ namespace AJudge.Infrastructure.Data
             modelBuilder.Entity<Vote>()
            .HasCheckConstraint("CK_Vote_CommentOrBlog",
                "(CommentId IS NOT NULL AND BlogId IS NULL) OR (CommentId IS NULL AND BlogId IS NOT NULL)");
-
-
-
-            modelBuilder.Entity<Submission>()
-                .HasOne(x=>x.Group)
-                .WithMany(x=>x.Submissions)
-                .HasForeignKey(x=>x.GroupId)
-                .IsRequired(false)
-                .OnDelete(DeleteBehavior.SetNull);
 
 
 
