@@ -20,10 +20,11 @@ namespace AJudge
         public static void Main(string[] args)
         {
             // Corrected the SMTP server address and fixed the typo in "smtp.gmail.com"
-            
+
             //ISender x = new Sender("smtp.gmail.com", 587, "ara010250@gmail.com", "A.R.A313");
+
+
             
-    
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.

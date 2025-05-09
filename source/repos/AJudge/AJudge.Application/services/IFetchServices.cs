@@ -10,7 +10,8 @@ namespace AJudge.Application.services
    public interface IFetchServices
     {
         public Task<Problem> FetchFrom(string url);
-        public Task<Submission>Submit(string url, string code, string language, int problemId);
+        public Task<bool>Submit(string url, string code, string language, int problemId,string phpsessionId,string csrf_token);
+        public Task<KeyValuePair<String, String>> Init();
 
     }
 

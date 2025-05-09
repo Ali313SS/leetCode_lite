@@ -200,7 +200,14 @@ namespace AJudge.Application.services
             return query;
         }
 
+        public Task<bool> SumbitProblem(string link, int userid,string code)
+        {
+            IFetchServices Fetch = FactoryFetch.GetFactory("CSES");
+            var init = Fetch.Init().Result; // Initialize the Fetch class to fetch the problem from the provided URL.
+            var submission = Fetch.Submit(link, code, "c++", 1, init.Key, init.Value).Result; // Fetch the problem from the provided URL using the Fetch class.
+            return Task.FromResult(submission); // Return the added problem.
 
+        }
     }
 
     public class ProblemPagination

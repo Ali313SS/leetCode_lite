@@ -22,6 +22,8 @@ namespace AJudge.Application.services
         Task<List<ProblemDTO>> GetProblemsBySource(string source);
 
         Task<ProblemDetailsDTO?> GetProblemByName(string name, int? userId);
+        Task<bool>SumbitProblem(string link,int userid,string code);
+
     }
 
 }

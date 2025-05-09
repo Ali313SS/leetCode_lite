@@ -121,6 +121,30 @@ namespace AJudge.Controllers
 
 
         }
+        [HttpPost("Sumbit")]
+    //    [Authorize]
+        public async Task<IActionResult> SubmitProblem([FromBody] SumbitDTO sumbit)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { message = "invalid data " });
+            }
+            try
+            {
+                //int userId = GetUserIdFromToken();
+                int userId = 1;
+                var result = await _problemService.SumbitProblem(sumbit.ProblemLink, userId, sumbit.Code);
+                if (result == null)
+                {
+                    return BadRequest(new { message = "problem not added" });
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "error occure", error = ex.Message });
+            }
+        }
 
         //    [HttpGet("GetProblems")]
         //    public async Task<ActionResult<IEnumerable<Problem>>> GetProblems(
@@ -413,6 +437,11 @@ namespace AJudge.Controllers
             }
             throw new UnauthorizedAccessException("User ID not found in token.");
         }
+    }
+    public class SumbitDTO
+    {
+        public string ProblemLink { get; set; }
+        public string Code { get; set; }
     }
 
 }
