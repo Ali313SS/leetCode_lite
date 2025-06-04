@@ -1,0 +1,291 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AJudge</name>
+    </assembly>
+    <members>
+        <member name="M:AJudge.Controllers.AuthController.Register(AJudge.Application.DTO.AuthDTO.RegisterRequest)">
+            <summary>
+            Registers a new user 
+            </summary>
+            <param name="request">The registration details including email, username, and password.</param>
+            <returns>
+            Returns 200 OK if registration is successful, or 400 Bad Request if the user already exists or input is invalid.
+            </returns>
+            <response code="200">User registered successfully.</response>
+            <response code="400">User with the same email or username already exists, or invalid request.</response>
+        </member>
+        <member name="M:AJudge.Controllers.AuthController.Login(AJudge.Application.DTO.AuthDTO.LoginRequest)">
+            <summary>
+            Authenticates a user with email and password, and returns a JWT token if successful.
+            </summary>
+            <param name="request">The login request containing email and password.</param>
+            <returns>
+            200 OK with JWT token if authentication is successful;  
+            401 Unauthorized if email or password is invalid.
+            </returns>
+            <response code="200">Returns the JWT token for the authenticated user.</response>
+            <response code="401">Invalid email or password.</response>
+        </member>
+        <member name="M:AJudge.Controllers.BlogController.GetBlogById(System.Int32)">
+            <summary>
+            Retrieves a specific blog post by its ID.
+            </summary>
+            <param name="id">The unique ID of the blog post.</param>
+            <returns>
+            Returns the blog details including author and votes if found; 
+            otherwise, returns 404 with a "no such blog" message.
+            </returns>
+            <response code="200">Returns the blog details</response>
+            <response code="404">If no blog with the given ID is found</response>
+        </member>
+        <member name="M:AJudge.Controllers.BlogController.GetAllBlogs">
+            <summary>
+            Retrieves all blog posts including their authors and votes.
+            </summary>
+            <returns>
+            A list of all blog posts, each with author and vote details.
+            </returns>
+            <response code="200">Returns the list of blog posts</response>
+        </member>
+        <member name="M:AJudge.Controllers.BlogController.CreateBlog(AJudge.Application.DtO.BlogDTO.CreateBlogDTo)">
+            <summary>
+            Creates a new blog post.
+            </summary>
+            <param name="request">The blog data to create, including title and content.</param>
+            <returns>
+            Returns the created blog post data with a 201 status code if successful; otherwise, returns a 400 error.
+            </returns>
+            <response code="201">Returns the newly created blog</response>
+            <response code="400">If the user doesn't exist or model validation fails</response>
+            <remarks>
+            Requires user to be authenticated (Bearer token).
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.BlogController.UpdateBlog(System.Int32,AJudge.Application.DtO.BlogDTO.UpdateBlogDTO)">
+            <summary>
+            Updates the content of an existing blog post.
+            </summary>
+            <param name="id">The ID of the blog post to update.</param>
+            <param name="request">The updated blog content.</param>
+            <returns>
+            Returns the updated blog data if the update is successful; otherwise, returns an appropriate error response.
+            </returns>
+            <response code="200">Returns the updated blog post</response>
+            <response code="400">If the request model is invalid</response>
+            <response code="403">If the current user is not the author of the blog</response>
+            <response code="404">If the blog post does not exist</response>
+            <remarks>
+            Requires authentication (Bearer token). Only the blog's author can update it.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.BlogController.DeleteBlog(System.Int32)">
+            <summary>
+            Deletes a blog post by its ID.
+            </summary>
+            <param name="id">The ID of the blog to delete.</param>
+            <returns>
+            Returns <c>NoContent</c> if the deletion is successful; otherwise returns appropriate error responses.
+            </returns>
+            <response code="204">Blog deleted successfully</response>
+            <response code="403">If the current user is not the author of the blog</response>
+            <response code="404">If the blog post does not exist</response>
+            <remarks>
+            Requires authentication. Only the author of the blog can delete it.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.CommentController.GetCommentById(System.Guid)">
+            <summary>
+            Retrieves a comment by its unique identifier.
+            </summary>
+            <param name="id">The GUID of the comment to retrieve.</param>
+            <returns>
+            Returns the comment details if found; otherwise, returns a not found response.
+            </returns>
+            <response code="200">Returns the comment details.</response>
+            <response code="404">If no comment exists with the provided ID.</response>
+            <remarks>
+            Related entities included: Blog, User, and Votes.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.CommentController.GetAllCommetsByUserId(System.Int32,System.Boolean)">
+            <summary>
+            Retrieves all comments created by the currently authenticated user, paginated.
+            </summary>
+            <param name="pageNumber">The page number to retrieve. Defaults to 1.</param>
+            <param name="isAssending">Determines if the comments should be sorted in ascending order by creation date. Defaults to false (descending).</param>
+            <returns>
+            A paginated list of the user's comments along with pagination metadata.
+            </returns>
+            <response code="200">Returns the list of comments for the current user.</response>
+            <response code="400">If the user is not authenticated or doesn't exist.</response>
+            <remarks>
+            Requires the user to be authenticated. Comments are returned with pagination details.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.CommentController.GetAllCommentsByBlog(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Retrieves all comments for a specific blog post, paginated.
+            </summary>
+            <param name="id">The ID of the blog post.</param>
+            <param name="pageNumber">The page number to retrieve. Defaults to 1.</param>
+            <param name="isAssending">Determines if the comments should be sorted in ascending order by creation date. Defaults to false (descending).</param>
+            <returns>
+            A paginated list of comments for the specified blog post.
+            </returns>
+            <response code="200">Returns the paginated list of comments.</response>
+            <response code="404">If the blog post with the specified ID does not exist.</response>
+            <remarks>
+            Comments are sorted by creation date with pagination support.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.CommentController.CreateComment(AJudge.Application.DtO.CommentDTO.CreateCommentDTO)">
+            <summary>
+            Creates a new comment for a blog post.
+            </summary>
+            <param name="request">The comment creation request data.</param>
+            <returns>
+            Returns the created comment details if successful.
+            </returns>
+            <response code="201">Comment created successfully.</response>
+            <response code="400">If the user does not exist, blog ID is invalid, or the request model is invalid.</response>
+            <response code="401">If the user is not authenticated.</response>
+            <remarks>
+            Requires authentication. Associates the comment with the authenticated user and the specified blog.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.CommentController.UpdateComment(System.Guid,AJudge.Application.DtO.CommentDTO.UpdateCommentDTO)">
+            <summary>
+            Updates the content of an existing comment.
+            </summary>
+            <param name="id">The unique identifier of the comment to update.</param>
+            <param name="request">The updated comment data.</param>
+            <returns>
+            Returns the updated comment details if successful.
+            </returns>
+            <response code="200">Comment updated successfully.</response>
+            <response code="403">If the authenticated user is not the author of the comment.</response>
+            <response code="404">If the comment with the specified ID does not exist.</response>
+            <response code="401">If the user is not authenticated.</response>
+            <remarks>
+            Requires authentication. Only the author of the comment can update it.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.CommentController.VoteOnComment(System.Guid,AJudge.Domain.Entities.VoteType)">
+            <summary>
+            Casts a vote on a specific comment.
+            </summary>
+            <param name="commentId">The ID of the comment to vote on.</param>
+            <param name="vote">The type of vote (e.g., Upvote or Downvote).</param>
+            <returns>
+            Returns a confirmation message if the vote is successful.
+            </returns>
+            <response code="200">Vote successfully cast.</response>
+            <response code="400">If the user has already voted on this comment.</response>
+            <response code="401">If the user is not authenticated.</response>
+            <response code="404">If the comment does not exist.</response>
+            <remarks>
+            Requires authentication. A user can only vote once on a given comment.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.CommentController.DeleteComment(System.Guid)">
+            <summary>
+            Deletes a comment by its ID.
+            </summary>
+            <param name="id">The unique identifier of the comment to delete.</param>
+            <returns>
+            Returns 204 No Content if deletion is successful.
+            </returns>
+            <response code="204">Comment deleted successfully.</response>
+            <response code="400">If the comment cannot be deleted due to foreign key constraints.</response>
+            <response code="401">If the user is not authenticated.</response>
+            <response code="403">If the user is not the author of the comment.</response>
+            <response code="404">If the comment does not exist.</response>
+            <response code="500">If an unexpected error occurs during deletion.</response>
+            <remarks>
+            Requires authentication. Only the author of the comment can delete it.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.ContestController.GetAllContestPerSpecificPage(System.String,System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            Retrieves a paginated list of contests, optionally sorted by a specified property.
+            </summary>
+            <param name="sortBy">The property name to sort by (e.g., "Title", "StartDate").</param>
+            <param name="isAssending">True for ascending sort, false for descending.</param>
+            <param name="pageNumber">The page number to retrieve (starting from 1).</param>
+            <param name="pageSize">The number of contests per page.</param>
+            <returns>
+            200 OK with the paginated list of contests;  
+            400 Bad Request if sortBy is invalid;  
+            404 Not Found if the page does not exist.
+            </returns>
+            <response code="200">Returns the list of contests for the requested page.</response>
+            <response code="400">Invalid sort property.</response>
+            <response code="404">Page not found.</response>
+        </member>
+        <member name="M:AJudge.Controllers.ContestController.GetContestById(System.Int32)">
+            <summary>
+            Retrieves the details of a specific contest by its ID.
+            </summary>
+            <param name="id">The ID of the contest to retrieve.</param>
+            <returns>
+            200 OK with the contest details;  
+            404 Not Found if no contest exists with the given ID.
+            </returns>
+            <response code="200">Returns the contest details.</response>
+            <response code="404">Contest not found.</response>
+        </member>
+        <member name="M:AJudge.Controllers.ContestController.GetContestProblems(System.Int32)">
+            <summary>
+            Retrieves the list of problems associated with a specific contest.
+            </summary>
+            <param name="id">The ID of the contest.</param>
+            <returns>
+            A list of problems for the contest, including their names and links.
+            </returns>
+            <response code="200">Returns the list of contest problems.</response>
+            <response code="404">Contest not found.</response>
+        </member>
+        <member name="M:AJudge.Controllers.ContestController.UpdateContest(System.Int32,AJudge.Domain.Entities.UpdateContestRequest)">
+            <summary>
+            Updates an existing contest with new data.
+            </summary>
+            <param name="id">The ID of the contest to update.</param>
+            <param name="contestData">The updated contest data.</param>
+            <returns>
+            The updated contest object if found and updated successfully.
+            </returns>
+            <response code="200">Returns the updated contest.</response>
+            <response code="404">Contest with the specified ID was not found.</response>
+        </member>
+        <member name="M:AJudge.Controllers.ContestController.GetContestsByGroupId(System.Int32)">
+            <summary>
+            Retrieves all contests associated with a specific group.
+            </summary>
+            <param name="id">The ID of the group to retrieve contests for.</param>
+            <returns>A list of contests belonging to the specified group.</returns>
+            <response code="200">Returns the list of contests.</response>
+            <response code="404">Group not found.</response>
+        </member>
+        <member name="M:AJudge.Controllers.ContestController.AddContestToGroup(AJudge.Domain.Entities.ContestGroupRequest)">
+            <summary>
+            Adds a contest to a specified group.
+            </summary>
+            <param name="request">Contains the IDs of the contest and the group.</param>
+            <returns>Returns 200 OK if the contest is successfully added to the group; otherwise, returns 400 Bad Request.</returns>
+            <response code="200">Contest was successfully added to the group.</response>
+            <response code="400">Failed to add contest to group due to invalid contest or group ID.</response>
+        </member>
+        <member name="M:AJudge.Controllers.ContestController.RemoveContestFromGroup(AJudge.Domain.Entities.ContestGroupRequest)">
+            <summary>
+            Removes a contest from a specified group.
+            </summary>
+            <param name="request">The request containing the ContestId and GroupId.</param>
+            <returns>
+            Returns <see cref="T:Microsoft.AspNetCore.Mvc.OkResult"/> if the contest was successfully removed from the group.
+            Returns <see cref="T:Microsoft.AspNetCore.Mvc.BadRequestObjectResult"/> if the removal failed, 
+            which may indicate that the group doesn't exist or the contest is not in the group.
+            </returns>
+        </member>
+    </members>
+</doc>

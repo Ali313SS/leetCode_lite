@@ -19,6 +19,18 @@ namespace AJudge.Controllers
         }
 
 
+
+
+        /// <summary>
+        /// Retrieves a specific blog post by its ID.
+        /// </summary>
+        /// <param name="id">The unique ID of the blog post.</param>
+        /// <returns>
+        /// Returns the blog details including author and votes if found; 
+        /// otherwise, returns 404 with a "no such blog" message.
+        /// </returns>
+        /// <response code="200">Returns the blog details</response>
+        /// <response code="404">If no blog with the given ID is found</response>
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetBlogById(int id)
         {
@@ -30,8 +42,14 @@ namespace AJudge.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Retrieves all blog posts including their authors and votes.
+        /// </summary>
+        /// <returns>
+        /// A list of all blog posts, each with author and vote details.
+        /// </returns>
+        /// <response code="200">Returns the list of blog posts</response>
         [HttpGet]
-
         public async Task<IActionResult> GetAllBlogs()
         {
             var blogs = await _unitOfWork.Blog.GetAllBlogs(new[] { "Author", "Votes" });
@@ -40,7 +58,18 @@ namespace AJudge.Controllers
             return Ok(responses);
         }
 
-
+        /// <summary>
+        /// Creates a new blog post.
+        /// </summary>
+        /// <param name="request">The blog data to create, including title and content.</param>
+        /// <returns>
+        /// Returns the created blog post data with a 201 status code if successful; otherwise, returns a 400 error.
+        /// </returns>
+        /// <response code="201">Returns the newly created blog</response>
+        /// <response code="400">If the user doesn't exist or model validation fails</response>
+        /// <remarks>
+        /// Requires user to be authenticated (Bearer token).
+        /// </remarks>
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> CreateBlog(CreateBlogDTo request)
@@ -68,6 +97,22 @@ namespace AJudge.Controllers
 
         }
 
+
+        /// <summary>
+        /// Updates the content of an existing blog post.
+        /// </summary>
+        /// <param name="id">The ID of the blog post to update.</param>
+        /// <param name="request">The updated blog content.</param>
+        /// <returns>
+        /// Returns the updated blog data if the update is successful; otherwise, returns an appropriate error response.
+        /// </returns>
+        /// <response code="200">Returns the updated blog post</response>
+        /// <response code="400">If the request model is invalid</response>
+        /// <response code="403">If the current user is not the author of the blog</response>
+        /// <response code="404">If the blog post does not exist</response>
+        /// <remarks>
+        /// Requires authentication (Bearer token). Only the blog's author can update it.
+        /// </remarks>
         [HttpPut("{id:int}")]
         [Authorize]
         public async Task<IActionResult> UpdateBlog(int id,UpdateBlogDTO request)
@@ -100,10 +145,22 @@ namespace AJudge.Controllers
             return Ok(response);
 
         }
-        
 
 
 
+        /// <summary>
+        /// Deletes a blog post by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the blog to delete.</param>
+        /// <returns>
+        /// Returns <c>NoContent</c> if the deletion is successful; otherwise returns appropriate error responses.
+        /// </returns>
+        /// <response code="204">Blog deleted successfully</response>
+        /// <response code="403">If the current user is not the author of the blog</response>
+        /// <response code="404">If the blog post does not exist</response>
+        /// <remarks>
+        /// Requires authentication. Only the author of the blog can delete it.
+        /// </remarks>
         [HttpDelete("{id:int}")]
         [Authorize]
         public async Task<IActionResult> DeleteBlog(int id)

@@ -93,7 +93,7 @@ namespace AJudge
     });
 
 
-
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "api.xml"));
             }
             
             );
