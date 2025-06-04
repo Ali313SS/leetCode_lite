@@ -12,6 +12,7 @@ using AJudge.Application.DTO.GroupDTO;
 using System;
 using System.Security.Claims;
 using static AJudge.Domain.Entities.Problem;
+
 namespace AJudge.Controllers
 {
     [Route("api/[controller]")]
@@ -19,20 +20,9 @@ namespace AJudge.Controllers
     public class ProblemController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
-
         private readonly IProblemService _problemService;
         private readonly IGroupServices _groupServices;
-
-
         private readonly ApplicationDbContext _context;
-        //public ProblemController(ApplicationDbContext context)
-        //{
-        //    _context = context;
-        //}
-        //public ProblemController(IProblemService problemService)
-        //{
-        //    _problemService = problemService;
-        //}
 
         public ProblemController(ApplicationDbContext context, IProblemService problemService, IGroupServices groupServices)
         {
@@ -40,11 +30,31 @@ namespace AJudge.Controllers
             _problemService = problemService;
             _groupServices = groupServices;
         }
+
+        [HttpGet("{problemId}")]
+        public async Task<IActionResult> GetProblemDetails(int problemId)
+        {
+            int? userId = null;
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                if (userIdClaim != null && int.TryParse(userIdClaim?.Value, out int parsedId))
+                {
+                    userId = parsedId;
+                }
+            }
+
+            ProblemDetailsDTO? problemDetailsDTO = await _problemService.GetProblemDetailsAsync(problemId, userId);
+            if (problemDetailsDTO == null)
+                return NotFound(new { message = "No such problem found." });
+
+            return Ok(problemDetailsDTO);
+        }
+
         [HttpPost("CSESProblem")]
         [Authorize]
         public async Task<IActionResult> FetchP([FromBody] FetchProblemDto problemDto)
         {
-            
             if (!ModelState.IsValid)
             {
                 return BadRequest(new { message = "invalid data " });
@@ -65,7 +75,6 @@ namespace AJudge.Controllers
                 var problem = await _problemService.FetchProblem(problemDto);
                 if (problem == null)
                 {
-
                     return BadRequest(new { message = "problem not added" });
                 }
                 Problem NewProblem = new Problem
@@ -85,8 +94,6 @@ namespace AJudge.Controllers
                         Input = tc.Input,
                         Output = tc.Output
                     }).ToList(),
-
-
                 };
                 ProblemDetailsDTO problemDTO = ProblemDetailsDTO.ConvertToProblemDetalsDTO(
                     NewProblem,
@@ -100,8 +107,6 @@ namespace AJudge.Controllers
                 );
                 try
                 {
-
-                    
                     Console.Beep();
                     Console.Beep();
                     await _context.Problems.AddAsync(NewProblem);
@@ -112,17 +117,14 @@ namespace AJudge.Controllers
                     return StatusCode(500, new { message = "error occure", error = ex.Message });
                 }
                 return Ok(problemDTO);
-
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new { message = "error occure", error = ex.Message });
             }
-
-
         }
+
         [HttpPost("Sumbit")]
-    //    [Authorize]
         public async Task<IActionResult> SubmitProblem([FromBody] SumbitDTO sumbit)
         {
             if (!ModelState.IsValid)
@@ -131,8 +133,7 @@ namespace AJudge.Controllers
             }
             try
             {
-                //int userId = GetUserIdFromToken();
-                int userId = 1;
+                int userId = 1; // Temporary hardcoded userId, replace with GetUserIdFromToken() if needed
                 var result = await _problemService.SumbitProblem(sumbit.ProblemLink, userId, sumbit.Code);
                 if (result == null)
                 {
@@ -146,285 +147,6 @@ namespace AJudge.Controllers
             }
         }
 
-        //    [HttpGet("GetProblems")]
-        //    public async Task<ActionResult<IEnumerable<Problem>>> GetProblems(
-        //        [FromQuery] string tags,
-        //        [FromQuery] int? rating,
-        //        [FromQuery] int page = 1,
-        //        [FromQuery] int pageSize = 20,
-        //        [FromQuery] string status = null)
-        //    {
-        //        try
-        //        {
-        //            if (page < 1) page = 1;
-        //            if (pageSize < 1 || pageSize > 100) pageSize = 20;
-
-        //            var query = _context.Problems
-        //                .Include(p => p.ProblemTags)
-        //                .ThenInclude(pt => pt.Tag)
-        //                .AsQueryable();
-
-        //            if (!string.IsNullOrWhiteSpace(tags))
-        //            {
-        //                var tagsList = tags.Split(" and ", StringSplitOptions.RemoveEmptyEntries)
-        //                    .Select(t => t.Trim())
-        //                    .Where(t => !string.IsNullOrWhiteSpace(t))
-        //                    .ToList();
-
-        //                if (tagsList.Any())
-        //                {
-        //                    foreach (var tag in tagsList)
-        //                    {
-        //                        var tagLower = tag.ToLower();
-        //                        query = query.Where(p => p.ProblemTags.Any(pt =>
-        //                            EF.Functions.Like(pt.Tag.Name.ToLower(), tagLower)));
-        //                    }
-        //                }
-        //            }
-
-        //            if (rating.HasValue)
-        //            {
-        //                query = query.Where(p => p.Rating == rating.Value);
-        //            }
-
-        //            if (!string.IsNullOrWhiteSpace(status))
-        //            {
-        //                if (Enum.TryParse<ProblemStatus>(status, true, out var problemStatus))
-        //                {
-        //                    query = query.Where(p => p.Status == problemStatus);
-        //                }
-        //                else
-        //                {
-        //                    return BadRequest(new { error = $"Invalid problem status: {status}" });
-        //                }
-        //            }
-
-        //            var totalCount = await query.CountAsync();
-
-        //            var problems = await query
-        //                .Skip((page - 1) * pageSize)
-        //                .Take(pageSize)
-        //                .ToListAsync();
-
-        //            var problemDtos = problems.Select(p => new Problem
-        //            {
-        //                ProblemId = p.ProblemId,
-        //                Rating = p.Rating,
-        //                Status = p.Status,
-        //              //  stringTags = p.ProblemTags.Select(pt => pt.Tag.Name).ToList()
-        //            });
-
-        //            return Ok(new
-        //            {
-        //                data = problemDtos,
-        //                pagination = new
-        //                {
-        //                    currentPage = page,
-        //                    pageSize = pageSize,
-        //                    totalItems = totalCount,
-        //                    totalPages = (int)Math.Ceiling(totalCount / (double)pageSize)
-        //                }
-        //            });
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            return StatusCode(500, new { message = "error occure", error = ex.Message });
-        //        }
-        //    }
-
-
-
-        //    [HttpGet("{problemName}")]
-
-        //    public async Task<IActionResult> GetProblem(string problemName)
-        //    {
-        //        int? userId = null;
-        //        if (User.Identity != null && User.Identity.IsAuthenticated)
-        //        {
-        //            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-        //            if(userIdClaim != null && int.TryParse(userIdClaim?.Value, out int parsedId))
-        //            {
-        //                userId = parsedId;  
-        //            }
-        //        }
-        //        ProblemDetailsDTO? problemDEtailsDTO = await _problemService.GetProblemByName(problemName, userId);
-
-
-
-        //        if (problemDEtailsDTO == null)
-        //            return NotFound("No such Problem");
-        //        return Ok(problemDEtailsDTO);
-        //    }
-
-
-
-
-
-        //    [HttpGet("page")]
-        //    public async Task<IActionResult> GetAllProblemsPerSpecificPage(string? sortBy, bool isAssending = true, int pageNumber = 1, int pageSize = 100)
-        //    {
-
-        //        var sortByy = typeof(Problem).GetProperty(sortBy);
-        //        if(sortByy == null)
-        //        {
-        //            return BadRequest("No such property");
-        //        }
-        //        var page = await _problemService.GetAllProblemsInPage(sortBy, isAssending, pageNumber, pageSize);
-
-
-        //        if (page == null)
-        //            return NotFound("No such Page");
-
-        //        var DisPage=ProblemPageDTO.ConvertToProblemPageDTO(page);
-
-
-        //        return Ok(DisPage);
-        //    }
-
-
-
-        //        //[HttpPost("CreateProblem")]
-        //        //public async Task<IActionResult> CreateProblem([FromBody] ProblemDTO problem)
-        //        //{
-        //        //    //var result = await _problemService.CreateProblem(problemDTO);
-        //        //    //return Ok(result);
-        //        //    return Ok();
-        //        //}
-
-
-
-        //        [HttpPost("CreateProblem")]
-        //    public async Task<IActionResult> CreateProblem([FromBody] ProblemDTO problemDto)
-        //    {
-        //        if (!ModelState.IsValid)
-        //        {
-        //            return BadRequest(new { message = "invalid data " });
-        //        }
-
-        //        try
-        //        {
-        //            var problem = new Problem
-        //            {
-        //                ProblemSource = problemDto.ProblemSource,
-        //                ProblemLink = problemDto.problemLink,
-        //                ProblemName = problemDto.ProblemName,
-        //                Rating = problemDto.Rating,
-
-        //                ProblemSourceID = "ProblemSourceID",
-        //                ContestId = problemDto.ContestId,
-        //                Description = "Description Placeholder",
-        //                InputFormat = "Input Format Placeholder",
-        //                OutputFormat = "Output Format Placeholder",
-        //                numberOfTestCases = problemDto.NumberOfTestCases
-        //            };
-
-        //            await _context.Problems.AddAsync(problem);
-        //            await _context.SaveChangesAsync();
-
-        //            var problemDetails = ProblemDetailsDTO.ConvertToProblemDetalsDTO(
-        //                problem,
-        //                "Not Submitted",
-        //                new List<string>(),
-        //               new List<InputOutputTestCasesDTO>() 
-        //            );
-
-        //            return CreatedAtAction(nameof(GetProblem), new { problemName = problem.ProblemName }, new
-        //            {
-        //                message = "problem added ",
-        //                problem = problemDetails
-        //            });
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            return StatusCode(500, new { message = "error occure", error = ex.Message });
-        //        }
-        //    }
-
-
-
-
-        //    [HttpPut("{id}")]
-        //    public async Task<IActionResult> UpdateProblem(int id, [FromBody] ProblemDTO problemDto)
-        //    {
-        //        if (!ModelState.IsValid)
-        //        {
-        //            return BadRequest(new { message = "invalid data " });
-
-        //        }
-
-        //        try
-        //        {
-        //            var existingProblem = await _context.Problems
-        //                .FirstOrDefaultAsync(p => p.ProblemId == id);
-
-        //            if (existingProblem == null)
-        //            {
-        //                return NotFound(new { message = "invalid data " });
-
-        //            }
-
-
-        //            existingProblem.ProblemSource = problemDto.ProblemSource ?? existingProblem.ProblemSource;
-        //            existingProblem.ProblemLink = problemDto.problemLink ?? existingProblem.ProblemLink;
-        //            existingProblem.ProblemName = problemDto.ProblemName ?? existingProblem.ProblemName;
-        //            existingProblem.Rating = problemDto.Rating > 0 ? problemDto.Rating : existingProblem.Rating;
-        //            existingProblem.ProblemSourceID = problemDto.ProblemSourceID ?? existingProblem.ProblemSourceID;
-        //            existingProblem.ContestId = problemDto.ContestId > 0 ? problemDto.ContestId : existingProblem.ContestId;
-        //            existingProblem.numberOfTestCases = problemDto.NumberOfTestCases > 0 ? problemDto.NumberOfTestCases : existingProblem.numberOfTestCases;
-        //            existingProblem.Description = "string...."; 
-        //            existingProblem.InputFormat = "string....";
-        //            existingProblem.OutputFormat ="string....";
-
-        //            _context.Problems.Update(existingProblem);
-        //            await _context.SaveChangesAsync();
-
-        //            var problemDetails = ProblemDetailsDTO.ConvertToProblemDetalsDTO(
-        //                existingProblem,
-        //                "Not Submitted",
-        //                new List<string>(),
-        //                new List<InputOutputTestCasesDTO>()
-        //            );
-
-        //            return Ok(new
-        //            {
-        //                message = "problem updated ",
-
-        //                problem = problemDetails
-        //            });
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            return StatusCode(500, new { message = "error occure", error = ex.Message });
-        //        }
-        //    }
-
-
-
-        //    [HttpDelete("{id}")]
-        //    public async Task<IActionResult> DeleteProblem(int id)
-        //    {
-        //        try
-        //        {
-        //            var problem = await _context.Problems
-        //                .FirstOrDefaultAsync(p => p.ProblemId == id);
-
-        //            if (problem == null)
-        //            {
-        //                return NotFound(new { message = "invalid data " });
-        //            }
-
-        //            _context.Problems.Remove(problem);
-        //            await _context.SaveChangesAsync();
-
-        //            return Ok(new { message = "problem deleted " });
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            return StatusCode(500, new { message = "error occure ", error = ex.Message });
-        //        }
-        //    }
-
-        //}
         private int GetUserIdFromToken()
         {
             if (HttpContext.User.Identity is ClaimsIdentity identity)
@@ -438,10 +160,10 @@ namespace AJudge.Controllers
             throw new UnauthorizedAccessException("User ID not found in token.");
         }
     }
+
     public class SumbitDTO
     {
         public string ProblemLink { get; set; }
         public string Code { get; set; }
     }
-
 }
