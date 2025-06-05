@@ -34,7 +34,7 @@ namespace AJudge.Application.services
             if (group.Members.FirstOrDefault(u => u.UserId == userId) != null)
             {
                 return await Task.FromResult(false);
-            }
+            }  
             group.Members.Add(uesr);
             await _context.SaveChangesAsync();
             foreach (var i in group.Members)

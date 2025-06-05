@@ -31,7 +31,17 @@ namespace AJudge.Controllers
             _groupServices = groupServices;
         }
 
+        /// <summary>
+        /// Retrieves detailed information about a specific problem.
+        /// </summary>
+        /// <param name="problemId">The unique identifier of the problem.</param>
+        /// <returns>
+        /// Returns the detailed problem information if found; otherwise, returns a 404 Not Found response.
+        /// If the user is authenticated, their user ID is used to tailor the response (e.g., submission state).
+        /// </returns>
         [HttpGet("{problemId}")]
+        [ProducesResponseType(typeof(ProblemDetailsDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetProblemDetails(int problemId)
         {
             int? userId = null;
@@ -50,9 +60,16 @@ namespace AJudge.Controllers
 
             return Ok(problemDetailsDTO);
         }
-
+        /// <summary>
+        /// Fetches a problem from an external source (like CSES), adds it to the contest, and returns detailed problem info.
+        /// </summary>
+        /// <param name="problemDto">Problem details including source, link, problem ID, and contest ID.</param>
+        /// <returns>Returns detailed problem info on success or an error message.</returns>
         [HttpPost("CSESProblem")]
         [Authorize]
+        [ProducesResponseType(typeof(ProblemDetailsDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> FetchP([FromBody] FetchProblemDto problemDto)
         {
             if (!ModelState.IsValid)
@@ -123,7 +140,11 @@ namespace AJudge.Controllers
                 return StatusCode(500, new { message = "error occure", error = ex.Message });
             }
         }
-
+        /// <summary>
+        /// Submit a solution code for a problem.
+        /// </summary>
+        /// <param name="submit">Contains problem link and submitted code.</param>
+        /// <returns>Returns result of the submission or error.</returns>
         [HttpPost("Sumbit")]
         public async Task<IActionResult> SubmitProblem([FromBody] SumbitDTO sumbit)
         {
@@ -163,7 +184,13 @@ namespace AJudge.Controllers
 
     public class SumbitDTO
     {
+        /// <summary>
+        /// link of problem
+        /// </summary>
         public string ProblemLink { get; set; }
+        /// <summary>
+        /// content of code submission
+        /// </summary>
         public string Code { get; set; }
     }
 }

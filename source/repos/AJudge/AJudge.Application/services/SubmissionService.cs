@@ -89,6 +89,7 @@ namespace AJudge.Application.services
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
+
         public async Task<SubmissionPagination> GetAllSubmissionInJudgePage(string judgeProperty, string? onlineJudge, int pageNumber, int pageSize)
         {
             if (pageNumber < 1 || pageSize < 1)
@@ -137,6 +138,7 @@ namespace AJudge.Application.services
                 HasNext = pageNumber < totalPages
             };
         }
+
 
         public async Task<SubmissionPagination> GetUserSubmissionsAsync(int userId, string? onlineJudge, int pageNumber, int pageSize)
         {
@@ -190,7 +192,7 @@ namespace AJudge.Application.services
                 HasNext = pageNumber < totalPages
             };
         }
-
+      
         public async Task<SubmissionPagination> GetFollowedUsersSubmissionsAsync(int userId, string? groupType, string? onlineJudge, int pageNumber, int pageSize)
         {
             if (userId <= 0)

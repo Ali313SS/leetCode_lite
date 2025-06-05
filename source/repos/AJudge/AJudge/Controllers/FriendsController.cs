@@ -21,6 +21,18 @@ namespace AJudge.Controllers
             _context = context;
         }
 
+
+
+        /// <summary>
+        /// Adds a user as a friend for the currently authenticated user.
+        /// </summary>
+        /// <param name="friendId">The ID of the user to be added as a friend.</param>
+        /// <returns>
+        /// Returns 200 OK if the friend was added successfully.
+        /// Returns 400 Bad Request if the friend is already added, the request is invalid, 
+        /// or the friend/user does not exist.
+        /// Returns 401 Unauthorized if the current user is not authenticated.
+        /// </returns>
         [HttpPost]
         public async Task<IActionResult> AddFriend(int friendId)
         {
@@ -61,6 +73,17 @@ namespace AJudge.Controllers
             return Ok("Friend added successfully!");
         }
 
+
+
+        /// <summary>
+        /// Removes a friend from the currently authenticated user's friends list.
+        /// </summary>
+        /// <param name="friendId">The ID of the user to be removed as a friend.</param>
+        /// <returns>
+        /// Returns 200 OK if the friend was removed successfully.<br/>
+        /// Returns 400 Bad Request if the request is invalid or the user is not a friend<br/>
+        /// Returns 401 Unauthorized if the current user is not authenticated
+        /// </returns>
         [HttpDelete]
         public async Task<IActionResult> RemoveFriend(int friendId)
         {
