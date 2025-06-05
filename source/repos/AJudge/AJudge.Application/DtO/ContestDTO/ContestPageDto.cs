@@ -10,13 +10,39 @@ using AJudge.Domain.Entities;
 
 namespace AJudge.Application.DtO.ContestDTO
 {
+    /// <summary>
+    /// Data transfer object representing a paginated list of contests.
+    /// </summary>
     public class ContestPageDto
     {
 
+      
+
+
+
+        /// <summary>
+        /// Gets or sets the list of contests on the current page.
+        /// </summary>
         public List<ContestDto> items { get; set; }
+
+        /// <summary>
+        /// Gets or sets the total number of pages available.
+        /// </summary>
         public int TotalPages { get; set; }
+
+        /// <summary>
+        /// Gets or sets the current page number (1-based).
+        /// </summary>
         public int PageNumber { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether there is a next page available.
+        /// </summary>
         public bool HasNext { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether there is a previous page available.
+        /// </summary>
         public bool HasPrevious { get; set; }
         public static ContestPageDto ConvertToContestDto(ContestPagination pagination)
         {

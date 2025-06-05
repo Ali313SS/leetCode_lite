@@ -24,7 +24,23 @@ namespace AJudge.Controllers
         {
             _ContestServices = ContestServices;
         }
-        
+
+
+        /// <summary>
+        /// Retrieves a paginated list of contests, optionally sorted by a specified property.
+        /// </summary>
+        /// <param name="sortBy">The property name to sort by (e.g., "Title", "StartDate").</param>
+        /// <param name="isAssending">True for ascending sort, false for descending.</param>
+        /// <param name="pageNumber">The page number to retrieve (starting from 1).</param>
+        /// <param name="pageSize">The number of contests per page.</param>
+        /// <returns>
+        /// 200 OK with the paginated list of contests;  
+        /// 400 Bad Request if sortBy is invalid;  
+        /// 404 Not Found if the page does not exist.
+        /// </returns>
+        /// <response code="200">Returns the list of contests for the requested page.</response>
+        /// <response code="400">Invalid sort property.</response>
+        /// <response code="404">Page not found.</response>
         [HttpGet("Contest")]
         public async Task<IActionResult> GetAllContestPerSpecificPage(string? sortBy, bool isAssending = true, int pageNumber = 1, int pageSize = 20)
         {
@@ -46,7 +62,16 @@ namespace AJudge.Controllers
             return Ok(DisPage);
         }
 
-
+        /// <summary>
+        /// Retrieves the details of a specific contest by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the contest to retrieve.</param>
+        /// <returns>
+        /// 200 OK with the contest details;  
+        /// 404 Not Found if no contest exists with the given ID.
+        /// </returns>
+        /// <response code="200">Returns the contest details.</response>
+        /// <response code="404">Contest not found.</response>
         [HttpGet("{id}/Getcontest")]
         [Authorize]
 
@@ -60,7 +85,16 @@ namespace AJudge.Controllers
           
             return Ok(new { Name = contest });
         }
-        
+
+        /// <summary>
+        /// Retrieves the list of problems associated with a specific contest.
+        /// </summary>
+        /// <param name="id">The ID of the contest.</param>
+        /// <returns>
+        /// A list of problems for the contest, including their names and links.
+        /// </returns>
+        /// <response code="200">Returns the list of contest problems.</response>
+        /// <response code="404">Contest not found.</response>
         [HttpGet("{id}/Contestproblems")]
         [Authorize]
 
@@ -76,7 +110,16 @@ namespace AJudge.Controllers
             return Ok(problemDetails);
         }
 
-
+        /// <summary>
+        /// Updates an existing contest with new data.
+        /// </summary>
+        /// <param name="id">The ID of the contest to update.</param>
+        /// <param name="contestData">The updated contest data.</param>
+        /// <returns>
+        /// The updated contest object if found and updated successfully.
+        /// </returns>
+        /// <response code="200">Returns the updated contest.</response>
+        /// <response code="404">Contest with the specified ID was not found.</response>
         [HttpPut("{id}/updatecontest")]
         [Authorize]
 
@@ -90,8 +133,14 @@ namespace AJudge.Controllers
             return updatedContest;
         }
 
-        
 
+        /// <summary>
+        /// Retrieves all contests associated with a specific group.
+        /// </summary>
+        /// <param name="id">The ID of the group to retrieve contests for.</param>
+        /// <returns>A list of contests belonging to the specified group.</returns>
+        /// <response code="200">Returns the list of contests.</response>
+        /// <response code="404">Group not found.</response>
         [HttpGet("{id}/ContestByGroupId")]
         [Authorize]
 
@@ -105,6 +154,14 @@ namespace AJudge.Controllers
             return await _ContestServices.GetContestsByGroupIdAsync(id);
         }
 
+
+        /// <summary>
+        /// Adds a contest to a specified group.
+        /// </summary>
+        /// <param name="request">Contains the IDs of the contest and the group.</param>
+        /// <returns>Returns 200 OK if the contest is successfully added to the group; otherwise, returns 400 Bad Request.</returns>
+        /// <response code="200">Contest was successfully added to the group.</response>
+        /// <response code="400">Failed to add contest to group due to invalid contest or group ID.</response>
         [HttpPost("AddContestTOGroup")]
         [Authorize]
 
@@ -118,6 +175,16 @@ namespace AJudge.Controllers
             return Ok();
         }
 
+
+        /// <summary>
+        /// Removes a contest from a specified group.
+        /// </summary>
+        /// <param name="request">The request containing the ContestId and GroupId.</param>
+        /// <returns>
+        /// Returns <see cref="OkResult"/> if the contest was successfully removed from the group.
+        /// Returns <see cref="BadRequestObjectResult"/> if the removal failed, 
+        /// which may indicate that the group doesn't exist or the contest is not in the group.
+        /// </returns>
         [HttpPost("removeContestFromGroup")]
         [Authorize]
 
