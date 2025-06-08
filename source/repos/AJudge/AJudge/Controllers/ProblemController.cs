@@ -12,6 +12,11 @@ using AJudge.Application.DTO.GroupDTO;
 using System;
 using System.Security.Claims;
 using static AJudge.Domain.Entities.Problem;
+using Azure;
+using System.Net;
+using Microsoft.AspNetCore.Identity;
+using AJudge.Application.DtO.CommentDTO;
+using AJudge.Infrastructure.Repositories;
 namespace AJudge.Controllers
 {
     [Route("api/[controller]")]
@@ -34,8 +39,9 @@ namespace AJudge.Controllers
         //    _problemService = problemService;
         //}
 
-        public ProblemController(ApplicationDbContext context, IProblemService problemService, IGroupServices groupServices)
+        public ProblemController(IUnitOfWork unitOfwork, ApplicationDbContext context, IProblemService problemService, IGroupServices groupServices)
         {
+            _unitOfWork = unitOfwork;
             _context = context;
             _problemService = problemService;
             _groupServices = groupServices;
@@ -401,6 +407,32 @@ namespace AJudge.Controllers
         //    }
 
         //}
+        [HttpPut("UpdateProblem{id}")]
+        public async Task<IActionResult> UpdateProblem(int id, [FromBody]UpdateProblemDto request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+            }
+
+            Problem? problem = await _unitOfWork.Problem.GetById(id );
+            if (problem == null)
+                return NotFound("No such problem");
+
+            // Check if current user has permission to update this problem
+            var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            
+            _unitOfWork.Attach(problem);
+
+            problem.Description = request.Description;
+            problem.numberOfTestCases = request.numberOfTestCases;       
+
+            
+            await _unitOfWork.CompleteAsync();
+
+            var response = ProblemResponseDto.ConvertToProblemResponseDTO(problem);
+            return Ok(response);
+        }
         private int GetUserIdFromToken()
         {
             if (HttpContext.User.Identity is ClaimsIdentity identity)
