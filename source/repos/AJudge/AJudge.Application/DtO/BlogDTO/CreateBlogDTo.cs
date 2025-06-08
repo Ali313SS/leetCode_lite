@@ -8,13 +8,27 @@ using System.Threading.Tasks;
 
 namespace AJudge.Application.DtO.BlogDTO
 {
+    /// <summary>
+    /// Data transfer object used for creating a new blog post.
+    /// </summary>
     public class CreateBlogDTo
     {
+       
+
+
+        /// <summary>
+        /// Gets or sets the content of the blog post.
+        /// This field is required.
+        /// </summary>
         [Required]
         public string Content { get; set; }
-        public DateTime CreatedAt =>DateTime.Now;
-       // [Required]
-     //   public int CreaterId { get; set; }
+
+        /// <summary>
+        /// Gets the date and time when the blog post is created.
+        /// This property is automatically set to the current date and time.
+        /// </summary>
+        public DateTime CreatedAt => DateTime.Now;
+
 
         public static  Blog  ConvertToBlog(CreateBlogDTo request)
         {
@@ -22,7 +36,6 @@ namespace AJudge.Application.DtO.BlogDTO
             {
                 Content = request.Content,
                 CreatedAt = request.CreatedAt,
-               // AuthorUserId = request.CreaterId,
             };
         }
 

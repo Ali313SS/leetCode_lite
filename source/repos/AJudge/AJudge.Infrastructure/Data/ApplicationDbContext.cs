@@ -14,7 +14,7 @@ namespace AJudge.Infrastructure.Data
         public DbSet<Blog> Blog { get; set; }
         public DbSet<ChatBot> ChatBots { get; set; }
         public DbSet<Contest> Contests { get; set; }
-
+        public DbSet<ContestProblem>ContestProblems { get; set; }
 
         public DbSet<Group> Groups { get; set; }
         public DbSet<Problem> Problems { get; set; }
@@ -30,7 +30,7 @@ namespace AJudge.Infrastructure.Data
         public DbSet<Sources> Sources { get; set; }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Team> Teams { get; set; }
+      public DbSet<Team> Teams { get; set; }
         public DbSet<UserTeam> UserTeams { get; set; }
         public DbSet<UserTeamInvitation> UserTeamInvitations { get; set; }
       
@@ -280,7 +280,26 @@ namespace AJudge.Infrastructure.Data
            .HasCheckConstraint("CK_Vote_CommentOrBlog",
                "(CommentId IS NOT NULL AND BlogId IS NULL) OR (CommentId IS NULL AND BlogId IS NOT NULL)");
 
+            modelBuilder.Entity<ContestProblem>()
+                      .HasKey(e => new { e.ContestId, e.ProblemId });
 
+            modelBuilder.Entity<Contest>()
+                .HasMany(u => u.Problems)
+                .WithMany(t => t.Contests)
+                .UsingEntity<ContestProblem>(
+                    join => join
+                        .HasOne(ut => ut.Problem)
+                        .WithMany(t => t.ContestProblems)
+                        .HasForeignKey(ut => ut.ProblemId),
+                    join => join
+                        .HasOne(ut => ut.Contest)
+                        .WithMany(u => u.ContestProblems)
+                        .HasForeignKey(ut => ut.ContestId),
+                    join =>
+                    {
+                        join.HasKey(ut => new { ut.ContestId, ut.ProblemId });
+                        join.ToTable("ContestProblem");
+                    });
 
         }
 

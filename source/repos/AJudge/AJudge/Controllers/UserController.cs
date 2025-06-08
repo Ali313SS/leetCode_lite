@@ -26,6 +26,14 @@ namespace AJudge.Controllers
             _userService= userService;
         }
 
+        /// <summary>
+        /// Retrieves a list of all users with basic information only.
+        /// Does not include related data such as groups, friends, or other navigation properties.
+        /// </summary>
+        /// <returns>
+        /// Returns an <see cref="OkObjectResult"/> containing a list of <see cref="UserResponseDTO"/> objects
+        /// if users exist; otherwise, returns <see cref="NoContentResult"/>.
+        /// </returns>
         [HttpGet]   // get only the info of user no other related data like groups or friends etc
         public async Task<IActionResult> GetAllUsers()
         {
@@ -39,6 +47,13 @@ namespace AJudge.Controllers
           return Ok(userResponseDTO);     
         }
 
+        /// <summary>
+        /// Retrieves the public profile information of a user by their username.
+        /// </summary>
+        /// <param name="name">The username of the user to retrieve.</param>
+        /// <returns>
+        /// Returns 200 OK with user data if found; otherwise, 404 Not Found.
+        /// </returns>
         [HttpGet("{name}")]   
         public async Task<IActionResult> GetUser(string name)
         {
@@ -54,10 +69,16 @@ namespace AJudge.Controllers
 
 
 
-                  
 
 
 
+        /// <summary>
+        /// Retrieves the names of all groups that a specific user belongs to.
+        /// </summary>
+        /// <param name="id">The user ID.</param>
+        /// <returns>
+        /// Returns 200 OK with a list of group names if the user exists; otherwise, 404 Not Found.
+        /// </returns>
         [HttpGet("GetUserGroupsInfo/{id:int}")]
         public async Task<IActionResult> GetUserGroupsName(int id)
         {
@@ -76,6 +97,14 @@ namespace AJudge.Controllers
 
         }
 
+
+        /// <summary>
+        /// Retrieves the usernames of all coaches assigned to a specific user.
+        /// </summary>
+        /// <param name="id">The user ID.</param>
+        /// <returns>
+        /// Returns 200 OK with a list of coach usernames if the user exists; otherwise, 404 Not Found.
+        /// </returns>
         [HttpGet("GetUserCoachesInfo/{id:int}")]
         public async Task<IActionResult> GetUserCoachesName(int id)
         {
@@ -94,7 +123,15 @@ namespace AJudge.Controllers
 
         }
 
-         [HttpGet("GetUserTrainerInfo/{id:int}")]
+
+        /// <summary>
+        /// Retrieves the usernames of all users for whom the specified user is a coach
+        /// </summary>
+        /// <param name="id">The coach user ID.</param>
+        /// <returns>
+        /// Returns 200 OK with a list of usernames if the coach user exists; otherwise, 404 Not Found.
+        /// </returns>
+        [HttpGet("GetUserTrainerInfo/{id:int}")]
         public async Task<IActionResult> GetUserTrainersName(int id)
         {
             User? user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.UserId == id);
@@ -111,7 +148,17 @@ namespace AJudge.Controllers
 
         }
 
-         [HttpGet("GetUserFriendsInfo/{id:int}")]
+        /// <summary>
+        /// Retrieves the list of friends (usernames) for a specific user.
+        /// </summary>
+        /// <param name="id">The ID of the user whose friends are to be retrieved.</param>
+        /// <returns>
+        /// A list of usernames who have added the specified user as a friend.
+        /// Returns 404 if the user does not exist.
+        /// </returns>
+        /// <response code="200">Returns the list of friends' usernames.</response>
+        /// <response code="404">If the specified user does not exist.</response>
+        [HttpGet("GetUserFriendsInfo/{id:int}")]
         public async Task<IActionResult> GetUserFriendsName(int id)
         {
             User? user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.UserId == id);
@@ -129,6 +176,19 @@ namespace AJudge.Controllers
             return Ok(res);
 
         }
+
+        /// <summary>
+        /// Sends a coaching request to the specified user.
+        /// </summary>
+        /// <param name="userName">The username of the user to request as a coach.</param>
+        /// <returns>
+        /// Returns 200 OK if the request is sent successfully, 
+        /// 400 Bad Request if the input is invalid or a request already exists, 
+        /// or 404 Not Found if the specified user does not exist.
+        /// </returns>
+        /// <remarks>
+        /// The requesting user must be authenticated. A user cannot request themselves as a coach.
+        /// </remarks>
         [HttpPost("Request-forCoach")]
         [Authorize]
         public async Task<IActionResult> RequestForCoach(string userName)
@@ -157,6 +217,20 @@ namespace AJudge.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
+
+        /// <summary>
+        /// Accepts a coaching request from a student.
+        /// </summary>
+        /// <param name="userName">The username of the student who sent the request.</param>
+        /// <returns>
+        /// Returns 200 OK if the request is accepted and the student is added, 
+        /// 400 Bad Request if no request exists or input is invalid, 
+        /// or 404 Not Found if the student does not exist.
+        /// </returns>
+        /// <remarks>
+        /// This endpoint is for coaches to accept requests sent by students. 
+        /// The authenticated user must be the coach receiving the request.
+        /// </remarks>
         [HttpPost("Accept-Student")]
         [Authorize]
         public async Task<IActionResult> AcceptStudent(string userName)
@@ -182,6 +256,19 @@ namespace AJudge.Controllers
             }
             return BadRequest("You have not requested this coach.");
         }
+
+        /// <summary>
+        /// Rejects a coaching request from a student.
+        /// </summary>
+        /// <param name="userName">The username of the student whose request is being rejected.</param>
+        /// <returns>
+        /// Returns 200 OK if the request is successfully rejected, 
+        /// 400 Bad Request if no such request exists or input is invalid, 
+        /// or 404 Not Found if the user does not exist.
+        /// </returns>
+        /// <remarks>
+        /// This endpoint allows a coach (authenticated user) to reject a coaching request sent by a student.
+        /// </remarks>
         [HttpPost("Reject-Student")]
         [Authorize]
         public async Task<IActionResult> RejectStudent(string userName)
@@ -202,6 +289,19 @@ namespace AJudge.Controllers
             }
             return BadRequest("You have not requested this coach.");
         }
+
+        /// <summary>
+        /// Removes an existing student from the coach's list.
+        /// </summary>
+        /// <param name="userName">The username of the student to remove.</param>
+        /// <returns>
+        /// Returns 200 OK with the removed relationship if successful,  
+        /// 400 Bad Request if no such student is assigned to the coach,  
+        /// or 404 Not Found if the user does not exist.
+        /// </returns>
+        /// <remarks>
+        /// This endpoint allows a coach (authenticated user) to remove an assigned student from their coaching list.
+        /// </remarks>
         [HttpPost("Remove-Student")]
         [Authorize]
         public async Task<IActionResult> RemoveStudent(string userName)
@@ -222,6 +322,19 @@ namespace AJudge.Controllers
             }
             return BadRequest("You have not requested this coach.");
         }
+
+        /// <summary>
+        /// Removes the current user's coach by username.
+        /// </summary>
+        /// <param name="userName">The username of the coach to remove.</param>
+        /// <returns>
+        /// Returns 200 OK if the coach relationship is successfully removed,  
+        /// 400 Bad Request if the coach was not assigned,  
+        /// or 404 Not Found if the coach does not exist.
+        /// </returns>
+        /// <remarks>
+        /// This endpoint allows a user (authenticated) to remove their assigned coach.
+        /// </remarks>
         [HttpPost("Remove-Coach")]
         [Authorize]
         public async Task<IActionResult> RemoveCoach(string userName)
@@ -242,6 +355,15 @@ namespace AJudge.Controllers
             }
             return BadRequest("You have not requested this coach.");
         }
+
+
+        /// <summary>
+        /// Retrieves all pending coaching requests sent to the currently authenticated user as a coach.
+        /// </summary>
+        /// <returns>
+        /// Returns 200 OK with a list of userId and CoachId who requested coaching,  
+        /// or 204 No Content if there are no pending requests.
+        /// </returns>
         [HttpGet("View-MyRequestsToCoach")]
         [Authorize]
         public async Task<IActionResult> ViewMyRequestsToCoach()
@@ -255,6 +377,16 @@ namespace AJudge.Controllers
                 return NoContent();
             return Ok(requests);
         }
+
+
+        /// <summary>
+        /// Retrieves all pending coach requests made by the currently authenticated user.
+        /// </summary>
+        /// <returns>
+        /// Returns 200 OK with a list of coach userId & CoachId requested by the user,
+        /// or 204 No Content if there are no pending requests.
+        /// </returns>
+
         [HttpGet("View-StudentRequests")]
         [Authorize]
         public async Task<IActionResult> ViewMyRequests()
@@ -268,6 +400,14 @@ namespace AJudge.Controllers
                 return NoContent();
             return Ok(requests);
         }
+
+        /// <summary>
+        /// Retrieves the list of coaches associated with the currently authenticated user.
+        /// </summary>
+        /// <returns>
+        /// Returns 200 OK with a list of  UserCoaches have userId and coachId,
+        /// or 204 No Content if the user has no coaches.
+        /// </returns>
         [HttpGet("View-MyCoaches")]
         [Authorize]
         public async Task<IActionResult> ViewMyCoaches()
@@ -282,6 +422,13 @@ namespace AJudge.Controllers
             return Ok(coaches);
         }
 
+        /// <summary>
+        /// Retrieves the list of students associated with the currently authenticated coach.
+        /// </summary>
+        /// <returns>
+        /// Returns 200 OK with a list of UserCoaches have userId and coachId,
+        /// or 204 No Content if the coach has no students.
+        /// </returns>
         [HttpGet("View-MyStudents")]
         [Authorize]
         public async Task<IActionResult> ViewMyStudents()
@@ -307,8 +454,15 @@ namespace AJudge.Controllers
         }
 
 
-
-       [HttpGet("clubName/{clubName}")]
+        /// <summary>
+        /// Retrieves paginated list of users belonging to a specific club/university.
+        /// </summary>
+        /// <param name="clubName">The name of the club/university to filter users by.</param>
+        /// <param name="isAssending">Whether to sort ascending by registration date (default false).</param>
+        /// <param name="pageNNumber">Page number for pagination (default 1).</param>
+        /// <param name="pageSSize">Page size for pagination (default 20).</param>
+        /// <returns>A paginated list of users in the club with user Data (userName,Email,BirthDate,ProfilePic,LastSeen,ProblemTriedCount,Club,RegisterDate),and  TotalPage and PageNumber and HasNext and HasPrevious  </returns>
+        [HttpGet("clubName/{clubName}")]
        public async Task<IActionResult> GetAllUseInClub(string clubName ,bool isAssending=false,int pageNNumber=1,int pageSSize=20)
        {
             User? clubExist = await _unitOfWork.User.GetSpecific(x => x.ClubUniversity == clubName,null);
@@ -330,18 +484,8 @@ namespace AJudge.Controllers
 
             return Ok(response);
        }
-     
-              
-
-
-
-
-
-
-
-
-
-
 
     }
 }
+
+

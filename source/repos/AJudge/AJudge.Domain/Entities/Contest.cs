@@ -10,7 +10,7 @@ namespace AJudge.Domain.Entities
 {
     public class Contest
     {
-      //  [Key]
+        
         public int ContestId { get; set; }
         public string Name { get; set; }
         public int GroupId { get; set; }
@@ -26,8 +26,9 @@ namespace AJudge.Domain.Entities
 
         [ForeignKey("GroupId")]        
         public Group Group { get; set; }
-        public ICollection<Problem> Problems { get; set; } = new List<Problem>();
-               
+       public ICollection<Problem> Problems { get; set; } = new List<Problem>();
+        public ICollection<ContestProblem> ContestProblems { get; set; } = new List<ContestProblem>();
+
         public ICollection<Announcement> Announcements { get; set; } = new List<Announcement>();
     }
 }

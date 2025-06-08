@@ -1,0 +1,823 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AJudge</name>
+    </assembly>
+    <members>
+        <member name="M:AJudge.Controllers.AuthController.Register(AJudge.Application.DTO.AuthDTO.RegisterRequest)">
+            <summary>
+            Registers a new user 
+            </summary>
+            <param name="request">The registration details including email, username, and password.</param>
+            <returns>
+            Returns 200 OK if registration is successful, or 400 Bad Request if the user already exists or input is invalid.
+            </returns>
+            <response code="200">User registered successfully.</response>
+            <response code="400">User with the same email or username already exists, or invalid request.</response>
+        </member>
+        <member name="M:AJudge.Controllers.AuthController.Login(AJudge.Application.DTO.AuthDTO.LoginRequest)">
+            <summary>
+            Authenticates a user with email and password, and returns a JWT token if successful.
+            </summary>
+            <param name="request">The login request containing email and password.</param>
+            <returns>
+            200 OK with JWT token if authentication is successful;  
+            401 Unauthorized if email or password is invalid.
+            </returns>
+            <response code="200">Returns the JWT token for the authenticated user.</response>
+            <response code="401">Invalid email or password.</response>
+        </member>
+        <member name="M:AJudge.Controllers.BlogController.GetBlogById(System.Int32)">
+            <summary>
+            Retrieves a specific blog post by its ID.
+            </summary>
+            <param name="id">The unique ID of the blog post.</param>
+            <returns>
+            Returns the blog details including author and votes if found; 
+            otherwise, returns 404 with a "no such blog" message.
+            </returns>
+            <response code="200">Returns the blog details</response>
+            <response code="404">If no blog with the given ID is found</response>
+        </member>
+        <member name="M:AJudge.Controllers.BlogController.GetAllBlogs">
+            <summary>
+            Retrieves all blog posts including their authors and votes.
+            </summary>
+            <returns>
+            A list of all blog posts, each with author and vote details.
+            </returns>
+            <response code="200">Returns the list of blog posts</response>
+        </member>
+        <member name="M:AJudge.Controllers.BlogController.CreateBlog(AJudge.Application.DtO.BlogDTO.CreateBlogDTo)">
+            <summary>
+            Creates a new blog post.
+            </summary>
+            <param name="request">The blog data to create, including title and content.</param>
+            <returns>
+            Returns the created blog post data with a 201 status code if successful; otherwise, returns a 400 error.
+            </returns>
+            <response code="201">Returns the newly created blog</response>
+            <response code="400">If the user doesn't exist or model validation fails</response>
+            <remarks>
+            Requires user to be authenticated (Bearer token).
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.BlogController.UpdateBlog(System.Int32,AJudge.Application.DtO.BlogDTO.UpdateBlogDTO)">
+            <summary>
+            Updates the content of an existing blog post.
+            </summary>
+            <param name="id">The ID of the blog post to update.</param>
+            <param name="request">The updated blog content.</param>
+            <returns>
+            Returns the updated blog data if the update is successful; otherwise, returns an appropriate error response.
+            </returns>
+            <response code="200">Returns the updated blog post</response>
+            <response code="400">If the request model is invalid</response>
+            <response code="403">If the current user is not the author of the blog</response>
+            <response code="404">If the blog post does not exist</response>
+            <remarks>
+            Requires authentication (Bearer token). Only the blog's author can update it.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.BlogController.DeleteBlog(System.Int32)">
+            <summary>
+            Deletes a blog post by its ID.
+            </summary>
+            <param name="id">The ID of the blog to delete.</param>
+            <returns>
+            Returns <c>NoContent</c> if the deletion is successful; otherwise returns appropriate error responses.
+            </returns>
+            <response code="204">Blog deleted successfully</response>
+            <response code="403">If the current user is not the author of the blog</response>
+            <response code="404">If the blog post does not exist</response>
+            <remarks>
+            Requires authentication. Only the author of the blog can delete it.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.CommentController.GetCommentById(System.Guid)">
+            <summary>
+            Retrieves a comment by its unique identifier.
+            </summary>
+            <param name="id">The GUID of the comment to retrieve.</param>
+            <returns>
+            Returns the comment details if found; otherwise, returns a not found response.
+            </returns>
+            <response code="200">Returns the comment details.</response>
+            <response code="404">If no comment exists with the provided ID.</response>
+            <remarks>
+            Related entities included: Blog, User, and Votes.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.CommentController.GetAllCommetsByUserId(System.Int32,System.Boolean)">
+            <summary>
+            Retrieves all comments created by the currently authenticated user, paginated.
+            </summary>
+            <param name="pageNumber">The page number to retrieve. Defaults to 1.</param>
+            <param name="isAssending">Determines if the comments should be sorted in ascending order by creation date. Defaults to false (descending).</param>
+            <returns>
+            A paginated list of the user's comments along with pagination metadata.
+            </returns>
+            <response code="200">Returns the list of comments for the current user.</response>
+            <response code="400">If the user is not authenticated or doesn't exist.</response>
+            <remarks>
+            Requires the user to be authenticated. Comments are returned with pagination details.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.CommentController.GetAllCommentsByBlog(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Retrieves all comments for a specific blog post, paginated.
+            </summary>
+            <param name="id">The ID of the blog post.</param>
+            <param name="pageNumber">The page number to retrieve. Defaults to 1.</param>
+            <param name="isAssending">Determines if the comments should be sorted in ascending order by creation date. Defaults to false (descending).</param>
+            <returns>
+            A paginated list of comments for the specified blog post.
+            </returns>
+            <response code="200">Returns the paginated list of comments.</response>
+            <response code="404">If the blog post with the specified ID does not exist.</response>
+            <remarks>
+            Comments are sorted by creation date with pagination support.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.CommentController.CreateComment(AJudge.Application.DtO.CommentDTO.CreateCommentDTO)">
+            <summary>
+            Creates a new comment for a blog post.
+            </summary>
+            <param name="request">The comment creation request data.</param>
+            <returns>
+            Returns the created comment details if successful.
+            </returns>
+            <response code="201">Comment created successfully.</response>
+            <response code="400">If the user does not exist, blog ID is invalid, or the request model is invalid.</response>
+            <response code="401">If the user is not authenticated.</response>
+            <remarks>
+            Requires authentication. Associates the comment with the authenticated user and the specified blog.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.CommentController.UpdateComment(System.Guid,AJudge.Application.DtO.CommentDTO.UpdateCommentDTO)">
+            <summary>
+            Updates the content of an existing comment.
+            </summary>
+            <param name="id">The unique identifier of the comment to update.</param>
+            <param name="request">The updated comment data.</param>
+            <returns>
+            Returns the updated comment details if successful.
+            </returns>
+            <response code="200">Comment updated successfully.</response>
+            <response code="403">If the authenticated user is not the author of the comment.</response>
+            <response code="404">If the comment with the specified ID does not exist.</response>
+            <response code="401">If the user is not authenticated.</response>
+            <remarks>
+            Requires authentication. Only the author of the comment can update it.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.CommentController.VoteOnComment(System.Guid,AJudge.Domain.Entities.VoteType)">
+            <summary>
+            Casts a vote on a specific comment.
+            </summary>
+            <param name="commentId">The ID of the comment to vote on.</param>
+            <param name="vote">The type of vote (e.g., Upvote or Downvote).</param>
+            <returns>
+            Returns a confirmation message if the vote is successful.
+            </returns>
+            <response code="200">Vote successfully cast.</response>
+            <response code="400">If the user has already voted on this comment.</response>
+            <response code="401">If the user is not authenticated.</response>
+            <response code="404">If the comment does not exist.</response>
+            <remarks>
+            Requires authentication. A user can only vote once on a given comment.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.CommentController.DeleteComment(System.Guid)">
+            <summary>
+            Deletes a comment by its ID.
+            </summary>
+            <param name="id">The unique identifier of the comment to delete.</param>
+            <returns>
+            Returns 204 No Content if deletion is successful.
+            </returns>
+            <response code="204">Comment deleted successfully.</response>
+            <response code="400">If the comment cannot be deleted due to foreign key constraints.</response>
+            <response code="401">If the user is not authenticated.</response>
+            <response code="403">If the user is not the author of the comment.</response>
+            <response code="404">If the comment does not exist.</response>
+            <response code="500">If an unexpected error occurs during deletion.</response>
+            <remarks>
+            Requires authentication. Only the author of the comment can delete it.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.ContestController.GetAllContestPerSpecificPage(System.String,System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            Retrieves a paginated list of contests, optionally sorted by a specified property.
+            </summary>
+            <param name="sortBy">The property name to sort by (e.g., "Title", "StartDate").</param>
+            <param name="isAssending">True for ascending sort, false for descending.</param>
+            <param name="pageNumber">The page number to retrieve (starting from 1).</param>
+            <param name="pageSize">The number of contests per page.</param>
+            <returns>
+            200 OK with the paginated list of contests;  
+            400 Bad Request if sortBy is invalid;  
+            404 Not Found if the page does not exist.
+            </returns>
+            <response code="200">Returns the list of contests for the requested page.</response>
+            <response code="400">Invalid sort property.</response>
+            <response code="404">Page not found.</response>
+        </member>
+        <member name="M:AJudge.Controllers.ContestController.GetContestById(System.Int32)">
+            <summary>
+            Retrieves the details of a specific contest by its ID.
+            </summary>
+            <param name="id">The ID of the contest to retrieve.</param>
+            <returns>
+            200 OK with the contest details;  
+            404 Not Found if no contest exists with the given ID.
+            </returns>
+            <response code="200">Returns the contest details.</response>
+            <response code="404">Contest not found.</response>
+        </member>
+        <member name="M:AJudge.Controllers.ContestController.GetContestProblems(System.Int32)">
+            <summary>
+            Retrieves the list of problems associated with a specific contest.
+            </summary>
+            <param name="id">The ID of the contest.</param>
+            <returns>
+            A list of problems for the contest, including their names and links.
+            </returns>
+            <response code="200">Returns the list of contest problems.</response>
+            <response code="404">Contest not found.</response>
+        </member>
+        <member name="M:AJudge.Controllers.ContestController.UpdateContest(System.Int32,AJudge.Domain.Entities.UpdateContestRequest)">
+            <summary>
+            Updates an existing contest with new data.
+            </summary>
+            <param name="id">The ID of the contest to update.</param>
+            <param name="contestData">The updated contest data.</param>
+            <returns>
+            The updated contest object if found and updated successfully.
+            </returns>
+            <response code="200">Returns the updated contest.</response>
+            <response code="404">Contest with the specified ID was not found.</response>
+        </member>
+        <member name="M:AJudge.Controllers.ContestController.GetContestsByGroupId(System.Int32)">
+            <summary>
+            Retrieves all contests associated with a specific group.
+            </summary>
+            <param name="id">The ID of the group to retrieve contests for.</param>
+            <returns>A list of contests belonging to the specified group.</returns>
+            <response code="200">Returns the list of contests.</response>
+            <response code="404">Group not found.</response>
+        </member>
+        <member name="M:AJudge.Controllers.ContestController.AddContestToGroup(AJudge.Domain.Entities.ContestGroupRequest)">
+            <summary>
+            Adds a contest to a specified group.
+            </summary>
+            <param name="request">Contains the IDs of the contest and the group.</param>
+            <returns>Returns 200 OK if the contest is successfully added to the group; otherwise, returns 400 Bad Request.</returns>
+            <response code="200">Contest was successfully added to the group.</response>
+            <response code="400">Failed to add contest to group due to invalid contest or group ID.</response>
+        </member>
+        <member name="M:AJudge.Controllers.ContestController.RemoveContestFromGroup(AJudge.Domain.Entities.ContestGroupRequest)">
+            <summary>
+            Removes a contest from a specified group.
+            </summary>
+            <param name="request">The request containing the ContestId and GroupId.</param>
+            <returns>
+            Returns <see cref="T:Microsoft.AspNetCore.Mvc.OkResult"/> if the contest was successfully removed from the group.
+            Returns <see cref="T:Microsoft.AspNetCore.Mvc.BadRequestObjectResult"/> if the removal failed, 
+            which may indicate that the group doesn't exist or the contest is not in the group.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.FriendsController.AddFriend(System.Int32)">
+            <summary>
+            Adds a user as a friend for the currently authenticated user.
+            </summary>
+            <param name="friendId">The ID of the user to be added as a friend.</param>
+            <returns>
+            Returns 200 OK if the friend was added successfully.
+            Returns 400 Bad Request if the friend is already added, the request is invalid, 
+            or the friend/user does not exist.
+            Returns 401 Unauthorized if the current user is not authenticated.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.FriendsController.RemoveFriend(System.Int32)">
+            <summary>
+            Removes a friend from the currently authenticated user's friends list.
+            </summary>
+            <param name="friendId">The ID of the user to be removed as a friend.</param>
+            <returns>
+            Returns 200 OK if the friend was removed successfully.<br/>
+            Returns 400 Bad Request if the request is invalid or the user is not a friend<br/>
+            Returns 401 Unauthorized if the current user is not authenticated
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.GroupController.CreateGroup(AJudge.Application.DTO.GroupDTO.GroupDTO)">
+            <summary>
+            Creates a new group with the given details.
+            </summary>
+            <param name="group">The group data including name, privacy, description, and optional profile picture.</param>
+            <returns>
+            Returns the created group as <see cref="T:AJudge.Application.DTO.GroupDTO.GroupReturnDTO"/> on success.<br/>
+            Returns 400 Bad Request if the group data is null or creation fails.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.GroupController.DeleteGroup(System.Int32)">
+            <summary>
+            Deletes a group by its ID if the current user is the group leader 
+            </summary>
+            <param name="id">The unique identifier of the group to delete.</param>
+            <returns>
+            Returns 200 OK with a success message if the group is deleted successfully.<br/>
+            Returns 401 Unauthorized if the current user is not the leader of the group.<br/>
+            Returns 404 Not Found if the group does not exist.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.GroupController.AddMember(System.Int32,System.Int32)">
+            <summary>
+            Adds a user as a member to a specified group.
+            </summary>
+            <param name="groupId">The ID of the group to which the user will be added.</param>
+            <param name="userId">The ID of the user to add as a member.</param>
+            <returns>
+            Returns 200 OK if the member was successfully added.<br/>
+            Returns 401 Unauthorized if the current user is not a manager of the group.<br/>
+            Returns 400 Bad Request if the member could not be added.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.GroupController.RemoveMember(System.Int32,System.Int32)">
+            <summary>
+            Removes a user from the specified group.
+            </summary>
+            <param name="groupId">The ID of the group.</param>
+            <param name="userId">The ID of the user to be removed from the group.</param>
+            <returns>
+            Returns 200 OK if the member was removed successfully.<br/>
+            Returns 401 Unauthorized if the current user is not a manager of the group.<br/>
+            Returns 400 Bad Request if the member removal failed.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.GroupController.JoinGroup(System.Int32)">
+            <summary>
+            Allows the current authenticated user to join a specified group.
+            </summary>
+            <param name="groupId">The ID of the group to join.</param>
+            <returns>
+            Returns 200 OK with a message indicating the result of the join operation.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.GroupController.LeaveGroup(System.Int32,System.Int32)">
+            <summary>
+            Allows a user to leave a specified group.
+            </summary>
+            <param name="groupId">The ID of the group to leave.</param>
+            <param name="userId">The ID of the user leaving the group.</param>
+            <returns>
+            Returns 200 OK if the user left the group successfully.<br/>
+            Returns 400 Bad Request if the operation failed.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.GroupController.AddManager(System.Int32,System.Int32)">
+            <summary>
+            Adds a user as a manager to the specified group,the auth user should be the manager of the group
+            </summary>
+            <param name="groupId">The ID of the group.</param>
+            <param name="userId">The ID of the user to be added as a manager.</param>
+            <returns>
+            Returns 200 OK if the user was added as a manager successfully.<br/>
+            Returns 401 Unauthorized if the current user is not a manager of the group.<br/>
+            Returns 400 Bad Request if the operation failed.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.GroupController.RemoveManager(System.Int32,System.Int32)">
+            <summary>
+            Removes a manager from the specified group,the auth user should be manager
+            </summary>
+            <param name="groupId">The ID of the group.</param>
+            <param name="userId">The ID of the manager to remove.</param>
+            <returns>
+            Returns 200 OK if the manager was removed successfully.<br/>
+            Returns 401 Unauthorized if the current user is not a manager of the group.<br/>
+            Returns 400 Bad Request if the operation failed.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.GroupController.DisableManager(System.Int32,System.Int32)">
+            <summary>
+            Disables a manager role for a specific user in the given group.
+            </summary>
+            <param name="groupId">The ID of the group.</param>
+            <param name="userId">The ID of the user whose manager role will be disabled.</param>
+            <returns>
+            Returns 200 OK if the manager was successfully disabled.<br/>
+            Returns 401 Unauthorized if the current user is not a manager of the group.<br/>
+            Returns 400 Bad Request if the operation failed.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.GroupController.AcceptRequest(System.Int32,System.Int32)">
+            <summary>
+            Accepts a user's join request to a specific group.
+            </summary>
+            <param name="groupId">The ID of the group.</param>
+            <param name="userId">The ID of the user whose join request is being accepted.</param>
+            <returns>
+            Returns 200 OK if the request was accepted successfully.<br/>
+            Returns 401 Unauthorized if the current user is not a manager of the group.<br/>
+            Returns 400 Bad Request if the operation failed.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.GroupController.RejectRequest(System.Int32,System.Int32)">
+            <summary>
+            Rejects a user's join request to a specific group.
+            </summary>
+            <param name="groupId">The ID of the group.</param>
+            <param name="userId">The ID of the user whose join request is being rejected.</param>
+            <returns>
+            Returns 200 OK if the request was rejected successfully.<br/>
+            Returns 401 Unauthorized if the current user is not a manager of the group.<br/>
+            Returns 400 Bad Request if the operation failed.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.GroupController.GetGroupById(System.Int32)">
+            <summary>
+            Retrieves detailed information about a group by its ID.
+            </summary>
+            <param name="id">The ID of the group to retrieve.</param>
+            <returns>
+            Returns 200 OK with the group data if found and the user is a member.<br/>
+            Returns 401 Unauthorized if the current user is not a member of the group.<br/>
+            Returns 404 Not Found if the group does not exist.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.GroupController.GroupMembers(System.Int32)">
+            <summary>
+            Retrieves the list of members in a specified group.
+            </summary>
+            <param name="groupId">The ID of the group.</param>
+            <returns>
+            Returns 200 OK with a list of members if the user is a member of the group.<br/>
+            Returns 401 Unauthorized if the user is not a member of the group.<br/>
+            Returns 404 Not Found if the group doesn't exist or has no members.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.ProblemController.GetProblemDetails(System.Int32)">
+            <summary>
+            Retrieves detailed information about a specific problem.
+            </summary>
+            <param name="problemId">The unique identifier of the problem.</param>
+            <returns>
+            Returns the detailed problem information if found; otherwise, returns a 404 Not Found response.
+            If the user is authenticated, their user ID is used to tailor the response (e.g., submission state).
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.ProblemController.FetchP(AJudge.Application.DTO.ProblemsDTO.FetchProblemDto)">
+            <summary>
+            Fetches a problem from an external source (like CSES), adds it to the contest, and returns detailed problem info.
+            </summary>
+            <param name="problemDto">Problem details including source, link, problem ID, and contest ID.</param>
+            <returns>Returns detailed problem info on success or an error message.</returns>
+        </member>
+        <member name="M:AJudge.Controllers.ProblemController.SubmitProblem(AJudge.Controllers.SumbitDTO)">
+            <summary>
+            Submit a solution code for a problem.
+            </summary>
+            <param name="submit">Contains problem link and submitted code.</param>
+            <returns>Returns result of the submission or error.</returns>
+        </member>
+        <member name="P:AJudge.Controllers.SumbitDTO.ProblemLink">
+            <summary>
+            link of problem
+            </summary>
+        </member>
+        <member name="P:AJudge.Controllers.SumbitDTO.Code">
+            <summary>
+            content of code submission
+            </summary>
+        </member>
+        <member name="M:AJudge.Controllers.SubmissionController.GetAllSubmissionInPublicGroup(System.String,System.Int32,System.Int32)">
+            <summary>
+            Retrieves paginated submissions from all public groups, optionally filtered by online judge source.
+            </summary>
+            <param name="onlineJudge">
+            Optional route parameter to filter submissions by the specified online judge source.
+            If not provided, submissions from all online judges will be included.
+            </param>
+            <param name="pageNumber">
+            Query parameter specifying the page number to retrieve. Defaults to 1.
+            Must be greater than 0.
+            </param>
+            <param name="pageSize">
+            Query parameter specifying the number of submissions per page. Defaults to 20.
+            Must be greater than 0.
+            </param>
+            <returns>
+            Returns an <see cref="T:Microsoft.AspNetCore.Mvc.IActionResult"/> containing a paginated list of submissions with metadata:
+            <list type="bullet">
+            <item>ItemsResponse: List of submission DTOs</item>
+            <item>pagenumber: Current page number</item>
+            <item>totalPages: Total number of pages</item>
+            <item>hasPrevious: Indicates if there is a previous page</item>
+            <item>hasNext: Indicates if there is a next page</item>
+            </list>
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.SubmissionController.GetMySubmissions(System.String,System.Int32,System.Int32)">
+            <summary>
+            Retrieves paginated submissions made by the authenticated user, optionally filtered by online judge source.
+            </summary>
+            <param name="onlineJudge">
+            Optional query parameter to filter submissions by the specified online judge source.
+            If not provided, submissions from all online judges will be included.
+            </param>
+            <param name="pageNumber">
+            Query parameter specifying the page number to retrieve. Defaults to 1.
+            Must be greater than 0.
+            </param>
+            <param name="pageSize">
+            Query parameter specifying the number of submissions per page. Defaults to 20.
+            Must be greater than 0.
+            </param>
+            <returns>
+            Returns an <see cref="T:Microsoft.AspNetCore.Mvc.IActionResult"/> containing a paginated list of the user's submissions with metadata:
+            <list type="bullet">
+            <item>ItemsResponse: List of submission DTOs</item>
+            <item>pagenumber: Current page number</item>
+            <item>totalPages: Total number of pages</item>
+            <item>hasPrevious: Indicates if there is a previous page</item>
+            <item>hasNext: Indicates if there is a next page</item>
+            </list>
+            Returns Unauthorized if the user ID from the token is invalid.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.SubmissionController.GetFollowedUsersSubmissions(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Retrieves paginated submissions made by users followed by the authenticated user, with optional filtering.
+            </summary>
+            <param name="groupType">
+            Optional query parameter to filter submissions by group privacy type.
+            Allowed values are "Public" or "Private". If not provided, submissions from all groups are included.
+            </param>
+            <param name="onlineJudge">
+            Optional query parameter to filter submissions by the specified online judge source.
+            If not provided, submissions from all online judges will be included.
+            </param>
+            <param name="pageNumber">
+            Query parameter specifying the page number to retrieve. Defaults to 1.
+            Must be greater than 0.
+            </param>
+            <param name="pageSize">
+            Query parameter specifying the number of submissions per page. Defaults to 20.
+            Must be greater than 0.
+            </param>
+            <returns>
+            Returns an <see cref="T:Microsoft.AspNetCore.Mvc.IActionResult"/> with paginated submissions of followed users and pagination metadata:
+            <list type="bullet">
+            <item>ItemsResponse: List of submission DTOs</item>
+            <item>pagenumber: Current page number</item>
+            <item>totalPages: Total number of pages</item>
+            <item>hasPrevious: Indicates if there is a previous page</item>
+            <item>hasNext: Indicates if there is a next page</item>
+            </list>
+            Returns Unauthorized if the user ID from the token is invalid.
+            Returns BadRequest if the groupType parameter is invalid.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.TeamsController.CreateTeam(AJudge.Application.DTO.TeamDTOS.CreateTeamDto)">
+            <summary>
+            Creates a new team and adds the authenticated user as a member of the team.
+            </summary>
+            <param name="dto">The data transfer object containing team Name</param>
+            <returns>
+            Returns an <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult`1"/> containing the created team details including members.
+            Returns Unauthorized if the current user is not found.
+            Returns CreatedAtAction response with the newly created team info.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.TeamsController.InviteUserToTeam(System.Int32,System.String)">
+            <summary>
+            Sends an invitation to a user to join a specified team.
+            </summary>
+            <param name="teamId">The ID of the team to which the user is invited.</param>
+            <param name="username">The username of the user to be invited.</param>
+            <returns>
+            Returns <see cref="T:Microsoft.AspNetCore.Mvc.UnauthorizedResult"/> if the current user is not a member of the team.
+            Returns <see cref="T:Microsoft.AspNetCore.Mvc.NotFoundResult"/> if the team or user does not exist.
+            Returns <see cref="T:Microsoft.AspNetCore.Mvc.BadRequestObjectResult"/> if the user is already a member or has a pending invitation.
+            Returns <see cref="T:Microsoft.AspNetCore.Mvc.OkObjectResult"/> upon successful invitation.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.TeamsController.AcceptInvitation(System.Int32)">
+            <summary>
+            Allows the authenticated user to accept an invitation to join a specified team.
+            </summary>
+            <param name="teamId">The ID of the team for which the invitation is being accepted.</param>
+            <returns>
+            Returns <see cref="T:Microsoft.AspNetCore.Mvc.NotFoundResult"/> if no invitation exists for the user and team.
+            Returns <see cref="T:Microsoft.AspNetCore.Mvc.OkObjectResult"/> upon successful acceptance of the invitation.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.TeamsController.RejectInvitation(System.Int32)">
+            <summary>
+            Allows the authenticated user to reject an invitation to join a specified team.
+            </summary>
+            <param name="teamId">The ID of the team for which the invitation is being rejected.</param>
+            <returns>
+            Returns <see cref="T:Microsoft.AspNetCore.Mvc.NotFoundResult"/> if no invitation exists for the user and team.
+            Returns <see cref="T:Microsoft.AspNetCore.Mvc.OkObjectResult"/> upon successful rejection and removal of the invitation.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.TeamsController.LeaveTeam(System.Int32)">
+            <summary>
+            Allows the authenticated user to leave a specified team.
+            </summary>
+            <param name="teamId">The ID of the team to leave.</param>
+            <returns>
+            Returns <see cref="T:Microsoft.AspNetCore.Mvc.NotFoundResult"/> if the user is not a member of the specified team.
+            Returns <see cref="T:Microsoft.AspNetCore.Mvc.OkResult"/> upon successful removal of the user from the team.
+            </returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:AJudge.Controllers.TeamsController.GetTeam(System.Int32)" -->
+        <member name="M:AJudge.Controllers.TeamsController.MyTeams">
+            <summary>
+            Retrieves a list of teams that the authenticated user is a member of.
+            </summary>
+            <returns>
+            Returns an <see cref="T:Microsoft.AspNetCore.Mvc.OkObjectResult"/> containing a list of <see cref="T:AJudge.Application.DTO.TeamDTOS.TeamResponseDto"/>,
+            each representing a team containing(TeamId,Name,Date of Creation , Members)
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.TeamsController.GetMyInvitation">
+            <summary>
+            Retrieves a list of team invitations for the authenticated user.
+            </summary>
+            <returns>
+            Returns an <see cref="T:Microsoft.AspNetCore.Mvc.OkObjectResult"/> containing a list of <see cref="T:AJudge.Application.DTO.TeamDTOS.TeamResponseDto"/>,
+            each representing a team the user has been invited to, including its members.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.UserController.GetAllUsers">
+            <summary>
+            Retrieves a list of all users with basic information only.
+            Does not include related data such as groups, friends, or other navigation properties.
+            </summary>
+            <returns>
+            Returns an <see cref="T:Microsoft.AspNetCore.Mvc.OkObjectResult"/> containing a list of <see cref="T:AJudge.Application.DTO.UserDTOS.UserResponseDTO"/> objects
+            if users exist; otherwise, returns <see cref="T:Microsoft.AspNetCore.Mvc.NoContentResult"/>.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.UserController.GetUser(System.String)">
+            <summary>
+            Retrieves the public profile information of a user by their username.
+            </summary>
+            <param name="name">The username of the user to retrieve.</param>
+            <returns>
+            Returns 200 OK with user data if found; otherwise, 404 Not Found.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.UserController.GetUserGroupsName(System.Int32)">
+            <summary>
+            Retrieves the names of all groups that a specific user belongs to.
+            </summary>
+            <param name="id">The user ID.</param>
+            <returns>
+            Returns 200 OK with a list of group names if the user exists; otherwise, 404 Not Found.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.UserController.GetUserCoachesName(System.Int32)">
+            <summary>
+            Retrieves the usernames of all coaches assigned to a specific user.
+            </summary>
+            <param name="id">The user ID.</param>
+            <returns>
+            Returns 200 OK with a list of coach usernames if the user exists; otherwise, 404 Not Found.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.UserController.GetUserTrainersName(System.Int32)">
+            <summary>
+            Retrieves the usernames of all users for whom the specified user is a coach
+            </summary>
+            <param name="id">The coach user ID.</param>
+            <returns>
+            Returns 200 OK with a list of usernames if the coach user exists; otherwise, 404 Not Found.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.UserController.GetUserFriendsName(System.Int32)">
+            <summary>
+            Retrieves the list of friends (usernames) for a specific user.
+            </summary>
+            <param name="id">The ID of the user whose friends are to be retrieved.</param>
+            <returns>
+            A list of usernames who have added the specified user as a friend.
+            Returns 404 if the user does not exist.
+            </returns>
+            <response code="200">Returns the list of friends' usernames.</response>
+            <response code="404">If the specified user does not exist.</response>
+        </member>
+        <member name="M:AJudge.Controllers.UserController.RequestForCoach(System.String)">
+            <summary>
+            Sends a coaching request to the specified user.
+            </summary>
+            <param name="userName">The username of the user to request as a coach.</param>
+            <returns>
+            Returns 200 OK if the request is sent successfully, 
+            400 Bad Request if the input is invalid or a request already exists, 
+            or 404 Not Found if the specified user does not exist.
+            </returns>
+            <remarks>
+            The requesting user must be authenticated. A user cannot request themselves as a coach.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.UserController.AcceptStudent(System.String)">
+            <summary>
+            Accepts a coaching request from a student.
+            </summary>
+            <param name="userName">The username of the student who sent the request.</param>
+            <returns>
+            Returns 200 OK if the request is accepted and the student is added, 
+            400 Bad Request if no request exists or input is invalid, 
+            or 404 Not Found if the student does not exist.
+            </returns>
+            <remarks>
+            This endpoint is for coaches to accept requests sent by students. 
+            The authenticated user must be the coach receiving the request.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.UserController.RejectStudent(System.String)">
+            <summary>
+            Rejects a coaching request from a student.
+            </summary>
+            <param name="userName">The username of the student whose request is being rejected.</param>
+            <returns>
+            Returns 200 OK if the request is successfully rejected, 
+            400 Bad Request if no such request exists or input is invalid, 
+            or 404 Not Found if the user does not exist.
+            </returns>
+            <remarks>
+            This endpoint allows a coach (authenticated user) to reject a coaching request sent by a student.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.UserController.RemoveStudent(System.String)">
+            <summary>
+            Removes an existing student from the coach's list.
+            </summary>
+            <param name="userName">The username of the student to remove.</param>
+            <returns>
+            Returns 200 OK with the removed relationship if successful,  
+            400 Bad Request if no such student is assigned to the coach,  
+            or 404 Not Found if the user does not exist.
+            </returns>
+            <remarks>
+            This endpoint allows a coach (authenticated user) to remove an assigned student from their coaching list.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.UserController.RemoveCoach(System.String)">
+            <summary>
+            Removes the current user's coach by username.
+            </summary>
+            <param name="userName">The username of the coach to remove.</param>
+            <returns>
+            Returns 200 OK if the coach relationship is successfully removed,  
+            400 Bad Request if the coach was not assigned,  
+            or 404 Not Found if the coach does not exist.
+            </returns>
+            <remarks>
+            This endpoint allows a user (authenticated) to remove their assigned coach.
+            </remarks>
+        </member>
+        <member name="M:AJudge.Controllers.UserController.ViewMyRequestsToCoach">
+            <summary>
+            Retrieves all pending coaching requests sent to the currently authenticated user as a coach.
+            </summary>
+            <returns>
+            Returns 200 OK with a list of userId and CoachId who requested coaching,  
+            or 204 No Content if there are no pending requests.
+            </returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:AJudge.Controllers.UserController.ViewMyRequests" -->
+        <member name="M:AJudge.Controllers.UserController.ViewMyCoaches">
+            <summary>
+            Retrieves the list of coaches associated with the currently authenticated user.
+            </summary>
+            <returns>
+            Returns 200 OK with a list of  UserCoaches have userId and coachId,
+            or 204 No Content if the user has no coaches.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.UserController.ViewMyStudents">
+            <summary>
+            Retrieves the list of students associated with the currently authenticated coach.
+            </summary>
+            <returns>
+            Returns 200 OK with a list of UserCoaches have userId and coachId,
+            or 204 No Content if the coach has no students.
+            </returns>
+        </member>
+        <member name="M:AJudge.Controllers.UserController.GetAllUseInClub(System.String,System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            Retrieves paginated list of users belonging to a specific club/university.
+            </summary>
+            <param name="clubName">The name of the club/university to filter users by.</param>
+            <param name="isAssending">Whether to sort ascending by registration date (default false).</param>
+            <param name="pageNNumber">Page number for pagination (default 1).</param>
+            <param name="pageSSize">Page size for pagination (default 20).</param>
+            <returns>A paginated list of users in the club with user Data (userName,Email,BirthDate,ProfilePic,LastSeen,ProblemTriedCount,Club,RegisterDate),and  TotalPage and PageNumber and HasNext and HasPrevious  </returns>
+        </member>
+    </members>
+</doc>

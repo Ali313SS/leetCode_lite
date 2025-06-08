@@ -22,11 +22,12 @@ namespace AJudge.Domain.Entities
         public int Rating { get; set; }
                
         // Navigation Properties
-        [ForeignKey("ContestId")]
-        Contest Contest { get; set; }
+        //[ForeignKey("ContestId")]
+      //  Contest Contest { get; set; }
          public ICollection<Tag> Tags { get; set; } = new List<Tag>();
         //public ICollection<string> stringTags { get; set; } = new List<string>();
-
+        public ICollection<Contest> Contests { get; set; } = new List<Contest>();
+        public ICollection<ContestProblem> ContestProblems { get; set; } = new List<ContestProblem>();
 
         public ICollection<Submission> Submissions { get; set; } = new List<Submission>();
         public ICollection<TestCase> TestCases { get; set; } = new List<TestCase>();

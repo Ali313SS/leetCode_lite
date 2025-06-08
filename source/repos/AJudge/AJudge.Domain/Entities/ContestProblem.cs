@@ -8,18 +8,16 @@ using System.Threading.Tasks;
 
 namespace AJudge.Domain.Entities
 {
+    
     public class ContestProblem
     {
-        [Key]
-        public int ContestProblemId { get; set; }
+        
+         public int ContestProblemId { get; set; }
         public int ContestId { get; set; }
         public int ProblemId { get; set; }
+        public  Contest Contest { get; set; }
 
-        // Navigation Properties
-        [ForeignKey("ContestId")]
-        public Contest Contest { get; set; }
-
-        [ForeignKey("ProblemId")]
-        public Problem Problem { get; set; }
+       // [ForeignKey("ProblemId")]
+        public  Problem Problem { get; set; }
     }
 }

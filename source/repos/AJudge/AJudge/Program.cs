@@ -20,10 +20,11 @@ namespace AJudge
         public static void Main(string[] args)
         {
             // Corrected the SMTP server address and fixed the typo in "smtp.gmail.com"
-            
+
             //ISender x = new Sender("smtp.gmail.com", 587, "ara010250@gmail.com", "A.R.A313");
+
+
             
-    
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
@@ -92,15 +93,29 @@ namespace AJudge
     });
 
 
-
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "api.xml"));
             }
             
             );
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                });
+            });
+
+            
+
+            
+            
 
             var app = builder.Build();
-
+            app.UseCors("AllowAll");
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            //   if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();

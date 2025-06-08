@@ -28,6 +28,19 @@ namespace AJudge.Controllers
             _commentService= commentService;
         }
 
+
+        /// <summary>
+        /// Retrieves a comment by its unique identifier.
+        /// </summary>
+        /// <param name="id">The GUID of the comment to retrieve.</param>
+        /// <returns>
+        /// Returns the comment details if found; otherwise, returns a not found response.
+        /// </returns>
+        /// <response code="200">Returns the comment details.</response>
+        /// <response code="404">If no comment exists with the provided ID.</response>
+        /// <remarks>
+        /// Related entities included: Blog, User, and Votes.
+        /// </remarks>
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetCommentById(Guid id)
         {
@@ -41,6 +54,20 @@ namespace AJudge.Controllers
 
         }
 
+
+        /// <summary>
+        /// Retrieves all comments created by the currently authenticated user, paginated.
+        /// </summary>
+        /// <param name="pageNumber">The page number to retrieve. Defaults to 1.</param>
+        /// <param name="isAssending">Determines if the comments should be sorted in ascending order by creation date. Defaults to false (descending).</param>
+        /// <returns>
+        /// A paginated list of the user's comments along with pagination metadata.
+        /// </returns>
+        /// <response code="200">Returns the list of comments for the current user.</response>
+        /// <response code="400">If the user is not authenticated or doesn't exist.</response>
+        /// <remarks>
+        /// Requires the user to be authenticated. Comments are returned with pagination details.
+        /// </remarks>
         [HttpGet("GetAllCommentsByUser")]
         public async Task<IActionResult> GetAllCommetsByUserId([FromQuery] int pageNumber = 1, [FromQuery] bool isAssending = false)
         {
@@ -73,10 +100,23 @@ namespace AJudge.Controllers
 
             };
             return Ok(respoonse);
-
         }
 
 
+        /// <summary>
+        /// Retrieves all comments for a specific blog post, paginated.
+        /// </summary>
+        /// <param name="id">The ID of the blog post.</param>
+        /// <param name="pageNumber">The page number to retrieve. Defaults to 1.</param>
+        /// <param name="isAssending">Determines if the comments should be sorted in ascending order by creation date. Defaults to false (descending).</param>
+        /// <returns>
+        /// A paginated list of comments for the specified blog post.
+        /// </returns>
+        /// <response code="200">Returns the paginated list of comments.</response>
+        /// <response code="404">If the blog post with the specified ID does not exist.</response>
+        /// <remarks>
+        /// Comments are sorted by creation date with pagination support.
+        /// </remarks>
         [HttpGet("GetAllCommentsByBlog/{id}")]
         public async Task<IActionResult> GetAllCommentsByBlog(int id, [FromQuery]int pageNumber=1,[FromQuery]bool isAssending=false)
         {
@@ -103,7 +143,19 @@ namespace AJudge.Controllers
 
 
 
-
+        /// <summary>
+        /// Creates a new comment for a blog post.
+        /// </summary>
+        /// <param name="request">The comment creation request data.</param>
+        /// <returns>
+        /// Returns the created comment details if successful.
+        /// </returns>
+        /// <response code="201">Comment created successfully.</response>
+        /// <response code="400">If the user does not exist, blog ID is invalid, or the request model is invalid.</response>
+        /// <response code="401">If the user is not authenticated.</response>
+        /// <remarks>
+        /// Requires authentication. Associates the comment with the authenticated user and the specified blog.
+        /// </remarks>
 
         [HttpPost]
         [Authorize]
@@ -148,7 +200,21 @@ namespace AJudge.Controllers
             return BadRequest(errors);
         }
 
-
+        /// <summary>
+        /// Updates the content of an existing comment.
+        /// </summary>
+        /// <param name="id">The unique identifier of the comment to update.</param>
+        /// <param name="request">The updated comment data.</param>
+        /// <returns>
+        /// Returns the updated comment details if successful.
+        /// </returns>
+        /// <response code="200">Comment updated successfully.</response>
+        /// <response code="403">If the authenticated user is not the author of the comment.</response>
+        /// <response code="404">If the comment with the specified ID does not exist.</response>
+        /// <response code="401">If the user is not authenticated.</response>
+        /// <remarks>
+        /// Requires authentication. Only the author of the comment can update it.
+        /// </remarks>
         [HttpPut]
         [Authorize]
         public async Task<IActionResult>UpdateComment(Guid id ,UpdateCommentDTO request)
@@ -174,6 +240,23 @@ namespace AJudge.Controllers
             return Ok(response);
         }
 
+
+
+        /// <summary>
+        /// Casts a vote on a specific comment.
+        /// </summary>
+        /// <param name="commentId">The ID of the comment to vote on.</param>
+        /// <param name="vote">The type of vote (e.g., Upvote or Downvote).</param>
+        /// <returns>
+        /// Returns a confirmation message if the vote is successful.
+        /// </returns>
+        /// <response code="200">Vote successfully cast.</response>
+        /// <response code="400">If the user has already voted on this comment.</response>
+        /// <response code="401">If the user is not authenticated.</response>
+        /// <response code="404">If the comment does not exist.</response>
+        /// <remarks>
+        /// Requires authentication. A user can only vote once on a given comment.
+        /// </remarks>
         [HttpPost("vote")]
         [Authorize]
         public async Task<IActionResult> VoteOnComment(Guid commentId,VoteType vote)
@@ -215,7 +298,22 @@ namespace AJudge.Controllers
         }
 
 
-
+        /// <summary>
+        /// Deletes a comment by its ID.
+        /// </summary>
+        /// <param name="id">The unique identifier of the comment to delete.</param>
+        /// <returns>
+        /// Returns 204 No Content if deletion is successful.
+        /// </returns>
+        /// <response code="204">Comment deleted successfully.</response>
+        /// <response code="400">If the comment cannot be deleted due to foreign key constraints.</response>
+        /// <response code="401">If the user is not authenticated.</response>
+        /// <response code="403">If the user is not the author of the comment.</response>
+        /// <response code="404">If the comment does not exist.</response>
+        /// <response code="500">If an unexpected error occurs during deletion.</response>
+        /// <remarks>
+        /// Requires authentication. Only the author of the comment can delete it.
+        /// </remarks>
         [HttpDelete]
         [Authorize]
         public async Task<IActionResult> DeleteComment(Guid id)
