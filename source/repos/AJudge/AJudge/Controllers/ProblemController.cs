@@ -153,6 +153,7 @@ namespace AJudge.Controllers
         /// <param name="submit">Contains problem link and submitted code.</param>
         /// <returns>Returns result of the submission or error.</returns>
         [HttpPost("Sumbit")]
+        [Authorize]
         public async Task<IActionResult> SubmitProblem([FromBody] SumbitDTO sumbit)
         {
             if (!ModelState.IsValid)
@@ -161,7 +162,7 @@ namespace AJudge.Controllers
             }
             try
             {
-                int userId = 1; // Temporary hardcoded userId, replace with GetUserIdFromToken() if needed
+                int userId = GetUserIdFromToken(); // Temporary hardcoded userId, replace with GetUserIdFromToken() if needed
                 var result = await _problemService.SumbitProblem(sumbit.ProblemLink, userId, sumbit.Code);
                 if (result == null)
                 {
