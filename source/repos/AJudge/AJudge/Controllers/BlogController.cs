@@ -61,9 +61,9 @@ namespace AJudge.Controllers
         /// <summary>
         /// Creates a new blog post.
         /// </summary>
-        /// <param name="request">The blog data to create, including title and content.</param>
+        /// <param name="request">The blog data to create, including title </param>
         /// <returns>
-        /// Returns the created blog post data with a 201 status code if successful; otherwise, returns a 400 error.
+        /// Returns the created blogID and the content and the time that created at it post data with a 201 status code if successful; otherwise, returns a 400 error.
         /// </returns>
         /// <response code="201">Returns the newly created blog</response>
         /// <response code="400">If the user doesn't exist or model validation fails</response>
