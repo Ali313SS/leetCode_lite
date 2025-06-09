@@ -2,15 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net.Http;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using AJudge.Application.DtO.ProblemsDTO;
-using AJudge.Application.DTO.GroupDTO;
 using AJudge.Application.DTO.ProblemsDTO;
 using AJudge.Domain.Entities;
 using AJudge.Domain.RepoContracts;
 using AJudge.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using System.Runtime.InteropServices;
+using AJudge.Application.DtO.ContestDTO;
+using AJudge.Application.DTO.GroupDTO;
+using CContest = AJudge.Application.DtO.ContestDTO.CProblems;
+using System.Text.RegularExpressions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Globalization;
+using System.Reflection.Metadata;
+using System.Reflection;
+using AJudge.Infrastructure.Repositories;
 
 namespace AJudge.Application.services
 {
@@ -23,9 +34,43 @@ namespace AJudge.Application.services
         {
             _context = context;
             _unitOfWork = unitOfWork;
-
         }
 
+
+        public async Task<ContestDtoRequest> AddContestAsync(ContestDto contest)
+        {
+            var newContest = new Contest
+            {
+                Name = contest.Name,
+                BeginTime = contest.BeginTime,
+                EndTime = contest.EndTime,
+                Tutorial = contest.Tutorial,
+                Status = contest.Status,
+                CreatorUserId = contest.CreatorUserId,
+                GroupId = contest.GroupId,
+
+            };
+            await _context.Contests.AddAsync(newContest);
+            await _context.SaveChangesAsync();
+            var Contestreturn = new ContestDtoRequest
+            {
+                ContestId = newContest.ContestId,
+                Name = newContest.Name,
+                BeginTime = newContest.BeginTime,
+                EndTime = newContest.EndTime,
+                Tutorial = newContest.Tutorial,
+                Status = newContest.Status,
+                GroupId = newContest.GroupId,
+                Problems = newContest.Problems.Select(c => new CProblems
+                {
+                    Id = c.ProblemId,
+                    Name = c.ProblemName,
+
+                }).ToList(),
+            };
+            return await Task.FromResult(Contestreturn);
+
+        }
 
         public async Task<string> GetContestByIdAsync(int id)
         {
@@ -89,13 +134,13 @@ namespace AJudge.Application.services
             return contest;
         }
 
-        
 
-        public async Task<Group> GetGroupByIdAsync(int id)
-        {
-            return await _context.Groups
-                .FirstOrDefaultAsync(g => g.GroupId == id);
-        }
+
+        // public async Task<Group> GetGroupByIdAsync(int id)
+        //{
+        //     return await _context.Groups
+        //         .FirstOrDefaultAsync(g => g.GroupId == id);
+        // }
 
         public async Task<List<Contest>> GetContestsByGroupIdAsync(int groupId)
         {
@@ -106,7 +151,7 @@ namespace AJudge.Application.services
             //    .Select(cgm => cgm.Contest)
             //    .ToListAsync();
             return await _context.Contests
-                .Where(c => c.GroupId == groupId)                
+                .Where(c => c.GroupId == groupId)
                 .ToListAsync();
         }
 
@@ -152,80 +197,58 @@ namespace AJudge.Application.services
             //await _context.SaveChangesAsync();
             return true;
         }
-        ///
+
+
         public async Task<ContestPagination> GetAllContestInPage(string sortBy, bool isAsinding = true, int pageNumber = 1, int pageSize = 100)
         {
-
             IQueryable<Contest> query = _unitOfWork.Contest.GetQuery();
-
-
-
             query = BuildSort(query, sortBy, isAsinding);
-
             ContestPagination contestPage = await ContestPagination.GetPageDetail(query, pageNumber, pageSize);
-                
-            return contestPage;
-        }
 
+            return contestPage;
+
+        }
         private IQueryable<Contest> BuildSort(IQueryable<Contest> query, string? sortBy, bool isAssending = true)
         {
             if (!string.IsNullOrEmpty(sortBy))
             {
                 var parameter = Expression.Parameter(typeof(Contest), "x");
-
-
                 var property = Expression.Property(parameter, sortBy);
-
                 var propertyType = property.Type;
-
                 var lambda = Expression.Lambda(property, parameter);
-
                 string methodName = isAssending ? "OrderBy" : "OrderByDescending";
-
                 var result = Expression.Call(
-
                     typeof(Queryable),
                     methodName,
                     new Type[] { typeof(Contest), propertyType },
                     query.Expression,
                     Expression.Quote(lambda)
                     );
-
-
-
                 query = query.Provider.CreateQuery<Contest>(result);
-
             }
             return query;
         }
     }
-
     public class ContestPagination
     {
-
-
-
         public List<Contest> Items { get; private set; }
         public int PageNumber { get; private set; }
         public int TotalPages { get; private set; }
         public bool HasPrevious => PageNumber > 1;
         public bool HasNext => PageNumber < TotalPages;
-
         public ContestPagination(List<Contest> items, int count, int pageNumber, int pageSize)
         {
-            Items = items ?? new List<Contest>(); 
+            Items = items ?? new List<Contest>();
             PageNumber = pageNumber;
             TotalPages = (int)Math.Ceiling(count / (double)pageSize);
         }
-
         public static async Task<ContestPagination> GetPageDetail(IQueryable<Contest> source, int pageNumber = 1, int pageSize = 20)
         {
             var count = await source.CountAsync();
             var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
-
             return new ContestPagination(items, count, pageNumber, pageSize);
         }
 
-
+    
     }
 }

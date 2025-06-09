@@ -139,6 +139,7 @@ namespace AJudge.Infrastructure.Data
                 .WithMany(u => u.CompeteContests)
                 .HasForeignKey(c => c.CreatorUserId)
                 .OnDelete(DeleteBehavior.Restrict);
+            
 
             // Define the relation for UserFriend
             modelBuilder.Entity<UserFriend>().HasKey(x => new { x.UserId, x.FriendId });

@@ -1,4 +1,5 @@
 
+using System.Globalization;
 using System.Security.Claims;
 using AJudge.Application.DtO.ContestDTO;
 using AJudge.Application.DtO.ProblemsDTO;
@@ -25,6 +26,20 @@ namespace AJudge.Controllers
             _ContestServices = ContestServices;
         }
 
+        [HttpPost]
+        [Route("CreateContest")]
+        [Authorize]
+        public async Task<ActionResult<ContestDtoRequest>> AddContest([FromBody] ContestDto contest)
+        {
+            if (contest == null)
+                return BadRequest("Cntest data is null.");
+            var userId = GetUserIdFromToken();
+            contest.CreatorUserId = userId;
+            var result = await _ContestServices.AddContestAsync(contest);
+            return result;
+            return BadRequest("Contest creation failed.");
+        }
+
 
         /// <summary>
         /// Retrieves a paginated list of contests, optionally sorted by a specified property.
@@ -41,26 +56,7 @@ namespace AJudge.Controllers
         /// <response code="200">Returns the list of contests for the requested page.</response>
         /// <response code="400">Invalid sort property.</response>
         /// <response code="404">Page not found.</response>
-        [HttpGet("Contest")]
-        public async Task<IActionResult> GetAllContestPerSpecificPage(string? sortBy, bool isAssending = true, int pageNumber = 1, int pageSize = 20)
-        {
-
-            var sortByy = typeof(Contest).GetProperty(sortBy);
-            if (sortByy == null)
-            {
-                return BadRequest("No such property");
-            }
-            var page = await _ContestServices.GetAllContestInPage(sortBy, isAssending, pageNumber, pageSize);
-
-
-            if (page == null)
-                return NotFound("No such Page");
-
-            var DisPage = ContestPageDto.ConvertToContestDto(page);
-
-
-            return Ok(DisPage);
-        }
+       
 
         /// <summary>
         /// Retrieves the details of a specific contest by its ID.
@@ -133,24 +129,45 @@ namespace AJudge.Controllers
             return updatedContest;
         }
 
+        [HttpGet("GetAllContest")]
+        public async Task<IActionResult> GetAllContestPerSpecificPage(string? sortBy, bool isAssending = true, int pageNumber = 1, int pageSize = 20)
+        {
+           // return await _ContestServices.GetAllContestsAsync();
 
-        /// <summary>
-        /// Retrieves all contests associated with a specific group.
-        /// </summary>
-        /// <param name="id">The ID of the group to retrieve contests for.</param>
-        /// <returns>A list of contests belonging to the specified group.</returns>
-        /// <response code="200">Returns the list of contests.</response>
-        /// <response code="404">Group not found.</response>
-        [HttpGet("{id}/ContestByGroupId")]
+        var sortByy = typeof(Contest).GetProperty(sortBy);
+            if (sortByy == null)
+            {
+                return BadRequest("No such property");
+            }
+            var page = await _ContestServices.GetAllContestInPage(sortBy, isAssending, pageNumber, pageSize);
+
+
+            if (page == null)
+                return NotFound("No such Page");
+
+    var DisPage = ContestPageDto.ConvertToContestDto(page);
+
+
+            return Ok(DisPage);
+}
+
+/// <summary>
+/// Retrieves all contests associated with a specific group.
+/// </summary>
+/// <param name="id">The ID of the group to retrieve contests for.</param>
+/// <returns>A list of contests belonging to the specified group.</returns>
+/// <response code="200">Returns the list of contests.</response>
+/// <response code="404">Group not found.</response>
+[HttpGet("{id}/ContestByGroupId")]
         [Authorize]
 
         public async Task<ActionResult<IEnumerable<Contest>>> GetContestsByGroupId(int id)
         {
-            var group = await _ContestServices.GetGroupByIdAsync(id);
-            if (group == null)
-            {
-                return NotFound();
-            }
+            //var group = await _ContestServices.GetGroupByIdAsync(id);
+           // if (group == null)
+            //{
+            //    return NotFound();
+          //  }
             return await _ContestServices.GetContestsByGroupIdAsync(id);
         }
 
@@ -196,6 +213,18 @@ namespace AJudge.Controllers
                 return BadRequest("Failed to remove contest from group. Either group doesn't exist or contest is not in group.");
             }
             return Ok();
+        }
+        private int GetUserIdFromToken()
+        {
+            if (HttpContext.User.Identity is ClaimsIdentity identity)
+            {
+                var userIdClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
+                if (userIdClaim != null && int.TryParse(userIdClaim.Value, out int userId))
+                {
+                    return userId;
+                }
+            }
+            throw new UnauthorizedAccessException("User ID not found in token.");
         }
     }
 }

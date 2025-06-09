@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using AJudge.Domain.RepoContracts;
 using AJudge.Infrastructure.Repositories;
 using System.Runtime.Serialization;
+using System.Reflection;
 
 namespace AJudge
 {
@@ -39,6 +40,7 @@ namespace AJudge
             builder.Services.AddScoped<ISubmissionService, SubmissionService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
+            builder.Services.AddScoped<IContestServices, ContestServices>();
 
             builder.Services.AddTransient<IProblemService, ProblemService>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -65,6 +67,8 @@ namespace AJudge
                                 throw new InvalidOperationException("JWT SigningKey is not configured")))
                     };
                 });
+           
+
             builder.Services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "AJudge API", Version = "v1" });

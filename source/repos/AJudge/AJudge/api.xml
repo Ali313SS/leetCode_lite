@@ -206,7 +206,7 @@
             Requires authentication. Only the author of the comment can delete it.
             </remarks>
         </member>
-        <member name="M:AJudge.Controllers.ContestController.GetAllContestPerSpecificPage(System.String,System.Boolean,System.Int32,System.Int32)">
+        <member name="M:AJudge.Controllers.ContestController.GetContestById(System.Int32)">
             <summary>
             Retrieves a paginated list of contests, optionally sorted by a specified property.
             </summary>
@@ -222,8 +222,6 @@
             <response code="200">Returns the list of contests for the requested page.</response>
             <response code="400">Invalid sort property.</response>
             <response code="404">Page not found.</response>
-        </member>
-        <member name="M:AJudge.Controllers.ContestController.GetContestById(System.Int32)">
             <summary>
             Retrieves the details of a specific contest by its ID.
             </summary>
