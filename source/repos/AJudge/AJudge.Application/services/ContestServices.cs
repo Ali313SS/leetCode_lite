@@ -119,16 +119,16 @@ namespace AJudge.Application.services
                 contest.EndTime = contestData.EndTime.Value;
             }
 
-            if (contestData.Problems != null && contestData.Problems.Count > 0)
-            {
-                _context.Problems.RemoveRange(contest.Problems);
+            //if (contestData.Problems != null && contestData.Problems.Count > 0)
+            //{
+            //    _context.Problems.RemoveRange(contest.Problems);
 
-                foreach (var problem in contestData.Problems)
-                {
-                    problem.ContestId = contest.ContestId;
-                    _context.Problems.Add(problem);
-                }
-            }
+            //    foreach (var problem in contestData.Problems)
+            //    {
+            //        problem.ContestId = contest.ContestId;
+            //        _context.Problems.Add(problem);
+            //    }
+            //}
 
             await _context.SaveChangesAsync();
             return contest;
@@ -199,56 +199,43 @@ namespace AJudge.Application.services
         }
 
 
-        public async Task<ContestPagination> GetAllContestInPage(string sortBy, bool isAsinding = true, int pageNumber = 1, int pageSize = 100)
+        public async Task<ContestPagination> GetAllContestInClubPerPage(string filterBy, string filterValue, string sortBy, bool isAsinding = true, int pageNumber = 1, int pageSize = 20)
         {
+
             IQueryable<Contest> query = _unitOfWork.Contest.GetQuery();
-            query = BuildSort(query, sortBy, isAsinding);
-            ContestPagination contestPage = await ContestPagination.GetPageDetail(query, pageNumber, pageSize);
+
+
+
+            query = _unitOfWork.Contest.ApplyFilter(query, filterBy, filterValue);
+            query = _unitOfWork.Contest.ApplySort(query, sortBy, isAsinding);
+
+            ContestPagination contestPage = await ContestPagination.GetPageDetails(query, pageNumber, pageSize);
 
             return contestPage;
-
-        }
-        private IQueryable<Contest> BuildSort(IQueryable<Contest> query, string? sortBy, bool isAssending = true)
-        {
-            if (!string.IsNullOrEmpty(sortBy))
-            {
-                var parameter = Expression.Parameter(typeof(Contest), "x");
-                var property = Expression.Property(parameter, sortBy);
-                var propertyType = property.Type;
-                var lambda = Expression.Lambda(property, parameter);
-                string methodName = isAssending ? "OrderBy" : "OrderByDescending";
-                var result = Expression.Call(
-                    typeof(Queryable),
-                    methodName,
-                    new Type[] { typeof(Contest), propertyType },
-                    query.Expression,
-                    Expression.Quote(lambda)
-                    );
-                query = query.Provider.CreateQuery<Contest>(result);
-            }
-            return query;
         }
     }
+
     public class ContestPagination
     {
-        public List<Contest> Items { get; private set; }
+        public List<Contest> Items { get; set; }
         public int PageNumber { get; private set; }
         public int TotalPages { get; private set; }
         public bool HasPrevious => PageNumber > 1;
         public bool HasNext => PageNumber < TotalPages;
+
         public ContestPagination(List<Contest> items, int count, int pageNumber, int pageSize)
         {
             Items = items ?? new List<Contest>();
             PageNumber = pageNumber;
             TotalPages = (int)Math.Ceiling(count / (double)pageSize);
         }
-        public static async Task<ContestPagination> GetPageDetail(IQueryable<Contest> source, int pageNumber = 1, int pageSize = 20)
+
+        public static async Task<ContestPagination> GetPageDetails(IQueryable<Contest> source, int pageNumber = 1, int pageSize = 20)
         {
             var count = await source.CountAsync();
             var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+
             return new ContestPagination(items, count, pageNumber, pageSize);
         }
-
-    
     }
 }

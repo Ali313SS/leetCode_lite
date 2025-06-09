@@ -30,6 +30,7 @@ namespace AJudge.Infrastructure.Repositories
             Vote = new BaseRepoitory<Vote>(_context);
             User = new BaseRepoitory<User>(_context);
             Group = new BaseRepoitory<Group>(_context);
+            Contest = new BaseRepoitory<Contest>(_context);
             Blog = new BlogRepository(_context);
             Comment = new BaseRepoitory<Comment>(_context);
             UserFriends = new BaseRepoitory<UserFriend>(_context); // Added UserFriends initialization

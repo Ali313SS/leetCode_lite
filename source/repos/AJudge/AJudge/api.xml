@@ -52,9 +52,9 @@
             <summary>
             Creates a new blog post.
             </summary>
-            <param name="request">The blog data to create, including title and content.</param>
+            <param name="request">The blog data to create, including title </param>
             <returns>
-            Returns the created blog post data with a 201 status code if successful; otherwise, returns a 400 error.
+            Returns the created blogID and the content and the time that created at it post data with a 201 status code if successful; otherwise, returns a 400 error.
             </returns>
             <response code="201">Returns the newly created blog</response>
             <response code="400">If the user doesn't exist or model validation fails</response>
@@ -255,15 +255,6 @@
             </returns>
             <response code="200">Returns the updated contest.</response>
             <response code="404">Contest with the specified ID was not found.</response>
-        </member>
-        <member name="M:AJudge.Controllers.ContestController.GetContestsByGroupId(System.Int32)">
-            <summary>
-            Retrieves all contests associated with a specific group.
-            </summary>
-            <param name="id">The ID of the group to retrieve contests for.</param>
-            <returns>A list of contests belonging to the specified group.</returns>
-            <response code="200">Returns the list of contests.</response>
-            <response code="404">Group not found.</response>
         </member>
         <member name="M:AJudge.Controllers.ContestController.AddContestToGroup(AJudge.Domain.Entities.ContestGroupRequest)">
             <summary>

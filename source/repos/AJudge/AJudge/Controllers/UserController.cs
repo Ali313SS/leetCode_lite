@@ -379,6 +379,7 @@ namespace AJudge.Controllers
         }
 
 
+
         /// <summary>
         /// Retrieves all pending coach requests made by the currently authenticated user.
         /// </summary>
@@ -386,7 +387,6 @@ namespace AJudge.Controllers
         /// Returns 200 OK with a list of coach userId & CoachId requested by the user,
         /// or 204 No Content if there are no pending requests.
         /// </returns>
-
         [HttpGet("View-StudentRequests")]
         [Authorize]
         public async Task<IActionResult> ViewMyRequests()
