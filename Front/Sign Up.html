@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPPS - Sign Up</title>
+    <link rel="stylesheet" href="Sign Up.css">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">DPPS</div>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Problems</a></li>
+                <li><a href="#">Contest</a></li>
+                <li><a href="#">Status</a></li>
+                <li><a href="#">User</a></li>
+                <li><a href="#">Group</a></li>
+                <li><a href="#">Teams</a></li>
+                <li><a href="#">Coach</a></li>
+                <li><a href="#">Blogs</a></li>
+                <li><a href="#">John22</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="signup-container">
+                <!-- <a href="index.html"> <h2>DPPS</h2></a>  -->
+        <h2>DPPS</h2>
+        <form id="signupForm" onsubmit="return validateForm(event)">
+            <div class="form-group">
+                <input type="text" id="username" placeholder="Username" required>
+                <div class="error-message" id="usernameError"></div>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" placeholder="Email" required>
+                <div class="error-message" id="emailError"></div>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" placeholder="Password" required>
+                <div class="error-message" id="passwordError"></div>
+            </div>
+            <div class="form-group">
+                <input type="text" id="nickname" placeholder="Nickname" required>
+                <div class="error-message" id="nicknameError"></div>
+            </div>
+            <div class="form-group">
+                <input type="text" id="school" placeholder="School" required>
+                <div class="error-message" id="schoolError"></div>
+            </div>
+            <div id="successMessage"></div>
+            <input type="submit" value="Sign Up">
+        </form>
+        <a href="Sign In.html" class="signin-link">Already have an account? Sign In</a>
+        <div class="social-options">or you can sign up with</div>
+    </div>
+
+    <script src="Sign Up.js"></script>
+</body>
+</html>

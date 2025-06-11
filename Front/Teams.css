@@ -1,0 +1,571 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f0e8, #e8e4df);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding-top: 60px;
+}
+
+header {
+    background-color: #fff;
+    padding: 20px 0;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #6b859a;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+}
+
+.navbar ul li {
+    margin: 0 15px;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #000;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #000;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar a:hover {
+    background-color: #85a2b2;
+}
+
+.navbar a.active {
+    background-color: #4d6b7c;
+    font-weight: bold;
+}
+
+.create-team-section {
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    text-align: right;
+    width: 800px;
+}
+
+button#create-team-btn {
+    font-size: 18px;
+    display: inline-block;
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+    background: radial-gradient(100% 100% at 100% 0%, #4d6b7c 0%, #698a9c 100%);
+    box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(58 65 111 / 50%);
+    padding: 0 2em;
+    border-radius: 0.3em;
+    color: #fff;
+    height: 2.6em;
+    text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+button#create-team-btn:hover {
+    box-shadow: 0px 0.1em 0.2em rgb(45 35 66 / 40%), 0px 0.4em 0.7em -0.1em rgb(45 35 66 / 30%), inset 0px -0.1em 0px #3c4fe0;
+    transform: translateY(-0.1em);
+}
+
+button#create-team-btn:active {
+    box-shadow: inset 0px 0.1em 0.6em #3c4fe0;
+    transform: translateY(0em);
+}
+
+main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.teams-section, .new-team-section, .invitations-section, .team-management-section {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    max-width: 800px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.teams-section h2, .invitations-section h2, .team-management-section h2, .new-team-section h2 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.teams-section table, .invitations-section table, .team-management-section table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.teams-section th, .teams-section td, .invitations-section th, .invitations-section td, .team-management-section th, .team-management-section td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.teams-section th, .invitations-section th, .team-management-section th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.teams-section td, .invitations-section td, .team-management-section td {
+    color: #666;
+}
+
+.teams-section .team-name {
+    cursor: pointer;
+}
+
+.teams-section .team-name:hover {
+    text-decoration: underline;
+}
+
+.teams-section .action-buttons, .invitations-section .action-buttons, .team-management-section .action-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.teams-section .invite-btn, .teams-section .remove-btn {
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.teams-section .invite-btn {
+    background-color: #698a9c;
+    color: #fff;
+}
+
+.teams-section .remove-btn {
+    background-color: #ff4d4d;
+    color: #fff;
+}
+
+.new-team-section, .team-management-section {
+    display: none;
+}
+
+.new-team-section label, .team-management-section label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.new-team-section input, .team-management-section input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.new-team-section button, .team-management-section button {
+    background-color: #698a9c;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.new-team-section p {
+    color: #666;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.new-team-section .back-btn {
+    background-color: #ccc;
+    color: #333;
+    margin-left: 10px;
+}
+
+#cancel-rename {
+    background-color: #ccc;
+    color: #333;
+    margin-left: 10px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+    text-align: center;
+    position: relative; /* Added to contain suggestions */
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.modal-content button {
+    padding: 8px 15px;
+    margin: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+#submit-invite {
+    background-color: #698a9c;
+    color: #fff;
+}
+
+#cancel-invite {
+    background-color: #ff4d4d;
+    color: #fff;
+}
+
+.username {
+    cursor: pointer;
+    color: #698a9c;
+    text-decoration: underline;
+}
+
+.username:hover {
+    color: #1a5dab;
+}
+
+/* Team Menu Card Styles */
+.card#team-menu-card {
+    width: 200px;
+    background-color: rgb(255, 255, 255);
+    background-image: linear-gradient(139deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 50%, rgb(255, 255, 255) 100%);
+    border-radius: 10px;
+    padding: 15px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card#team-menu-card .separator {
+    border-top: 1.5px solid #42434a;
+}
+
+.card#team-menu-card .list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0px 10px;
+}
+
+.card#team-menu-card .list .element {
+    display: flex;
+    align-items: center;
+    color: #141414;
+    gap: 10px;
+    transition: all 0.3s ease-out;
+    padding: 4px 7px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.card#team-menu-card .list .element svg {
+    width: 19px;
+    height: 19px;
+    transition: all 0.3s ease-out;
+}
+
+.card#team-menu-card .list .element .label {
+    font-weight: 600;
+}
+
+.card#team-menu-card .list .element:hover {
+    background-color: #5353ff;
+    color: #fff;
+    transform: translate(1px, -1px);
+}
+
+.card#team-menu-card .list .delete:hover {
+    background-color: #8e2a2a;
+}
+
+.card#team-menu-card .list .element:active {
+    transform: scale(0.99);
+}
+
+.card#team-menu-card .list:not(:last-child) .element:hover svg {
+    stroke: #fff;
+}
+
+/* Delete Confirmation Card Styles */
+.card#delete-confirmation-card {
+    width: 300px;
+    height: fit-content;
+    background: rgb(255, 255, 255);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 30px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.068);
+}
+
+.card-content {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.card-heading {
+    font-size: 20px;
+    font-weight: 700;
+    color: rgb(27, 27, 27);
+}
+
+.card-description {
+    font-weight: 100;
+    color: rgb(102, 102, 102);
+}
+
+.card-button-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.card-button {
+    width: 50%;
+    height: 35px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.primary {
+    background-color: rgb(255, 114, 109);
+    color: white;
+}
+
+.primary:hover {
+    background-color: rgb(255, 73, 66);
+}
+
+.secondary {
+    background-color: #ddd;
+}
+
+.secondary:hover {
+    background-color: rgb(197, 197, 197);
+}
+
+.exit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.exit-button:hover svg {
+    fill: black;
+}
+
+.exit-button svg {
+    fill: rgb(175, 175, 175);
+}
+
+/* Action Button Styles */
+.action-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+    cursor: pointer;
+    transition-duration: 0.3s;
+    overflow: hidden;
+    position: relative;
+}
+
+.action-svgIcon {
+    width: 15px;
+    transition-duration: 0.3s;
+}
+
+.action-svgIcon path {
+    fill: white;
+}
+
+.action-button:hover {
+    width: 90px;
+    border-radius: 50px;
+    transition-duration: 0.3s;
+    align-items: center;
+}
+
+.action-button:hover .action-svgIcon {
+    width: 20px;
+    transition-duration: 0.3s;
+    transform: translateY(60%);
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
+
+.action-button::before {
+    display: none;
+    content: "";
+    color: white;
+    transition-duration: 0.3s;
+    font-size: 2px;
+}
+
+.action-button:hover::before {
+    display: block;
+    padding-right: 10px;
+    font-size: 13px;
+    opacity: 1;
+    transform: translateY(0px);
+    transition-duration: 0.3s;
+}
+
+.accept-button {
+    background-color: #28a745;
+}
+
+.accept-button:hover {
+    background-color: #218838;
+}
+
+.accept-button::before {
+    content: "Accept";
+}
+
+.decline-button {
+    background-color: #dc3545;
+}
+
+.decline-button:hover {
+    background-color: #c82333;
+}
+
+.decline-button::before {
+    content: "Decline";
+}
+
+.remove-button {
+    background-color: #dc3545;
+}
+
+.remove-button:hover {
+    background-color: #c82333;
+}
+
+.remove-button::before {
+    content: "Remove";
+}
+
+/* Suggestions List Styles */
+.suggestions-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+.suggestions-list.show {
+    display: block;
+}
+
+.suggestion-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    color: #333;
+    font-size: 14px;
+}
+
+.suggestion-item:hover {
+    background-color: #f4f4f4;
+}
+
+.suggestion-item.active {
+    background-color: #698a9c;
+    color: #fff;
+}

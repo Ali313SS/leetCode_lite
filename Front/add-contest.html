@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Contest</title>
+  <link rel="stylesheet" href="contest.css" />
+</head>
+<body>
+  <h1>Create New Contest</h1>
+  <form id="addContestForm">
+    <label>Title: <input type="text" id="contestTitle" required /></label><br/>
+    <label>Start Time: <input type="datetime-local" id="startTime" required /></label><br/>
+    <label>End Time: <input type="datetime-local" id="endTime" required /></label><br/>
+    <label>Problems (comma separated IDs): <input type="text" id="problemList" required /></label><br/>
+    <button type="submit">Create Contest</button>
+  </form>
+
+  <script>
+    document.getElementById("addContestForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Contest created (demo only)");
+    });
+  </script>
+</body>
+</html>

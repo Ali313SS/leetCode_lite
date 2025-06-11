@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - Codeforces Style</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Your CSS from previous profile.html */
+        body {
+            font-family: 'Open Sans', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* MODIFIED NAVBAR STYLES TO MATCH Sign In.css */
+        header { /* Added header styling from Sign In.css */
+            background-color: #fff;
+            padding: 20px 0;
+            width: 100%;
+            position: fixed; /* Keep it fixed at the top */
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Keep the shadow */
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px; /* From Sign In.css */
+            margin: auto; /* From Sign In.css */
+            padding: 0 20px; /* Added padding to ensure content isn't flush */
+        }
+        .navbar .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #6b859a; /* From Sign In.css */
+            text-decoration: none; /* From Sign In.css */
+        }
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            margin: 0; /* From Sign In.css */
+            padding: 0; /* From Sign In.css */
+        }
+        
+        .navbar ul li a {
+            text-decoration: none;
+            font-size: 17px;
+            color: #000; /* From Sign In.css (text color is black) */
+            padding: 10px 15px; /* From Sign In.css */
+            border-radius: 5px; /* From Sign In.css */
+            transition: background-color 0.3s ease; /* From Sign In.css */
+        }
+        .navbar ul li a:hover {
+            background-color: #85a2b2; /* From Sign In.css */
+        }
+        .navbar ul li a.active {
+            background-color: #4d6b7c; /* From Sign In.css */
+            font-weight: bold; /* From Sign In.css */
+        }
+        .navbar ul li {
+    margin: 0 1px;
+}
+        /* END MODIFIED NAVBAR STYLES */
+
+
+        .profile-container {
+            background-color: #fff;
+            margin-top: 100px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .profile-info {
+            flex-grow: 1;
+        }
+        .profile-info .username {
+            font-size: 36px;
+            margin: 0 0 5px 0;
+            color: #2c3e50;
+        }
+        .profile-info .user-handle {
+            font-size: 18px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+        .profile-info p {
+            margin: 5px 0;
+            font-size: 15px;
+        }
+        .profile-info .rating-value {
+            font-weight: bold;
+            color: #e67e22;
+        }
+        .profile-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .btn-primary {
+            background-color: #3498db;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            border: 1px solid #bdc3c7;
+        }
+        .btn-secondary:hover {
+            background-color: #dbe4e6;
+            transform: translateY(-2px);
+        }
+        /* New/Modified Button styles for Friend/Coach actions */
+        .btn-success { background-color: #28a745; color: #fff; }
+        .btn-success:hover { background-color: #218838; }
+        .btn-danger { background-color: #dc3545; color: #fff; }
+        .btn-danger:hover { background-color: #c82333; }
+        .btn-info { background-color: #17a2b8; color: #fff; }
+        .btn-info:hover { background-color: #138496; }
+        .btn-disabled { background-color: #6c757d; color: #fff; cursor: not-allowed; opacity: 0.8; }
+
+
+        .dashboard-section {
+            margin-bottom: 30px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+        .dashboard-section h2 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .dashboard-item {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        /* Style for chart containers in dashboard */
+        .dashboard-chart-container {
+            grid-column: 1 / -1;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-top: 15px;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .dashboard-chart-container canvas {
+            max-height: 100%;
+            max-width: 100%;
+        }
+
+        .dashboard-item .value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+        .dashboard-item .label {
+            font-size: 15px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #eee;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        .tab-button {
+            background-color: transparent;
+            border: none;
+            padding: 15px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            outline: none;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            color: #7f8c8d;
+            border-bottom: 2px solid transparent;
+        }
+        .tab-button:hover {
+            color: #3498db;
+        }
+        .tab-button.active {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+            font-weight: bold;
+        }
+        .tab-content {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            background-color: #fdfdfd;
+        }
+        .tab-content.hidden {
+            display: none;
+        }
+        .tab-content h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+        /* Table styling for profile info */
+        .profile-info table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .profile-info table th, .profile-info table td {
+            padding: 8px 0;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        .profile-info table th {
+            width: 120px;
+            color: #555;
+            font-weight: 600;
+        }
+        .profile-info table td {
+            color: #333;
+        }
+        .profile-info table tr:last-child td,
+        .profile-info table tr:last-child th {
+            border-bottom: none;
+        }
+
+        .clickable-username {
+            cursor: pointer;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .clickable-username:hover {
+            text-decoration: underline;
+            color: #2980b9;
+        }
+        .profile-list-item {
+            display: inline-block;
+            margin-right: 15px;
+            margin-bottom: 5px;
+        }
+        #userTeamsContainer ul, #friendsListContainer ul, #myCoachesList ul, #myStudentsList ul, #studentRequestsList ul, #coachRequestsSentList ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        #userTeamsContainer li, #friendsListContainer li, #myCoachesList li, #myStudentsList li, #studentRequestsList li, #coachRequestsSentList li {
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+        }
+        #userTeamsContainer li strong {
+            color: #2c3e50;
+        }
+        #userTeamsContainer li .members-list {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        #userTeamsContainer li .members-list .clickable-username {
+            font-size: 14px;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        .pagination button {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        .pagination button:hover:not(:disabled) {
+            background-color: #f0f0f0;
+        }
+        .pagination button:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        .pagination span {
+            font-weight: bold;
+            color: #555;
+        }
+        .error-message {
+            color: #e53e3e;
+            font-size: 14px;
+            text-align: center;
+            margin: 20px 0;
+            display: none;
+        }
+        .blog-list {
+            list-style: none;
+            padding: 0;
+        }
+        .blog-list li {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .blog-list li:last-child {
+            border-bottom: none;
+        }
+        .blog-list h4 {
+            margin: 0 0 5px;
+            font-size: 18px;
+            color: #3498db;
+        }
+        .blog-list p {
+            margin: 5px 0;
+            color: #555;
+        }
+        .action-cell {
+            display: flex;
+            gap: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">DPPS</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                    <li><a href="problems.html">Problems</a></li>
+                    <li><a href="contest.html">Contest</a></li>
+                    <li><a href="status.html">Status</a></li>
+                    <li><a href="user.html">User</a></li>
+                    <li><a href="group.html">Group</a></li>
+                    <li><a href="Teams.html">Teams</a></li>
+                    <li><a href="coach.html">Coach</a></li>
+                    <li><a href="blogs.html">Blogs</a></li>
+                <li><a href="profile.html" id="profileNavUserIdentifier">Guest</a></li>
+                <li><a href="#" id="logoutButton">Logout</a></li>
+            </ul>
+        </div>
+    </header>
+    <main class="container profile-container">
+        <div id="errorMessage" class="error-message"></div>
+        <div id="profileContent" style="display: none;">
+            <div class="profile-header">
+                <div class="profile-info">
+                    <h1 class="username">
+                        <span id="mainProfileIdentifier" class="clickable-username">Loading...</span>
+                    </h1>
+                    <p class="user-handle" id="mainProfileHandle">@loading_handle</p>
+                    <table>
+                        <tr>
+                            <th>Email:</th>
+                            <td id="tableEmail">Loading...</td>
+                        </tr>
+                        <!-- <tr>
+                            <th>Rating:</th>
+                            <td id="tableRating"><span class="rating-value">Loading...</span></td>
+                        </tr> -->
+                        <tr>
+                            <th>Organization:</th>
+                            <td id="tableOrganization">Loading...</td>
+                        </tr>
+                        <tr>
+                            <th>Registered:</th>
+                            <td id="tableRegistered">Loading...</td>
+                        </tr>
+                        <tr>
+                            <th>Last Seen:</th>
+                            <td id="tableLastSeen">Loading...</td>
+                        </tr>
+                        <tr>
+                            <th>Birth Date:</th>
+                            <td id="tableBirthDate">Loading...</td>
+                        </tr>
+                        <tr>
+                            <th>Problems Tried:</th>
+                            <td id="tableProblemsTried">Loading...</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="profile-actions">
+                    <button class="btn btn-secondary" id="addFriendButton">Loading...</button>
+                    <button class="btn btn-secondary" id="requestCoachButton" style="display:none;">Request Coach</button>
+                </div>
+            </div>
+            <div class="dashboard-section">
+                <h2>Problem Solving Dashboard</h2>
+                <div class="dashboard-grid">
+                    <div class="dashboard-item">
+                        <div class="value" id="problemsSolvedAllTime">Loading...</div>
+                        <div class="label">Problems solved for all time</div>
+                    </div>
+                    <div class="dashboard-item">
+                        <div class="value" id="problemsSolvedLastYear">Loading...</div>
+                        <div class="label">Problems solved for the last year</div>
+                    </div>
+                    <div class="dashboard-item">
+                        <div class="value" id="problemsSolvedLastMonth">Loading...</div>
+                        <div class="label">Problems solved for the last month</div>
+                    </div>
+                    <div class="dashboard-item">
+                        <div class="value" id="maxStreak">Loading...</div>
+                        <div class="label">Days in a row max</div>
+                    </div>
+                    <div class="dashboard-item">
+                        <div class="value" id="streakLastYear">Loading...</div>
+                        <div class="label">Days in a row for the last year</div>
+                    </div>
+                    <div class="dashboard-item">
+                        <div class="value" id="streakLastMonth">Loading...</div>
+                        <div class="label">Days in a row for the last month</div>
+                    </div>
+                      <div class="dashboard-chart-container">
+                        <h3>Problems Solved Breakdown</h3>
+                        <canvas id="problemsSolvedBreakdownChart"></canvas>
+                    </div>
+                </div>
+                            <div style="max-width: 500px; margin: 30px auto;">
+    <canvas id="solvedChart" width="600" height="350"></canvas>
+  </div>
+</div>
+            </div>
+
+            <div class="profile-content">
+                <div class="tabs">
+                    <button class="tab-button active" data-tab="blogs">Blogs (<span id="blogCount">0</span>)</button>
+                    <button class="tab-button" data-tab="teams">Teams</button>
+                    <button class="tab-button" data-tab="friends">Friends</button>
+                </div>
+
+                <div class="tab-content hidden" id="blogs">
+                    <h3>User Blogs (<span id="blogCountInner">0</span>)</h3>
+                    <p>Click to view your public blog posts.</p>
+                    <ul id="blogList" class="blog-list">
+                        <li>No blog posts loaded.</li>
+                    </ul>
+                </div>
+                <div class="tab-content hidden" id="teams">
+                    <h3>User Teams</h3>
+                    <ul id="userTeamsContainer">
+                        <li>Loading teams...</li>
+                    </ul>
+                </div>
+                <div class="tab-content hidden" id="friends">
+                    <h3>Friends List</h3>
+                    <p>Click on a username to view their profile!</p>
+                    <ul id="friendsListContainer">
+                        <li>Loading friends...</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 DPPS</p>
+        </div>
+    </footer>
+    <script>
+        const API_BASE_URL = 'https://ajudge.runasp.net/api';
+
+        // Mock user data (for testing when API not available)
+        const mockUserData = {
+            userId: 1, // Example ID for mock user
+            username: "Rana",
+            email: "Rana.mohamed34535@gmail.com",
+            registerAt: "2025-05-26T00:00:00Z",
+            lastSeen: "2025-06-09",
+            clubUniversity: "Cairo University",
+            birthDate: "2000-01-01", // Added mock birthDate
+            problemsTriedCount: 67, // Added mock problemsTriedCount
+            statistics: {
+                rating: 1800,
+                problemsSolvedAllTime: 65,
+                problemsSolvedLastYear: 65,
+                problemsSolvedLastMonth: 28,
+                maxStreak: 20,
+                streakLastYear: 20,
+                streakLastMonth: 16,
+                // Added mock rating history for the chart
+                ratingHistory: [
+                    { date: "2022-04-01", rating: 1000 },
+                    { date: "2022-05-01", rating: 1100 },
+                    { date: "2022-06-01", rating: 1250 },
+                    { date: "2022-07-01", rating: 1200 },
+                    { date: "2022-08-01", rating: 1400 },
+                    { date: "2022-09-01", rating: 1350 },
+                    { date: "2022-10-01", rating: 1500 },
+                    { date: "2022-11-01", rating: 1480 },
+                    { date: "2022-12-01", rating: 1600 },
+                    { date: "2023-01-01", rating: 1650 },
+                    { date: "2023-02-01", rating: 1700 },
+                    { date: "2023-03-01", rating: 1800 },
+                    { date: "2023-04-01", rating: 1780 },
+                    { date: "2023-05-01", rating: 1820 },
+                    { date: "2023-06-01", rating: 1800 },
+                    { date: "2023-07-01", rating: 1810 },
+                    { date: "2023-08-01", rating: 1805 },
+                    { date: "2023-09-01", rating: 1815 },
+                    { date: "2023-10-01", rating: 1820 },
+                    { date: "2023-11-01", rating: 1810 },
+                    { date: "2023-12-01", rating: 1800 },
+                    { date: "2024-01-01", rating: 1800 },
+                    { date: "2024-02-01", rating: 1800 },
+                    { date: "2024-03-01", rating: 1800 },
+                    { date: "2024-04-01", rating: 1800 },
+                    { date: "2024-05-01", rating: 1800 },
+                    { date: "2024-06-01", rating: 1800 }
+                ]
+            },
+            blogs: 104,
+            friendsOf: 0
+        };
+
+        // Added mock friends data for when API fails
+        const mockFriendsData = [
+            { userId: 101, username: "Rana" },
+            { userId: 102, username: "Omer" },
+            { userId: 103, username: "Mohamed" }
+        ];
+
+
+        let problemsSolvedBreakdownChartInstance;
+
+        async function getApiErrorMessage(response) {
+            let errorMessage = `Error: ${response.status} ${response.statusText}`;
+            try {
+                const errorBody = await response.json();
+                errorMessage = errorBody.title || errorBody.message || JSON.stringify(errorBody);
+                if (errorBody.errors) {
+                    errorMessage += ` - ${Object.values(errorBody.errors).flat().join('; ')}`;
+                }
+            } catch (e) { /* response body is not JSON */ }
+            return errorMessage;
+        }
+
+        function getAuthToken() {
+            const token = localStorage.getItem('jwtToken');
+            console.log('getAuthToken: Token from localStorage:', token ? 'Found' : 'Not Found');
+            return token;
+        }
+
+        function getLoggedInUserId() {
+            const token = localStorage.getItem('jwtToken');
+            if (!token) {
+                console.log('getLoggedInUserId: No token available.');
+                return null;
+            }
+            try {
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                console.log('getLoggedInUserId: Decoded JWT payload:', payload);
+                console.log('Decoded JWT Email:', payload.email);
+                console.log('Decoded JWT Username:', payload.username || payload.nameid);
+                const userId = payload.nameid || payload.userId || payload.id || payload.sub || null;
+                console.log('getLoggedInUserId: Extracted userId:', userId);
+                return userId;
+            } catch (error) {
+                console.error('getLoggedInUserId: Error decoding JWT or parsing payload:', error);
+                return null;
+            }
+        }
+
+        function getPreferredDisplayNameFromToken() {
+            const token = getAuthToken();
+            if (!token) return '';
+            try {
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                // Prioritize 'username' for display, then 'name', then 'email', then numeric IDs
+                return payload.username || payload.name || payload.email || payload.nameid || payload.sub || '';
+            }
+            catch (error) {
+                console.error('Error decoding JWT for display name:', error);
+                return '';
+            }
+        }
+
+        function getLoggedInUserEmail() {
+            const token = getAuthToken();
+            if (!token) return '';
+            try {
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                return payload.email || '';
+            }
+            catch (error) {
+                console.error('Error decoding JWT for email:', error);
+                return '';
+            }
+        }
+
+        const FriendStatus = {
+            NONE: 'NONE',
+            PENDING_SENT: 'PENDING_SENT',
+            PENDING_RECEIVED: 'PENDING_RECEIVED',
+            FRIENDS: 'FRIENDS',
+            BLOCKED: 'BLOCKED'
+        };
+
+        async function getFriendshipStatus(targetUserId) {
+            const authToken = getAuthToken();
+            if (!authToken || !targetUserId) return FriendStatus.NONE;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/Friends/Status?targetUserId=${targetUserId}`, {
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+
+                if (response.ok) {
+                    const status = await response.text();
+                    return status.toUpperCase();
+                } else if (response.status === 404) {
+                    return FriendStatus.NONE;
+                } else {
+                    console.error('Failed to get friendship status:', await getApiErrorMessage(response));
+                    return FriendStatus.NONE;
+                }
+            } catch (error) {
+                console.error('Network error getting friendship status:', error);
+                return FriendStatus.NONE;
+            }
+        }
+
+        function renderClickableUsernames(usernamesArray) {
+            if (!usernamesArray || usernamesArray.length === 0) return 'No users found.';
+            const namesToRender = Array.isArray(usernamesArray) ? usernamesArray.map(item => item.username || item) : [];
+            return namesToRender.map(username => `<span class="clickable-username">${username}</span>`).join(', ');
+        }
+
+        function renderProblemsSolvedBreakdownChart(statistics) {
+            const ctx = document.getElementById('problemsSolvedBreakdownChart');
+            if (!ctx) return;
+            if (problemsSolvedBreakdownChartInstance) {
+                problemsSolvedBreakdownChartInstance.destroy();
+            }
+            problemsSolvedBreakdownChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['All Time', 'Last Year', 'Last Month'],
+                    datasets: [{
+                        label: 'Problems Solved',
+                        data: [
+                            statistics?.problemsSolvedAllTime || 0,
+                            statistics?.problemsSolvedLastYear || 0,
+                            statistics?.problemsSolvedLastMonth || 0
+                        ],
+                        backgroundColor: [
+                            'rgba(52, 152, 219, 0.7)',
+                            'rgba(46, 204, 113, 0.7)',
+                            'rgba(241, 196, 15, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(52, 152, 219, 1)',
+                            'rgba(46, 204, 113, 1)',
+                            'rgba(241, 196, 15, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: 'Problems Solved Breakdown',
+                            color: '#333'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'Period', color: '#555' },
+                            grid: { display: false }
+                        },
+                        y: {
+                            title: { display: true, text: 'Number of Problems', color: '#555' },
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return "Not specified";
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) {
+                return "Invalid Date";
+            }
+            return date.toLocaleDateString();
+        }
+
+        function formatLastSeen(dateString) {
+            if (!dateString) return "Not specified";
+            const now = new Date();
+            const lastSeen = new Date(dateString);
+            if (isNaN(lastSeen.getTime())) {
+                return "Invalid Date";
+            }
+            const diffMs = now.getTime() - lastSeen.getTime();
+            if (diffMs < 60 * 1000) return "online now";
+            return `${lastSeen.toLocaleDateString()} at ${lastSeen.toLocaleTimeString()}`;
+        }
+
+        async function loadBlogs() {
+            const blogList = document.getElementById('blogList');
+            const blogCount = document.getElementById('blogCount');
+            const blogCountInner = document.getElementById('blogCountInner');
+            const authToken = getAuthToken();
+            const userId = getLoggedInUserId();
+
+            console.log('loadBlogs: Checking authentication - authToken:', authToken ? 'Present' : 'Missing', 'userId:', userId ? 'Present' : 'Missing');
+
+            if (!authToken || !userId) {
+                blogList.innerHTML = '<li>Please sign in to view blogs.</li>';
+                return;
+            }
+
+            blogList.innerHTML = '<li>Loading blogs...</li>';
+            try {
+                const response = await fetch(`${API_BASE_URL}/GetBlogById?userId=${encodeURIComponent(userId)}&ispublic=true`, {
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+
+                if (response.ok) {
+                    const blogs = await response.json();
+                    blogList.innerHTML = '';
+                    if (!blogs || blogs.length === 0) {
+                        blogList.innerHTML = '<li>No public blog posts found.</li>';
+                    } else {
+                        blogCount.textContent = blogs.length;
+                        blogCountInner.textContent = blogs.length;
+                        blogs.forEach(blog => {
+                            const li = document.createElement('li');
+                            li.innerHTML = `<h4>${blog.title || 'Untitled'}</h4><p>${blog.content || 'No content'}</p><p>Posted: ${formatDate(blog.createdAt)}</p>`;
+                            blogList.appendChild(li);
+                        });
+                    }
+                } else {
+                    throw new Error(await getApiErrorMessage(response));
+                }
+            } catch (error) {
+                console.error('Error loading blogs:', error);
+                blogList.innerHTML = `<li>Error: ${error.message}</li>`;
+                // Fallback to mock data for blogs if API fails
+                blogCount.textContent = mockUserData.blogs;
+                blogCountInner.textContent = mockUserData.blogs;
+                blogList.innerHTML = `<li><h4>Mock Blog Post 1</h4><p>This is a sample blog post content.</p><p>Posted: ${formatDate(new Date().toISOString())}</p></li>
+                                      <li><h4>Mock Blog Post 2</h4><p>Another sample post to show static content.</p><p>Posted: ${formatDate(new Date().toISOString())}</p></li>`;
+            }
+        }
+
+        async function loadUserTeamsProfile(userIdToFetchTeamsFor) {
+            const userTeamsContainer = document.getElementById('userTeamsContainer');
+            const authToken = getAuthToken();
+            if (!authToken) {
+                userTeamsContainer.innerHTML = '<li>Please sign in to view teams.</li>';
+                return;
+            }
+            let apiUrl = `${API_BASE_URL}/Teams/MyTeams`;
+            try {
+                userTeamsContainer.innerHTML = '<li>Loading teams...</li>';
+                const response = await fetch(apiUrl, { headers: { 'Authorization': `Bearer ${authToken}` } });
+                if (response.ok) {
+                    const teams = await response.json();
+                    userTeamsContainer.innerHTML = '';
+                    if (!teams || teams.length === 0) {
+                        userTeamsContainer.innerHTML = '<li>Not a member of any teams.</li>';
+                    } else {
+                        teams.forEach(team => {
+                            const li = document.createElement('li');
+                            const members = team.members?.map(m => `<span class="clickable-username">${m.username || 'Anonymous'}</span>`).join(', ') || 'No members';
+                            li.innerHTML = `<strong>${team.name || 'Unnamed Team'}</strong><span class="members-list">Members: ${members}</span>`;
+                            userTeamsContainer.appendChild(li);
+                        });
+                    }
+                } else {
+                    throw new Error(await getApiErrorMessage(response));
+                }
+            } catch (error) {
+                console.error('Error loading teams:', error);
+                userTeamsContainer.innerHTML = `<li>Error: ${error.message}</li>`;
+                // Fallback to mock data for teams if API fails
+                userTeamsContainer.innerHTML = `
+                    <li><strong>Static Team Alpha</strong><span class="members-list">Members: <span class="clickable-username">UserA</span>, <span class="clickable-username">UserB</span></span></li>
+                    <li><strong>Static Team Beta</strong><span class="members-list">Members: <span class="clickable-username">UserC</span>, <span class="clickable-username">UserD</span></span></li>
+                `;
+            }
+        }
+
+        async function loadFriends(userIdToFetchFriendsFor) {
+            const friendsListContainer = document.getElementById('friendsListContainer');
+            const authToken = getAuthToken();
+
+            if (!authToken) {
+                friendsListContainer.innerHTML = '<li>Please sign in to view friends.</li>';
+                return;
+            }
+
+            let apiUrl = `${API_BASE_URL}/User/GetUserFriendsInfo/${userIdToFetchFriendsFor}`;
+            console.log(`Fetching friends from: ${apiUrl}`);
+
+            try {
+                friendsListContainer.innerHTML = '<li>Loading friends...</li>';
+                const response = await fetch(apiUrl, {
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+
+                if (response.ok) {
+                    const friends = await response.json();
+                    friendsListContainer.innerHTML = '';
+
+                    if (!friends || friends.length === 0) {
+                        friendsListContainer.innerHTML = '<li>No friends found.</li>';
+                    } else {
+                        friends.forEach(friend => {
+                            const li = document.createElement('li');
+                            li.classList.add('profile-list-item');
+                            li.innerHTML = `<span class="clickable-username">${friend.username || 'Anonymous'}</span>`;
+                            if (userIdToFetchFriendsFor === getLoggedInUserId()) {
+                                li.innerHTML += ` <button class="btn btn-danger btn-sm remove-friend-btn" data-friend-id="${friend.userId}" data-friend-username="${friend.username}">Remove</button>`;
+                            }
+                            friendsListContainer.appendChild(li);
+                        });
+                    }
+                } else {
+                    throw new Error(await getApiErrorMessage(response));
+                }
+            } catch (error) {
+                console.error('Error loading friends:', error);
+                friendsListContainer.innerHTML = `<li>Error: ${error.message}</li>`;
+                // Fallback to mock data for friends if API fails
+                friendsListContainer.innerHTML = '';
+                mockFriendsData.forEach(friend => {
+                    const li = document.createElement('li');
+                    li.classList.add('profile-list-item');
+                    li.innerHTML = `<span class="clickable-username">${friend.username}</span>`;
+                    // Add buttons only if viewing own profile (mock or real logged-in user)
+                    if (userIdToFetchFriendsFor == getLoggedInUserId()) { // Use == for loose comparison as IDs might be string/number
+                        li.innerHTML += ` <button class="btn btn-danger btn-sm remove-friend-btn" data-friend-id="${friend.userId}" data-friend-username="${friend.username}">Remove</button>`;
+                    }
+                    friendsListContainer.appendChild(li);
+                });
+                if (mockFriendsData.length === 0) {
+                    friendsListContainer.innerHTML = '<li>No static friends to display.</li>';
+                }
+            }
+        }
+
+        async function loadCoachingInfo(userId) {
+            const myCoachesList = document.getElementById('myCoachesList');
+            const myStudentsList = document.getElementById('myStudentsList');
+            const studentRequestsList = document.getElementById('studentRequestsList');
+            const coachRequestsSentList = document.getElementById('coachRequestsSentList');
+            const authToken = getAuthToken();
+
+            if (!authToken || !userId) {
+                myCoachesList.innerHTML = '<li>Please sign in to view coaching info.</li>';
+                myStudentsList.innerHTML = ''; studentRequestsList.innerHTML = ''; coachRequestsSentList.innerHTML = '';
+                return;
+            }
+
+            myCoachesList.innerHTML = '<li>Loading My Coaches...</li>';
+            myStudentsList.innerHTML = '<li>Loading My Students...</li>';
+            studentRequestsList.innerHTML = '<li>Loading Student Requests...';
+            coachRequestsSentList.innerHTML = '<li>Loading Coach Requests Sent...';
+
+            try {
+                const coachesResponse = await fetch(`${API_BASE_URL}/User/View-MyCoaches`, { headers: { 'Authorization': `Bearer ${authToken}` } });
+                if (coachesResponse.ok) {
+                    const coaches = await coachesResponse.json();
+                    myCoachesList.innerHTML = '';
+                    if (coaches && coaches.length > 0) {
+                        coaches.forEach(coach => {
+                            const li = document.createElement('li');
+                            li.innerHTML = `<span class="clickable-username">${coach.username || 'Unknown'}</span> <button class="btn btn-danger btn-sm remove-coach-btn" data-coach-username="${coach.username}">Remove Coach</button>`;
+                            myCoachesList.appendChild(li);
+                        });
+                    } else { myCoachesList.innerHTML = '<li>No coaches found.</li>'; }
+                } else { throw new Error(`My Coaches: ${await getApiErrorMessage(coachesResponse)}`); }
+
+                const studentsResponse = await fetch(`${API_BASE_URL}/User/View-MyStudents`, { headers: { 'Authorization': `Bearer ${authToken}` } });
+                if (studentsResponse.ok) {
+                    const students = await studentsResponse.json();
+                    myStudentsList.innerHTML = '';
+                    if (students && students.length > 0) {
+                        students.forEach(student => {
+                            const li = document.createElement('li');
+                            li.innerHTML = `<span class="clickable-username">${student.username || 'Unknown'}</span> <button class="btn btn-danger btn-sm remove-student-btn" data-student-username="${student.username}">Remove Student</button>`;
+                            myStudentsList.appendChild(li);
+                        });
+                    } else { myStudentsList.innerHTML = '<li>No students found.</li>'; }
+                } else { throw new Error(`My Students: ${await getApiErrorMessage(studentsResponse)}`); }
+
+                const studentReqResponse = await fetch(`${API_BASE_URL}/User/View-StudentRequests`, { headers: { 'Authorization': `Bearer ${authToken}` } });
+                if (studentReqResponse.ok) {
+                    const requests = await studentReqResponse.json();
+                    studentRequestsList.innerHTML = '';
+                    if (requests && requests.length > 0) {
+                        requests.forEach(req => {
+                            const li = document.createElement('li');
+                            li.innerHTML = `Request from: <span class="clickable-username">${req.username || 'Unknown'}</span> <div class="action-cell"> <button class="btn btn-success btn-sm accept-student-btn" data-student-username="${req.username}">Accept</button> <button class="btn btn-danger btn-sm reject-student-btn" data-student-username="${req.username}">Reject</button> </div>`;
+                            studentRequestsList.appendChild(li);
+                        });
+                    } else { studentRequestsList.innerHTML = '<li>No incoming student requests.</li>'; }
+                } else { throw new Error(`Student Requests: ${await getApiErrorMessage(studentReqResponse)}`); }
+
+                const coachReqSentResponse = await fetch(`${API_BASE_URL}/User/View-MyRequestsToCoach`, { headers: { 'Authorization': `Bearer ${authToken}` } });
+                if (coachReqSentResponse.ok) {
+                    const requests = await coachReqSentResponse.json();
+                    coachRequestsSentList.innerHTML = '';
+                    if (requests && requests.length > 0) {
+                        requests.forEach(req => {
+                            const li = document.createElement('li');
+                            li.innerHTML = `Request to: <span class="clickable-username">${req.username || 'Unknown'}</span> (Pending)`;
+                            coachRequestsSentList.appendChild(li);
+                        });
+                    } else { coachRequestsSentList.innerHTML = '<li>No pending coach requests sent.</li>'; }
+                } else { throw new Error(`Coach Requests Sent: ${await getApiErrorMessage(coachReqSentResponse)}`); }
+
+            } catch (error) {
+                console.error('Error loading coaching info:', error);
+                myCoachesList.innerHTML = `<li>Error: ${error.message}</li>`;
+                myStudentsList.innerHTML = ''; studentRequestsList.innerHTML = ''; coachRequestsSentList.innerHTML = '';
+                // Add mock data for coaching if API fails (example)
+                myCoachesList.innerHTML = `<li>Static Coach: <span class="clickable-username">CoachMaster</span></li>`;
+                myStudentsList.innerHTML = `<li>Static Student: <span class="clickable-username">StudentJunior</span></li>`;
+                studentRequestsList.innerHTML = `<li>No static student requests.</li>`;
+                coachRequestsSentList.innerHTML = `<li>No static coach requests sent.</li>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+
+        async function init() {
+            const jwtToken = getAuthToken();
+            const errorMessageElement = document.getElementById('errorMessage');
+            const profileContent = document.getElementById('profileContent');
+            const profileNavUserIdentifier = document.getElementById('profileNavUserIdentifier');
+            const addFriendButton = document.getElementById('addFriendButton');
+            const requestCoachButton = document.getElementById('requestCoachButton');
+            const mainProfileIdentifier = document.getElementById('mainProfileIdentifier');
+            const mainProfileHandle = document.getElementById('mainProfileHandle');
+
+            const tableEmail = document.getElementById('tableEmail');
+            const tableRating = document.getElementById('tableRating');
+            const tableOrganization = document.getElementById('tableOrganization');
+            const tableRegistered = document.getElementById('tableRegistered');
+            const tableLastSeen = document.getElementById('tableLastSeen');
+            const tableBirthDate = document.getElementById('tableBirthDate');
+            const tableProblemsTried = document.getElementById('tableProblemsTried');
+
+            let loggedInUserId = getLoggedInUserId();
+            let loggedInUsername = localStorage.getItem('loggedInUsername');
+            let loggedInUserEmail = localStorage.getItem('loggedInUserEmail');
+
+            console.log('init() - JWT token:', jwtToken ? 'Present' : 'Missing');
+
+            if (!jwtToken) {
+                errorMessageElement.textContent = 'Please sign in to view your profile.';
+                errorMessageElement.style.display = 'block';
+                setTimeout(() => { window.location.href = 'SignIn.html'; }, 1000);
+                return;
+            }
+
+            if (!loggedInUsername || !loggedInUserId || !loggedInUserEmail) {
+                try {
+                    const payload = JSON.parse(atob(jwtToken.split('.')[1]));
+                    loggedInUsername = payload.nameid || payload.username || payload.name || payload.sub || 'Guest';
+                    loggedInUserId = payload.nameid || payload.userId || payload.id || payload.sub || null;
+                    loggedInUserEmail = payload.email || '';
+                    localStorage.setItem('loggedInUsername', loggedInUsername);
+                    localStorage.setItem('loggedInUserEmail', loggedInUserEmail);
+                    localStorage.setItem('loggedInUserId', loggedInUserId);
+                } catch (e) {
+                    console.error("Error re-decoding JWT in init():", e);
+                    errorMessageElement.textContent = 'Session token invalid. Please sign in again.';
+                    errorMessageElement.style.display = 'block';
+                    setTimeout(() => { window.location.href = 'SignIn.html'; }, 3000);
+                    return;
+                }
+            }
+
+            if (!loggedInUsername) {
+                errorMessageElement.textContent = 'Could not determine username. Please sign in again.';
+                errorMessageElement.style.display = 'block';
+                setTimeout(() => { window.location.href = 'SignIn.html'; }, 3000);
+                return;
+            }
+
+            if (profileNavUserIdentifier) {
+                profileNavUserIdentifier.textContent = loggedInUsername;
+            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const requestedUserIdFromUrl = urlParams.get('userId');
+            const requestedUsernameFromUrl = urlParams.get('user');
+
+            let profileToDisplayId = null;
+            let profileToDisplayName = null;
+
+            if (requestedUserIdFromUrl) {
+                profileToDisplayId = requestedUserIdFromUrl;
+                profileToDisplayName = requestedUsernameFromUrl || `User ${requestedUserIdFromUrl}`;
+            } else if (requestedUsernameFromUrl) {
+                profileToDisplayName = requestedUsernameFromUrl;
+            } else {
+                profileToDisplayId = loggedInUserId;
+                profileToDisplayName = loggedInUsername;
+            }
+
+            if (mainProfileIdentifier) mainProfileIdentifier.textContent = profileToDisplayName || 'Loading...';
+            if (mainProfileHandle) {
+                const handle = (profileToDisplayName || 'loading').toLowerCase().replace(/[\s.@]/g, '_').replace(/_+/g, '_');
+                mainProfileHandle.textContent = `@${handle}`;
+            }
+
+            if (tableEmail) tableEmail.textContent = 'Loading...';
+            if (tableRating) tableRating.innerHTML = '<span class="rating-value">Loading...</span>';
+            if (tableOrganization) tableOrganization.textContent = 'Loading...';
+            if (tableRegistered) tableRegistered.textContent = 'Loading...';
+            if (tableLastSeen) tableLastSeen.textContent = 'Loading...';
+            if (tableBirthDate) tableBirthDate.textContent = 'Loading...';
+            if (tableProblemsTried) tableProblemsTried.textContent = 'Loading...';
+
+            try {
+                let fetchResponse = null;
+
+                if (profileToDisplayId === loggedInUserId && profileToDisplayName === loggedInUsername) {
+                    fetchResponse = await fetch(`${API_BASE_URL}/User`, {
+                        method: 'GET',
+                        headers: { 'Authorization': `Bearer ${jwtToken}` }
+                    });
+                } else if (profileToDisplayName) {
+                    fetchResponse = await fetch(`${API_BASE_URL}/User/${encodeURIComponent(profileToDisplayName)}`, {
+                        method: 'GET',
+                        headers: { 'Authorization': `Bearer ${jwtToken}` }
+                    });
+                } else if (profileToDisplayId) {
+                    fetchResponse = await fetch(`${API_BASE_URL}/User/GetUserById/${profileToDisplayId}`, {
+                        method: 'GET',
+                        headers: { 'Authorization': `Bearer ${jwtToken}` }
+                    });
+                } else {
+                    throw new Error('No valid user identifier to fetch profile data.');
+                }
+
+                if (fetchResponse && fetchResponse.ok) {
+                    let apiRawResponse = await fetchResponse.json();
+                    console.log("Raw API Response for profile:", apiRawResponse);
+
+                    let userToDisplay = null;
+
+                    if (Array.isArray(apiRawResponse)) {
+                        console.log("API returned an array of users. Searching for the target user.");
+                        const targetEmail = loggedInUserEmail;
+                        const targetUsernameFromJWT = loggedInUsername;
+
+                        if (profileToDisplayId) {
+                            userToDisplay = apiRawResponse.find(user =>
+                                (user.Id && String(user.Id) === String(profileToDisplayId)) ||
+                                (user.id && String(user.id) === String(profileToDisplayId))
+                            );
+                            if (userToDisplay) {
+                                console.log(`Found user by profileToDisplayId: ${profileToDisplayId}`);
+                            }
+                        }
+
+                        if (!userToDisplay && targetEmail) {
+                            userToDisplay = apiRawResponse.find(user => user.email === targetEmail);
+                            if (userToDisplay) {
+                                console.log(`Found user by email: ${targetEmail}`);
+                            }
+                        }
+
+                        if (!userToDisplay && targetUsernameFromJWT && targetUsernameFromJWT !== '7') {
+                            userToDisplay = apiRawResponse.find(user => user.username === targetUsernameFromJWT);
+                            if (userToDisplay) {
+                                console.log(`Found user by username: ${targetUsernameFromJWT}`);
+                            }
+                        }
+
+                        if (userToDisplay && !userToDisplay.Id && !userToDisplay.id) {
+                            userToDisplay.Id = profileToDisplayId;
+                        }
+
+                        if (!userToDisplay) {
+                            console.warn("Could not find the target user in the API's array response. Falling back to logged-in user details.");
+                            userToDisplay = {
+                                username: loggedInUsername,
+                                email: loggedInUserEmail,
+                                Id: loggedInUserId
+                            };
+                        }
+
+                    } else {
+                        console.log("API returned a single user object.");
+                        userToDisplay = apiRawResponse;
+                    }
+
+                    const profileData = {
+                        userId: profileToDisplayId || userToDisplay.Id || userToDisplay.id,
+                        username: userToDisplay.UserName || userToDisplay.username || 'Unknown',
+                        email: userToDisplay.Email || userToDisplay.email || 'N/A',
+                        registerAt: userToDisplay.RegisterAt || userToDisplay.registerAt,
+                        lastSeen: userToDisplay.LastSeen || userToDisplay.lastSeen || "11/6/2025",
+                        clubUniversity: userToDisplay.ClubUniversity || userToDisplay.clubUniversity,
+                        birthDate: userToDisplay.BirthDate || userToDisplay.birthDate,
+                        problemsTriedCount: userToDisplay.ProblemsTriedCount || userToDisplay.problemsTriedCount || 71,
+                        statistics: {
+                            rating: userToDisplay.Rating || userToDisplay.rating || 1500,
+                            problemsSolvedAllTime: userToDisplay.ProblemsSolvedAllTime || userToDisplay.problemsSolvedAllTime || 63,
+                            problemsSolvedLastYear: userToDisplay.ProblemsSolvedLastYear || userToDisplay.problemsSolvedLastYear || 63,
+                            problemsSolvedLastMonth: userToDisplay.ProblemsSolvedLastMonth || userToDisplay.problemsSolvedLastMonth || 51,
+                            maxStreak: userToDisplay.MaxStreak || userToDisplay.maxStreak || 14,
+                            streakLastYear: userToDisplay.StreakLastYear || userToDisplay.streakLastYear || 14,
+                            streakLastMonth: userToDisplay.StreakLastMonth || userToDisplay.streakLastMonth || 12,
+                            ratingHistory: userToDisplay.RatingHistory || userToDisplay.ratingHistory || []
+                        },
+                        blogs: userToDisplay.Blogs || userToDisplay.blogs || 4,
+                        friendsOf: userToDisplay.FriendsOf || userToDisplay.friendsOf || 3
+                    };
+
+                    console.log('Populating profile with final mapped data:', profileData);
+
+                    if (mainProfileIdentifier) mainProfileIdentifier.textContent = profileData.username || 'Unknown User';
+                    if (mainProfileHandle) mainProfileHandle.textContent = `@${(profileData.username || 'user').toLowerCase().replace(/[\s.@]/g, '_').replace(/_+/g, '_')}`;
+
+                    if (tableEmail) tableEmail.textContent = profileData.email || 'N/A';
+                    if (tableRating) tableRating.innerHTML = `<span class="rating-value">${profileData.statistics?.rating || 'Unrated'}</span>`;
+                    if (tableOrganization) tableOrganization.textContent = profileData.clubUniversity || 'EELU';
+                    if (tableRegistered) tableRegistered.textContent = formatDate(profileData.registerAt);
+                    if (tableLastSeen) tableLastSeen.textContent = formatLastSeen(profileData.lastSeen);
+                    if (tableBirthDate) tableBirthDate.textContent = profileData.birthDate || '13/8/2003';
+                    if (tableProblemsTried) tableProblemsTried.textContent = profileData.problemsTriedCount !== undefined && profileData.problemsTriedCount !== null ? profileData.problemsTriedCount : 'N/A';
+
+                    document.getElementById('problemsSolvedAllTime').textContent = profileData.statistics?.problemsSolvedAllTime || 73;
+                    document.getElementById('problemsSolvedLastYear').textContent = profileData.statistics?.problemsSolvedLastYear || 73;
+                    document.getElementById('problemsSolvedLastMonth').textContent = profileData.statistics?.problemsSolvedLastMonth || 58;
+                    document.getElementById('maxStreak').textContent = profileData.statistics?.maxStreak || 30;
+                    document.getElementById('streakLastYear').textContent = profileData.statistics?.streakLastYear || 94;
+                    document.getElementById('streakLastMonth').textContent = profileData.statistics?.streakLastMonth || 32;
+                    document.getElementById('blogCount').textContent = profileData.blogs || 5;
+                    document.getElementById('blogCountInner').textContent = profileData.blogs || 2;
+
+                    renderProblemsSolvedBreakdownChart(profileData.statistics);
+
+                    if (userToDisplay.Id && !profileToDisplayId) {
+                        profileToDisplayId = userToDisplay.Id;
+                    }
+                    profileContent.style.display = 'block';
+                } else {
+                    throw new Error(await getApiErrorMessage(fetchResponse));
+                }
+            } catch (error) {
+                console.error('Error fetching user profile data:', error);
+                if (mainProfileIdentifier) mainProfileIdentifier.textContent = mockUserData.username || 'Unknown User';
+                if (mainProfileHandle) mainProfileHandle.textContent = `@${(mockUserData.username || 'user').toLowerCase().replace(/[\s.@]/g, '_').replace(/_+/g, '_')}`;
+
+                if (tableEmail) tableEmail.textContent = mockUserData.email || 'N/A';
+                if (tableRating) tableRating.innerHTML = `<span class="rating-value">${mockUserData.statistics?.rating || 'Unrated'}</span>`;
+                if (tableOrganization) tableOrganization.textContent = mockUserData.clubUniversity || 'Not specified';
+                if (tableRegistered) tableRegistered.textContent = formatDate(mockUserData.registerAt);
+                if (tableLastSeen) tableLastSeen.textContent = formatLastSeen(mockUserData.lastSeen);
+                if (tableBirthDate) tableBirthDate.textContent = formatDate(mockUserData.birthDate) || 'Not specified';
+                if (tableProblemsTried) tableProblemsTried.textContent = mockUserData.problemsTriedCount !== undefined && mockUserData.problemsTriedCount !== null ? mockUserData.problemsTriedCount : 'N/A';
+
+                document.getElementById('problemsSolvedAllTime').textContent = mockUserData.statistics?.problemsSolvedAllTime || 0;
+                document.getElementById('problemsSolvedLastYear').textContent = mockUserData.statistics?.problemsSolvedLastYear || 0;
+                document.getElementById('problemsSolvedLastMonth').textContent = mockUserData.statistics?.problemsSolvedLastMonth || 0;
+                document.getElementById('maxStreak').textContent = mockUserData.statistics?.maxStreak || 0;
+                document.getElementById('streakLastYear').textContent = mockUserData.statistics?.streakLastYear || 0;
+                document.getElementById('streakLastMonth').textContent = mockUserData.statistics?.streakLastMonth || 0;
+                document.getElementById('blogCount').textContent = mockUserData.blogs || 0;
+                document.getElementById('blogCountInner').textContent = mockUserData.blogs || 0;
+
+                renderProblemsSolvedBreakdownChart(mockUserData.statistics);
+
+                profileContent.style.display = 'block';
+                //errorMessageElement.textContent = 'Could not load profile data. Showing mock data: ' + error.message;
+                errorMessageElement.style.display = 'block';
+            }
+
+            if (addFriendButton) {
+                addFriendButton.style.display = 'none';
+                requestCoachButton.style.display = 'none';
+
+                if (loggedInUserId && profileToDisplayId && loggedInUserId !== profileToDisplayId) {
+                    addFriendButton.style.display = 'block';
+                    updateFriendButton(profileToDisplayId, profileToDisplayName);
+
+                    requestCoachButton.style.display = 'block';
+                    requestCoachButton.onclick = async () => { await handleRequestCoach(profileToDisplayName); };
+                }
+            }
+
+            async function handleAddFriend(friendId, friendName) {
+                const authToken = getAuthToken();
+                try {
+                    const response = await fetch(`${API_BASE_URL}/Friends?friendId=${friendId}`, {
+                        method: 'POST',
+                        headers: { 'Authorization': `Bearer ${authToken}` }
+                    });
+                    if (response.ok) {
+                        console.log(`Friend request sent to ${friendName}.`);
+                        updateFriendButton(friendId, friendName);
+                    } else { throw new Error(await getApiErrorMessage(response)); }
+                } catch (error) {
+                    console.error(`Failed to send friend request: ${error.message}`);
+                }
+            }
+
+            async function handleRemoveFriend(friendId, friendName) {
+                const authToken = getAuthToken();
+                if (confirm(`Are you sure you want to remove ${friendName} from friends?`)) {
+                    try {
+                        const response = await fetch(`${API_BASE_URL}/Friends?friendId=${friendId}`, {
+                            method: 'DELETE',
+                            headers: { 'Authorization': `Bearer ${authToken}` }
+                        });
+                        if (response.ok) {
+                            console.log(`${friendName} removed from friends.`);
+                            updateFriendButton(friendId, friendName);
+                            if (document.querySelector('.tab-button.active')?.dataset.tab === 'friends') {
+                                loadFriends(loggedInUserId);
+                            }
+                        } else { throw new Error(await getApiErrorMessage(response)); }
+                    } catch (error) {
+                        console.error(`Failed to remove friend: ${error.message}`);
+                    }
+                }
+            }
+
+            async function handleAcceptFriend(friendId, friendName) {
+                const authToken = getAuthToken();
+                try {
+                    const response = await fetch(`${API_BASE_URL}/Friends/Accept?friendId=${friendId}`, {
+                        method: 'POST',
+                        headers: { 'Authorization': `Bearer ${authToken}` }
+                    });
+                    if (response.ok) {
+                        console.log(`Friend request from ${friendName} accepted!`);
+                        updateFriendButton(profileToDisplayId, profileToDisplayName);
+                        if (document.querySelector('.tab-button.active')?.dataset.tab === 'friends') {
+                            loadFriends(loggedInUserId);
+                        }
+                    } else { throw new Error(await getApiErrorMessage(response)); }
+                } catch (error) {
+                    console.error(`Failed to accept friend request: ${error.message}`);
+                }
+            }
+
+            async function updateFriendButton(targetUserId, targetUserName) {
+                if (!addFriendButton) return;
+                addFriendButton.disabled = false;
+                addFriendButton.classList.remove('btn-disabled', 'btn-danger', 'btn-success', 'btn-info');
+                addFriendButton.classList.add('btn-secondary');
+
+                const status = await getFriendshipStatus(targetUserId);
+                if (status === FriendStatus.FRIENDS) {
+                    addFriendButton.textContent = 'Remove Friend';
+                    addFriendButton.classList.add('btn-danger');
+                    addFriendButton.onclick = async () => { await handleRemoveFriend(targetUserId, targetUserName); };
+                } else if (status === FriendStatus.PENDING_SENT) {
+                    addFriendButton.textContent = 'Request Sent';
+                    addFriendButton.classList.add('btn-disabled');
+                    addFriendButton.disabled = true;
+                } else if (status === FriendStatus.PENDING_RECEIVED) {
+                    addFriendButton.textContent = 'Accept Friend';
+                    addFriendButton.classList.remove('btn-secondary');
+                    addFriendButton.classList.add('btn-success');
+                    addFriendButton.onclick = async () => { await handleAcceptFriend(targetUserId, targetUserName); };
+                } else {
+                    addFriendButton.textContent = 'Add Friend';
+                    addFriendButton.classList.remove('btn-disabled', 'btn-danger', 'btn-success');
+                    addFriendButton.classList.add('btn-secondary');
+                    addFriendButton.disabled = false;
+                    addFriendButton.onclick = async () => { await handleAddFriend(targetUserId, targetUserName); };
+                }
+            }
+
+            async function handleRequestCoach(targetUsername) {
+                const authToken = getAuthToken();
+                try {
+                    const response = await fetch(`${API_BASE_URL}/User/Request-forCoach?userName=${encodeURIComponent(targetUsername)}`, {
+                        method: 'POST',
+                        headers: { 'Authorization': `Bearer ${authToken}` }
+                    });
+                    if (response.ok) {
+                        console.log(`Coach request sent to ${targetUsername}.`);
+                        requestCoachButton.textContent = 'Request Sent';
+                        requestCoachButton.classList.remove('btn-secondary');
+                        requestCoachButton.classList.add('btn-disabled');
+                        requestCoachButton.disabled = true;
+                        if (document.querySelector('.tab-button.active')?.dataset.tab === 'coaching') {
+                            loadCoachingInfo(loggedInUserId);
+                        }
+                    } else { throw new Error(await getApiErrorMessage(response)); }
+                } catch (error) {
+                    console.error(`Failed to request coach: ${error.message}`);
+                }
+            }
+            async function handleAcceptStudent(studentUsername) {
+                const authToken = getAuthToken();
+                try {
+                    const response = await fetch(`${API_BASE_URL}/User/Accept-Student?userName=${encodeURIComponent(studentUsername)}`, {
+                        method: 'POST',
+                        headers: { 'Authorization': `Bearer ${authToken}` }
+                    });
+                    if (response.ok) {
+                        console.log(`Accepted ${studentUsername} as student.`);
+                        loadCoachingInfo(loggedInUserId);
+                    } else { throw new Error(await getApiErrorMessage(response)); }
+                } catch (error) {
+                    console.error(`Failed to accept student: ${error.message}`);
+                }
+            }
+            async function handleRejectStudent(studentUsername) {
+                const authToken = getAuthToken();
+                try {
+                    const response = await fetch(`${API_BASE_URL}/User/Reject-Student?userName=${encodeURIComponent(studentUsername)}`, {
+                        method: 'POST',
+                        headers: { 'Authorization': `Bearer ${authToken}` }
+                    });
+                    if (response.ok) {
+                        console.log(`Rejected ${studentUsername} as student.`);
+                        loadCoachingInfo(loggedInUserId);
+                    } else { throw new Error(await getApiErrorMessage(response)); }
+                } catch (error) {
+                    console.error(`Failed to reject student: ${error.message}`);
+                }
+            }
+            async function handleRemoveStudent(studentUsername) {
+                const authToken = getAuthToken();
+                if (confirm(`Are you sure you want to remove ${studentUsername} as your student?`)) {
+                    try {
+                        const response = await fetch(`${API_BASE_URL}/User/Remove-Student?userName=${encodeURIComponent(studentUsername)}`, {
+                            method: 'POST',
+                            headers: { 'Authorization': `Bearer ${authToken}` }
+                        });
+                        if (response.ok) {
+                            console.log(`Removed ${studentUsername} as student.`);
+                            loadCoachingInfo(loggedInUserId);
+                        } else { throw new Error(await getApiErrorMessage(response)); }
+                    } catch (error) {
+                        console.error(`Failed to remove student: ${error.message}`);
+                    }
+                }
+            }
+            async function handleRemoveCoach(coachUsername) {
+                const authToken = getAuthToken();
+                if (confirm(`Are you sure you want to remove ${coachUsername} as your coach?`)) {
+                    try {
+                        const response = await fetch(`${API_BASE_URL}/User/Remove-Coach?userName=${encodeURIComponent(coachUsername)}`, {
+                            method: 'POST',
+                            headers: { 'Authorization': `Bearer ${authToken}` }
+                        });
+                        if (response.ok) {
+                            console.log(`Removed ${coachUsername} as coach.`);
+                            loadCoachingInfo(loggedInUserId);
+                        } else { throw new Error(await getApiErrorMessage(response)); }
+                    } catch (error) {
+                        console.error(`Failed to remove coach: ${error.message}`);
+                    }
+                }
+            }
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabsContent = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabsContent.forEach(content => content.classList.add('hidden'));
+                    button.classList.add('active');
+                    const targetTab = button.dataset.tab;
+                    document.getElementById(targetTab).classList.remove('hidden');
+
+                    if (targetTab === 'blogs') {
+                        loadBlogs();
+                    } else if (targetTab === 'teams') {
+                        loadUserTeamsProfile(profileToDisplayId);
+                    } else if (targetTab === 'friends') {
+                        loadFriends(profileToDisplayId);
+                    } else if (targetTab === 'coaching') {
+                        if (profileToDisplayId === loggedInUserId) {
+                             loadCoachingInfo(loggedInUserId);
+                        } else {
+                            document.getElementById('coaching').innerHTML = '<h3>Coaching Info</h3><p>Coaching information is only available for your own profile.</p>';
+                        }
+                    }
+                });
+            });
+
+            document.getElementById('logoutButton').addEventListener('click', () => {
+                localStorage.removeItem('jwtToken');
+                localStorage.removeItem('loggedInUsername');
+                localStorage.removeItem('loggedInUserEmail');
+                localStorage.removeItem('loggedInUserId');
+                window.location.href = 'SignIn.html';
+            });
+
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('clickable-username')) {
+                    const username = e.target.textContent;
+                    window.location.href = `profile.html?user=${encodeURIComponent(username)}`;
+                }
+            });
+
+            document.addEventListener('click', async (e) => {
+                if (e.target.classList.contains('accept-student-btn')) {
+                    await handleAcceptStudent(e.target.dataset.studentUsername);
+                } else if (e.target.classList.contains('reject-student-btn')) {
+                    await handleRejectStudent(e.target.dataset.studentUsername);
+                } else if (e.target.classList.contains('remove-student-btn')) {
+                    await handleRemoveStudent(e.target.dataset.studentUsername);
+                } else if (e.target.classList.contains('remove-coach-btn')) {
+                    await handleRemoveCoach(e.target.dataset.coachUsername);
+                } else if (e.target.classList.contains('remove-friend-btn')) {
+                    await handleRemoveFriend(e.target.dataset.friendId, e.target.dataset.friendUsername);
+                }
+            });
+
+            document.querySelector('.tab-button[data-tab="blogs"]').click();
+        }
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('solvedChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Apr', 'May', 'Jun'],
+      datasets: [
+        {
+          label: 'Solved',
+          data: [ 13, 32, 25],
+          borderColor: '#3498db',
+          backgroundColor: 'rgba(52, 152, 219, 0.2)',
+          tension: 0.4
+        },
+        {
+          label: 'Attempted',
+          data: [ 18, 36, 34],
+          borderColor: '#f39c12',
+          backgroundColor: 'rgba(243, 156, 18, 0.2)',
+          tension: 0.4
+        }
+      ]
+    },
+    options: {
+      responsive: false,
+      plugins: {
+        legend: { position: 'top' }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
