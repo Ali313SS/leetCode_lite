@@ -24,7 +24,7 @@ namespace AJudge.Application.services
         Task<ProblemDetailsDTO?> GetProblemByName(string name, int? userId);
         Task<ProblemDetailsDTO?> GetProblemDetailsAsync(int problemId, int? userId); // New method for problem details by ID
 
-        Task<bool>SumbitProblem(string link,int userid,string code);
+        Task<string> SubmitProblem(int userid,string link,string source,string code,string lang);
 
     }
 

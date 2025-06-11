@@ -463,19 +463,19 @@
             <param name="problemDto">Problem details including source, link, problem ID, and contest ID.</param>
             <returns>Returns detailed problem info on success or an error message.</returns>
         </member>
-        <member name="M:AJudge.Controllers.ProblemController.SubmitProblem(AJudge.Controllers.SumbitDTO)">
+        <member name="M:AJudge.Controllers.ProblemController.SubmitProblem(AJudge.Controllers.SubmitDTO)">
             <summary>
             Submit a solution code for a problem.
             </summary>
             <param name="submit">Contains problem link and submitted code.</param>
             <returns>Returns result of the submission or error.</returns>
         </member>
-        <member name="P:AJudge.Controllers.SumbitDTO.ProblemLink">
+        <member name="P:AJudge.Controllers.SubmitDTO.ProblemLink">
             <summary>
             link of problem
             </summary>
         </member>
-        <member name="P:AJudge.Controllers.SumbitDTO.Code">
+        <member name="P:AJudge.Controllers.SubmitDTO.Code">
             <summary>
             content of code submission
             </summary>

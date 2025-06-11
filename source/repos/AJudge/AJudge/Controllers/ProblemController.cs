@@ -154,7 +154,7 @@ namespace AJudge.Controllers
         /// <returns>Returns result of the submission or error.</returns>
         [HttpPost("Sumbit")]
         [Authorize]
-        public async Task<IActionResult> SubmitProblem([FromBody] SumbitDTO sumbit)
+        public async Task<IActionResult> SubmitProblem([FromBody] SubmitDTO submit)
         {
             if (!ModelState.IsValid)
             {
@@ -163,7 +163,8 @@ namespace AJudge.Controllers
             try
             {
                 int userId = GetUserIdFromToken(); // Temporary hardcoded userId, replace with GetUserIdFromToken() if needed
-                var result = await _problemService.SumbitProblem(sumbit.ProblemLink, userId, sumbit.Code);
+                var result = await _problemService.SubmitProblem(userId, submit.ProblemLink, submit.Source, submit.Code, submit.lang);
+
                 if (result == null)
                 {
                     return BadRequest(new { message = "problem not added" });
@@ -496,7 +497,7 @@ namespace AJudge.Controllers
         }
     }
 
-    public class SumbitDTO
+    public class SubmitDTO
     {
         /// <summary>
         /// link of problem
@@ -506,5 +507,8 @@ namespace AJudge.Controllers
         /// content of code submission
         /// </summary>
         public string Code { get; set; }
+
+        public string lang { get; set; }
+        public string Source { get; set; }
     }
 }

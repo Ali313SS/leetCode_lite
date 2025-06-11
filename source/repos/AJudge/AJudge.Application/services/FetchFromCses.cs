@@ -8,6 +8,7 @@ using AJudge.Application.services;
 using System.Net.Http.Headers;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace AJudge.Application.Services
 {
@@ -116,10 +117,19 @@ namespace AJudge.Application.Services
             return cases;
         }
 
-        public async Task<bool> Submit(
+        public async Task<string> Submit(string url,
+       string code,
+       string language,     
+       int problemId)
+        {
+            var init = this.Init().Result;
+            return await Submit(url, code, language, problemId, init.Key, init.Value);
+
+        }
+        protected async Task<string> Submit(
         string url,
         string code,
-        string language,      // "C++"
+        string language,      
         int problemId,
         string phpSessionId,
         string csrfToken)
@@ -201,13 +211,13 @@ namespace AJudge.Application.Services
                 Console.WriteLine("Response body:");
                 Console.WriteLine(reader.ReadToEnd());
             }
-            return true;
+            return "XXXX";
         }
-        
-        
 
 
-        public async Task<KeyValuePair<string, string>> Init()
+
+
+        protected async Task<KeyValuePair<string, string>> Init()
         {
             // First Request: GET /problemset/task/1617
             using var handler = new HttpClientHandler { UseCookies = false };
@@ -307,22 +317,22 @@ namespace AJudge.Application.Services
             if (string.IsNullOrEmpty(csrfToken))
                 throw new Exception("csrf_token has no value.");
             Console.WriteLine($"csrf_token: {csrfToken}");
-            SendLoginRequest(phpsessId, csrfToken).Wait(); // Call the SendLoginRequest method with the extracted values.
+            await SendLoginRequest(phpsessId, csrfToken); // Call the SendLoginRequest method with the extracted values.
             return new KeyValuePair<string, string>(phpsessId, csrfToken);
 
         }
-            // Third Request: POST /login using csrf_token and PHPSESSID cookie
-            // Pseudocode:
-            // 1. Create a new HttpRequestMessage for the POST request using the URL "https://cses.fi/login".
-            // 2. Add the request headers as provided (Host, Cookie, Cache-Control, etc.).
-            // 3. Create the form data content containing csrf_token, nick, and pass.
-            // 4. Assign the FormUrlEncodedContent to the request.Content.
-            // 5. Use an HttpClient to send the request asynchronously.
-            // 6. Ensure the response has a successful status code and (optionally) read the response content.
-         
- 
-        
-            public async Task<string> SendLoginRequest(string phpsessionId, string csrfToken)
+        // Third Request: POST /login using csrf_token and PHPSESSID cookie
+        // Pseudocode:
+        // 1. Create a new HttpRequestMessage for the POST request using the URL "https://cses.fi/login".
+        // 2. Add the request headers as provided (Host, Cookie, Cache-Control, etc.).
+        // 3. Create the form data content containing csrf_token, nick, and pass.
+        // 4. Assign the FormUrlEncodedContent to the request.Content.
+        // 5. Use an HttpClient to send the request asynchronously.
+        // 6. Ensure the response has a successful status code and (optionally) read the response content.
+
+
+
+            protected async Task<string> SendLoginRequest(string phpsessionId, string csrfToken)
             {
                 using var client = new HttpClient();
                 var postRequest = new HttpRequestMessage(HttpMethod.Post, "https://cses.fi/login");

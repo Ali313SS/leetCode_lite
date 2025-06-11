@@ -189,11 +189,12 @@ namespace AJudge.Application.services
             return query;
         }
 
-        public Task<bool> SumbitProblem(string link, int userid, string code)
+        public Task<string> SubmitProblem(int userid, string link,string Source,  string code,string lang)
+
         {
-            IFetchServices Fetch = FactoryFetch.GetFactory("CSES");
-            var init = Fetch.Init().Result;
-            var submission = Fetch.Submit(link, code, "c++", 1, init.Key, init.Value).Result;
+            
+            IFetchServices Fetch = FactoryFetch.GetFactory(Source);            
+            var submission = Fetch.Submit(link, code, lang, 1).Result;
             return Task.FromResult(submission);
         }
     }

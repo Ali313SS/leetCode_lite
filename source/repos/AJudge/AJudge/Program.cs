@@ -22,7 +22,7 @@ namespace AJudge
         {
             // Corrected the SMTP server address and fixed the typo in "smtp.gmail.com"
 
-            //ISender x = new Sender("smtp.gmail.com", 587, "ara010250@gmail.com", "A.R.A313");
+            //ISender x = new Sender("smtp.gmail.com", 587, "ara010250@gmail.com", "******");
 
 
             
