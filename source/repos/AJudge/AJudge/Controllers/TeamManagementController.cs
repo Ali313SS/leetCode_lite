@@ -78,7 +78,67 @@ namespace AJudge.Controllers
 
             return CreatedAtAction(nameof(GetTeam), new { id = team.TeamId }, response);
         }
-
+        [HttpDelete("")]
+        [Authorize]
+        public async Task<IActionResult>DeleteTeam(int teamId)
+        {
+            var currentUserId = GetCurrentUserId();            
+            var team = await _context.Teams.FindAsync(teamId);
+            if (team == null)
+            {
+                return NotFound("Team not found");
+            }
+            var isUserInTeam = await _context.UserTeams
+                .AnyAsync(ut => ut.UserId == currentUserId && ut.TeamId == teamId);
+            if (!isUserInTeam)
+            {
+                return Unauthorized("You are not a member of this team");
+            }
+            _context.Teams.Remove(team);
+            await _context.SaveChangesAsync();
+            return Ok("Team deleted successfully");
+        }
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> Rename(int teamId, string newName)
+        {
+            var currentUserId = GetCurrentUserId();
+            var team = await _context.Teams.FindAsync(teamId);
+            if (team == null)
+            {
+                return NotFound("Team not found");
+            }
+            var isUserInTeam = await _context.UserTeams
+                .AnyAsync(ut => ut.UserId == currentUserId && ut.TeamId == teamId);
+            if (!isUserInTeam)
+            {
+                return Unauthorized("You are not a member of this team");
+            }
+            team.Name =newName;
+            await _context.SaveChangesAsync();
+            return Ok("Team updated successfully");
+        }
+        [HttpGet("Inactive_member")]
+        [Authorize]
+        public async Task<IActionResult> GetInactiveMembers(int teamId)
+        {
+            var currentUserId = GetCurrentUserId();
+            var isUserInTeam = await _context.UserTeams
+                .AnyAsync(ut => ut.UserId == currentUserId && ut.TeamId == teamId);
+            if (!isUserInTeam)
+            {
+                return Unauthorized("You are not a member of this team");
+            }
+            var inactiveMembers = await _context.UserTeamInvitations
+                .Where(ut => ut.TeamId == teamId)
+                .Select(ut => new TeamMemberDto
+                {
+                    UserId = ut.User.UserId,
+                    Username = ut.User.Username,
+                })
+                .ToListAsync();
+            return Ok(inactiveMembers);
+        }
 
         /// <summary>
         /// Sends an invitation to a user to join a specified team.

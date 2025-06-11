@@ -14,7 +14,7 @@ namespace AJudge.Domain.Entities
         public int BlogId { get; set; }
         public string Content { get; set; }
         public DateTime CreatedAt { get; set; }
-        public int AuthorUserId { get; set; }
+        public int AuthorUserId { get; set; }        
 
         // Navigation Properties
         [ForeignKey("AuthorUserId")]

@@ -46,6 +46,25 @@ namespace AJudge.Controllers
             
           return Ok(userResponseDTO);     
         }
+        [HttpGet("GetUserNameByID")]
+        [Authorize]
+        public async Task<IActionResult> GetUserNameByID(int userId)
+        {            
+            User? user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.UserId == userId);
+            if (user == null)
+                return NotFound("No Such User");
+            return Ok(user.Username);
+        }
+        [HttpGet("GetIdByUserName")]
+        [Authorize]
+        public async Task<IActionResult> GetIdByUserName(string username)
+        {
+
+            User? user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Username == username);
+            if (user == null)
+                return NotFound("No Such User");
+            return Ok(user.UserId);
+        }
 
         /// <summary>
         /// Retrieves the public profile information of a user by their username.

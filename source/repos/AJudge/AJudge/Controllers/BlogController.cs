@@ -145,6 +145,47 @@ namespace AJudge.Controllers
             return Ok(response);
 
         }
+        [HttpPost("VoteBlog")]
+        [Authorize]
+        public async Task<IActionResult>VoteBlog(int BlogID,int vote)
+        {
+            int userdid = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+            Blog? blog = await _unitOfWork.Blog.GetById(BlogID);
+            if (blog == null)
+                return NotFound("no such blog");
+            var exist= blog.Votes.FirstOrDefault(x => x.UserId == userdid && x.BlogId == BlogID);
+            if (exist != null)
+            {
+                if (true)
+                {
+
+                    return BadRequest("You have already voted this blog with the same vote type.");
+
+
+                }
+
+                exist.VoteType = (VoteType)vote;
+                _unitOfWork.MarkModified(exist, new[] { nameof(Vote.VoteType) });
+               // await _unitOfWork.CompleteAsync();
+                return Ok("Vote updated successfully.");
+            }
+            else
+            {
+                Vote newVote = new Vote
+                {
+                    UserId = userdid,
+                    BlogId = BlogID,
+                    VoteType = (VoteType)vote
+                };
+                await _unitOfWork.Vote.Create(newVote);
+            }
+            //await _unitOfWork.CompleteAsync();
+
+            return Ok("Vote added successfully.");
+
+
+
+        }
 
 
 

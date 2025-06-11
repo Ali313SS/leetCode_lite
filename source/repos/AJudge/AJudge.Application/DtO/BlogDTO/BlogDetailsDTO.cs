@@ -18,6 +18,8 @@ namespace AJudge.Application.DtO.BlogDTO
         /// <summary>
         /// Gets or sets the content of the blog post.
         /// </summary>
+        /// 
+        public int BlogId { get; set; }
         public string Content { get; set; }
 
         /// <summary>
@@ -45,6 +47,8 @@ namespace AJudge.Application.DtO.BlogDTO
         {
             return new BlogDetailsDTO
             {
+
+                BlogId = blog.BlogId,
                 Content = blog.Content,
                 CreatedAt = blog.CreatedAt,
                 AuthorName = blog.Author?.Username,
