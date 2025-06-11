@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Contest</title>
+    <link rel="stylesheet" href="contest.css">
+</head>
+<body>
+
+    <header>
+        <h1>Create New Contest</h1>
+        <a href="contest.html">⬅ Back to Contests</a>
+    </header>
+
+    <main>
+        <section class="create-contest-form">
+            <label for="contestTitle"><strong>Contest Title:</strong></label>
+            <input type="text" id="contestTitle" placeholder="Enter contest title" required>
+
+            <label for="contestOwner"><strong>Owner:</strong></label>
+            <input type="text" id="contestOwner" placeholder="Enter owner name" required>
+
+            <label for="contestStart"><strong>Start Time:</strong></label>
+            <input type="datetime-local" id="contestStart" required>
+
+            <label for="contestDuration"><strong>Duration (e.g., 2h 30m):</strong></label>
+            <input type="text" id="contestDuration" placeholder="Enter duration" required>
+
+            <label for="contestDescription"><strong>Description:</strong></label>
+            <textarea id="contestDescription" placeholder="Enter contest description" rows="3"></textarea>
+
+            <h2>Add Problems</h2>
+            <div id="problemsContainer">
+                <input type="text" id="problemInput" placeholder="Enter problem name">
+                <button id="addProblemButton">➕ Add Problem</button>
+            </div>
+            <ul id="problemsList"></ul>
+
+            <div class="buttons-container">
+                <button id="createContestButton">✅ Create Contest</button>
+                <button id="cancelButton" class="cancel-btn">❌ Cancel</button>
+            </div>
+
+            <p id="creationMessage"></p>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const contestTitle = document.getElementById("contestTitle");
+            const contestOwner = document.getElementById("contestOwner");
+            const contestStart = document.getElementById("contestStart");
+            const contestDuration = document.getElementById("contestDuration");
+            const contestDescription = document.getElementById("contestDescription");
+
+            const problemInput = document.getElementById("problemInput");
+            const addProblemButton = document.getElementById("addProblemButton");
+            const problemsList = document.getElementById("problemsList");
+            const createContestButton = document.getElementById("createContestButton");
+            const cancelButton = document.getElementById("cancelButton");
+            const creationMessage = document.getElementById("creationMessage");
+
+            let problems = [];
+
+            
+            addProblemButton.addEventListener("click", function () {
+                const problemName = problemInput.value.trim();
+                if (problemName === "") return;
+
+                problems.push(problemName);
+                const li = document.createElement("li");
+                li.textContent = problemName;
+                
+                
+                const removeBtn = document.createElement("button");
+                removeBtn.textContent = "❌";
+                removeBtn.style.marginLeft = "10px";
+                removeBtn.onclick = function () {
+                    problems = problems.filter(p => p !== problemName);
+                    problemsList.removeChild(li);
+                };
+
+                li.appendChild(removeBtn);
+                problemsList.appendChild(li);
+                problemInput.value = "";
+            });
+
+            createContestButton.addEventListener("click", function () {
+                const title = contestTitle.value.trim();
+                const owner = contestOwner.value.trim();
+                const start = contestStart.value;
+                const duration = contestDuration.value.trim();
+                const description = contestDescription.value.trim();
+
+                if (title === "" || owner === "" || start === "" || duration === "") {
+                    creationMessage.textContent = "⚠ Please fill all required fields!";
+                    creationMessage.style.color = "red";
+                    return;
+                }
+
+                
+                let contests = JSON.parse(localStorage.getItem("contests")) || [];
+
+                
+                const newContest = {
+                    id: String(contests.length + 1), 
+                    title,
+                    owner,
+                    status: "Upcoming",
+                    start,
+                    duration,
+                    description,
+                    problems
+                };
+
+                contests.push(newContest);
+                localStorage.setItem("contests", JSON.stringify(contests));
+
+                creationMessage.textContent = "✅ Contest created successfully!";
+                creationMessage.style.color = "green";
+
+                
+                contestTitle.value = "";
+                contestOwner.value = "";
+                contestStart.value = "";
+                contestDuration.value = "";
+                contestDescription.value = "";
+                problems = [];
+                problemsList.innerHTML = "";
+            });
+
+            
+            cancelButton.addEventListener("click", function () {
+                window.location.href = "contest.html";
+            });
+
+        });
+    </script>
+
+</body>
+</html>

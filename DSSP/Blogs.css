@@ -1,0 +1,558 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 20;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #fff;
+    padding: 20px 0;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #6b859a;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+}
+
+.navbar ul li {
+    margin: 0 15px;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #000;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #000;
+    padding: 9px 11px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar a:hover {
+    background-color: #85a2b2;
+}
+
+.navbar a.active {
+    background-color: #4d6b7c;
+    font-weight: bold;
+}
+
+.create-blog-section {
+    padding: 20px;
+    text-align: center;
+}
+
+.create-blog-btn {
+    --color: #fff;
+    --background: #404660;
+    --background-hover: #3A4059;
+    --background-left: #2B3044;
+    --folder: #F3E9CB;
+    --folder-inner: #BEB393;
+    --paper: #FFFFFF;
+    --paper-lines: #BBC1E1;
+    --paper-behind: #E1E6F9;
+    --pencil-cap: #fff;
+    --pencil-top: #275EFE;
+    --pencil-middle: #fff;
+    --pencil-bottom: #5C86FF;
+    --shadow: rgba(13, 15, 25, .2);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19px;
+    /* -webkit-appearance: none; */
+    -webkit-tap-highlight-color: transparent;
+    padding: 17px 29px 17px 69px;
+    transition: background 0.3s;
+    color: var(--color);
+    background: var(--bg, var(--background));
+}
+
+.create-blog-btn > div {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 53px;
+    position: absolute;
+    overflow: hidden;
+    border-radius: 5px 0 0 5px;
+    background: var(--background-left);
+}
+
+.create-blog-btn > div .folder {
+    width: 23px;
+    height: 27px;
+    position: absolute;
+    left: 15px;
+    top: 13px;
+}
+
+.create-blog-btn > div .folder .top {
+    left: 0;
+    top: 0;
+    z-index: 2;
+    position: absolute;
+    transform: translateX(var(--fx, 0));
+    transition: transform 0.4s ease var(--fd, 0.3s);
+}
+
+.create-blog-btn > div .folder .top svg {
+    width: 24px;
+    height: 27px;
+    display: block;
+    fill: var(--folder);
+    transform-origin: 0 50%;
+    transition: transform 0.3s ease var(--fds, 0.45s);
+    transform: perspective(120px) rotateY(var(--fr, 0deg));
+}
+
+.create-blog-btn > div .folder:before, .create-blog-btn > div .folder:after,
+.create-blog-btn > div .folder .paper {
+    content: "";
+    position: absolute;
+    left: var(--l, 0);
+    top: var(--t, 0);
+    width: var(--w, 100%);
+    height: var(--h, 100%);
+    border-radius: 1px;
+    background: var(--b, var(--folder-inner));
+}
+
+.create-blog-btn > div .folder:before {
+    box-shadow: 0 1.5px 3px var(--shadow), 0 2.5px 5px var(--shadow), 0 3.5px 7px var(--shadow);
+    transform: translateX(var(--fx, 0));
+    transition: transform 0.4s ease var(--fd, 0.3s);
+}
+
+.create-blog-btn > div .folder:after,
+.create-blog-btn > div .folder .paper {
+    --l: 1px;
+    --t: 1px;
+    --w: 21px;
+    --h: 25px;
+    --b: var(--paper-behind);
+}
+
+.create-blog-btn > div .folder:after {
+    transform: translate(var(--pbx, 0), var(--pby, 0));
+    transition: transform 0.4s ease var(--pbd, 0s);
+}
+
+.create-blog-btn > div .folder .paper {
+    z-index: 1;
+    --b: var(--paper);
+}
+
+.create-blog-btn > div .folder .paper:before, .create-blog-btn > div .folder .paper:after {
+    content: "";
+    width: var(--wp, 14px);
+    height: 2px;
+    border-radius: 1px;
+    transform: scaleY(0.5);
+    left: 3px;
+    top: var(--tp, 3px);
+    position: absolute;
+    background: var(--paper-lines);
+    box-shadow: 0 12px 0 0 var(--paper-lines), 0 24px 0 0 var(--paper-lines);
+}
+
+.create-blog-btn > div .folder .paper:after {
+    --tp: 6px;
+    --wp: 10px;
+}
+
+.create-blog-btn > div .pencil {
+    height: 2px;
+    width: 3px;
+    border-radius: 1px 1px 0 0;
+    top: 8px;
+    left: 105%;
+    position: absolute;
+    z-index: 3;
+    transform-origin: 50% 19px;
+    background: var(--pencil-cap);
+    transform: translateX(var(--pex, 0)) rotate(35deg);
+    transition: transform 0.4s ease var(--pbd, 0s);
+}
+
+.create-blog-btn > div .pencil:before, .create-blog-btn > div .pencil:after {
+    content: "";
+    position: absolute;
+    display: block;
+    background: var(--b, linear-gradient(var(--pencil-top) 55%, var(--pencil-middle) 55.1%, var(--pencil-middle) 60%, var(--pencil-bottom) 60.1%));
+    width: var(--w, 5px);
+    height: var(--h, 20px);
+    border-radius: var(--br, 2px 2px 0 0);
+    top: var(--t, 2px);
+    left: var(--l, -1px);
+}
+
+.create-blog-btn > div .pencil:before {
+    -webkit-clip-path: polygon(0 5%, 5px 5%, 5px 17px, 50% 20px, 0 17px);
+    clip-path: polygon(0 5%, 5px 5%, 5px 17px, 50% 20px, 0 17px);
+}
+
+.create-blog-btn > div .pencil:after {
+    --b: none;
+    --w: 3px;
+    --h: 6px;
+    --br: 0 2px 1px 0;
+    --t: 3px;
+    --l: 3px;
+    border-top: 1px solid var(--pencil-top);
+    border-right: 1px solid var(--pencil-top);
+}
+
+.create-blog-btn:before, .create-blog-btn:after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--color);
+    transform-origin: 9px 1px;
+    transform: translateX(var(--cx, 0)) scale(0.5) rotate(var(--r, -45deg));
+    top: 26px;
+    right: 16px;
+    transition: transform 0.3s;
+}
+
+.create-blog-btn:after {
+    --r: 45deg;
+}
+
+.create-blog-btn:hover {
+    --cx: 2px;
+    --bg: var(--background-hover);
+    --fx: -40px;
+    --fr: -60deg;
+    --fd: .15s;
+    --fds: 0s;
+    --pbx: 3px;
+    --pby: -3px;
+    --pbd: .15s;
+    --pex: -24px;
+}
+
+.blog-post {
+    background: white;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 800px;
+}
+
+.reactions {
+    margin: 10px 0;
+    display: flex;
+    gap: 15px;
+}
+
+.like-button, .dislike-button, .comment-button {
+    background: none;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: transform 0.2s;
+}
+
+.like-button:hover, .dislike-button:hover, .comment-button:hover {
+    transform: scale(1.1);
+}
+
+.like-icon, .dislike-icon, .comment-icon {
+    height: 24px;
+    width: 24px;
+    fill: #666;
+    transition: fill 0.2s;
+}
+
+.like-button:hover .like-icon {
+    fill: #fc4e4e;
+}
+
+.dislike-button:hover .dislike-icon {
+    fill: #ff3b30;
+}
+
+.comment-button:hover .comment-icon {
+    fill: #5468FF;
+}
+
+.like-text, .dislike-text, .comment-text {
+    font-size: 16px;
+    color: #333;
+}
+
+.like-count, .dislike-count, .comment-count {
+    font-size: 14px;
+    color: #666;
+}
+
+.comments-section {
+    margin-top: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+    display: none; /* Initially hidden */
+}
+
+.comments-section.active {
+    display: block; /* Show when active */
+}
+
+.comment {
+    background: #f8f9fa;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+input, textarea, button {
+    margin: 5px 0;
+    padding: 8px;
+}
+
+button:not(.create-blog-btn):not(.like-button):not(.dislike-button):not(.delete-button):not(.Btn):not(.comment-button) {
+    font-size: 18px;
+    display: inline-block;
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+    will-change: box-shadow, transform;
+    background: radial-gradient(100% 100% at 100% 0%, #4d6b7c 0%, #698a9c 100%);
+    box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(58 65 111 / 50%);
+    padding: 0 2em;
+    border-radius: 0.3em;
+    color: #fff;
+    height: 2.6em;
+    text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+button:not(.create-blog-btn):not(.like-button):not(.dislike-button):not(.delete-button):not(.Btn):not(.comment-button):hover {
+    box-shadow: 0px 0.1em 0.2em rgb(45 35 66 / 40%), 0px 0.4em 0.7em -0.1em rgb(45 35 66 / 30%), inset 0px -0.1em 0px #3c4fe0;
+    transform: translateY(-0.1em);
+}
+
+button:not(.create-blog-btn):not(.like-button):not(.dislike-button):not(.delete-button):not(.Btn):not(.comment-button):active {
+    box-shadow: inset 0px 0.1em 0.6em #3c4fe0;
+    transform: translateY(0em);
+}
+
+.username-link {
+    color: #5468FF;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.username-link:hover {
+    text-decoration: underline;
+}
+
+.blog-form {
+    display: none;
+    background: white;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 800px;
+}
+
+.blog-form.active {
+    display: block;
+}
+
+.blog-form input, .blog-form textarea {
+    width: 100%;
+}
+
+.blog-form textarea {
+    height: 200px;
+    resize: vertical;
+}
+
+.blog-form a {
+    color: #5468FF;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.blog-form a:hover {
+    text-decoration: underline;
+}
+
+/* Delete Button Styles */
+.delete-button {
+    position: relative;
+    padding: 0.5em;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1em;
+    transition: transform 0.2s ease;
+}
+
+.trash-svg {
+    width: 2em;
+    height: 2em;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    overflow: visible;
+}
+
+#lid-group {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.delete-button:hover #lid-group {
+    transform: rotate(-28deg) translateY(2px);
+}
+
+.delete-button:active #lid-group {
+    transform: rotate(-12deg) scale(0.98);
+}
+
+.delete-button:hover .trash-svg {
+    transform: scale(1.08) rotate(3deg);
+}
+
+.delete-button:active .trash-svg {
+    transform: scale(0.96) rotate(-1deg);
+}
+
+/* Edit Button Styles */
+.Btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 80px; /* Reduced width to fit better */
+    height: 32px; /* Reduced height to match layout */
+    border: none;
+    padding: 0px 15px;
+    background-color: #4d6b7c;
+    color: white;
+    font-weight: 700;
+    font-size: 14px; /* Adjusted for scale */
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 3px 3px 0px black; /* Adjusted shadow size */
+    transition-duration: 0.3s;
+}
+
+.svg {
+    width: 13px;
+    position: absolute;
+    right: 0;
+    margin-right: 15px;
+    fill: white;
+    transition-duration: 0.3s;
+}
+
+.Btn:hover {
+    color: transparent;
+}
+
+.Btn:hover svg {
+    right: 43%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    transition-duration: 0.3s;
+}
+
+.Btn:active {
+    transform: translate(3px, 3px);
+    transition-duration: 0.3s;
+    box-shadow: 2px 2px 0px white;
+}
+
+/* Edit Form Styles */
+.edit-form {
+    display: none;
+    background: #f8f9fa;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 4px;
+}
+
+.edit-form.active {
+    display: block;
+}
+
+.edit-form input, .edit-form textarea {
+    width: 100%;
+    margin: 5px 0;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.edit-form textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.edit-form button {
+    margin-right: 10px;
+}
+
+.edit-form a {
+    color: #5468FF;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.edit-form a:hover {
+    text-decoration: underline;
+}
+
+/* Adjust post-meta and comment layout */
+.post-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.comment {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contests</title>
+    <link rel="stylesheet" href="contest.css">
+</head>
+<body>
+
+    <header>
+        <div class="navbar">
+            <div class="logo">DPPS</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="problems.html">Problems</a></li>
+                    <li><a href="contest.html">Contest</a></li>
+                    <li><a href="status.html">Status</a></li>
+                    <li><a href="user.html">User</a></li>
+                    <li><a href="group.html">Group</a></li>
+                    <li><a href="teams.html">Teams</a></li>
+                    <li><a href="coach.html">Coach</a></li>
+                    <li><a href="blogs.html">Blogs</a></li>
+                    <li><a href="profile.html" id="profileNavUserIdentifier">John22</a></li>
+                    <li><a href="index.html">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="scheduled">Scheduled</button>
+            <button class="filter-btn" data-filter="running">Running</button>
+            <button class="filter-btn" data-filter="ended">Ended</button>
+            <button class="create-contest" onclick="window.location.href='create-contest.html'">+ Create Contest</button>
+        </div>
+
+        <table id="contestTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title <input id="titleFilter" type="text" placeholder="Search title..."></th>
+                    <th>Begin Time</th>
+                    <th>Length</th>
+                    <th>Owner <input id="ownerFilter" type="text" placeholder="Search owner..."></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="contest running" data-status="running">
+                    <td>690297</td>
+                    <td><a href="contest-info.html?id=690297">Contest 1</a></td>
+                    <td>2 hr ago</td>
+                    <td>30 minutes</td>
+                    <td><a href="profile.html?user=Owner1">John22</a></td>
+                </tr>
+                <tr class="contest scheduled" data-status="scheduled">
+                    <td>690296</td>
+                    <td><a href="contest-info.html?id=690296">Contest 2</a></td>
+                    <td>7 hr later</td>
+                    <td>1 hour</td>
+                    <td><a href="profile.html?user=Owner2">Owner 2</a></td>
+                </tr>
+                <tr class="contest running" data-status="running">
+                    <td>690295</td>
+                    <td><a href="contest-info.html?id=690295">Contest 3</a></td>
+                    <td>2 hr ago</td>
+                    <td>40 minutes</td>
+                    <td><a href="profile.html?user=Owner3">Owner 3</a></td>
+                </tr>
+                <tr class="contest ended" data-status="ended">
+                    <td>690293</td>
+                    <td><a href="contest-info.html?id=690293">Contest 4</a></td>
+                    <td>2 hr ago</td>
+                    <td>2 hours</td>
+                    <td><a href="profile.html?user=Owner4">Owner 4</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <script src="contest.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const profileNavUserIdentifier = document.getElementById('profileNavUserIdentifier');
+            const jwtToken = localStorage.getItem('jwtToken'); // Assuming the token is stored here
+
+            if (jwtToken) {
+                try {
+                    const payload = JSON.parse(atob(jwtToken.split('.')[1]));
+                    // Prioritize 'username' from payload, then 'name', then 'email', then 'nameid', then 'sub'
+                    const username = payload.username || payload.name || payload.email || payload.nameid || payload.sub || 'Guest';
+                    profileNavUserIdentifier.textContent = username;
+                } catch (error) {
+                    console.error('Error decoding JWT token:', error);
+                    profileNavUserIdentifier.textContent = 'Guest'; // Fallback
+                }
+            } else {
+                profileNavUserIdentifier.textContent = 'Guest'; // No token, show Guest
+            }
+        });
+    </script>
+</body>
+</html>

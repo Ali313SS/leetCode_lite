@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teams</title>
+    <link rel="stylesheet" href="Teams.css">
+    <script src="Teams.js"></script>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">DPPS</div>
+            <ul>
+                <li><a href="Home.html">Home</a></li>
+                <li><a href="Problems.html">Problems</a></li>
+                <li><a href="Contest.html">Contest</a></li>
+                <li><a href="Status.html">Status</a></li>
+                <li><a href="User.html">User</a></li>
+                <li><a href="Group.html">Group</a></li>
+                <li><a href="Teams.html" class="active">Teams</a></li>
+                <li><a href="Coach.html">Coach</a></li>
+                <li><a href="Blogs.html">Blogs</a></li>
+                <li><a href="#" id="teamsNavUserIdentifier">Guest</a></li>
+                <li><a href="Logout.html" id="logoutButton">Logout</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="create-team-section">
+        <button id="create-team-btn">Create new team</button>
+    </div>
+
+    <main>
+        <section class="teams-section" id="teams-section">
+            <h2>A member of</h2>
+            <table id="teams-list">
+                <tr>
+                    <th>Name</th>
+                    <th>Current members</th>
+                    <th>Inactive members</th>
+                </tr>
+                <tr>
+                    <td>Loading teams...</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </section>
+
+        <section class="invitations-section" id="invitations-section">
+            <h2>Invitations</h2>
+            <h3>You are invited into these teams</h3>
+            <table id="invitations-list">
+                <tr>
+                    <th>Name</th>
+                    <th>Current members</th>
+                    <th>Action</th>
+                </tr>
+                <tr>
+                    <td>Loading invitations...</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </section>
+
+        <section class="new-team-section" id="new-team-section">
+            <h2>New team</h2>
+            <label for="new-team-name">Team name (English):</label>
+            <input type="text" id="new-team-name" name="new-team-name">
+            <button id="create-team-submit">Create team</button>
+            <button id="back-to-teams-from-new" class="back-btn">Back to Teams</button>
+            <p>* You will become the team member after you finish the operation</p>
+        </section>
+
+        <section class="team-management-section" id="team-management-section">
+            <div id="rename-section">
+                <label for="team-name-input">Team name (English):</label>
+                <input type="text" id="team-name-input" name="team-name-input">
+                <button id="save-team-changes">Save changes</button>
+                <button id="cancel-rename">Cancel</button>
+            </div>
+            <div id="settings-section">
+                <h2>Team members</h2>
+                <table id="team-members-list">
+                    <tr>
+                        <th>User</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </table>
+                <button id="back-to-teams">Back to Teams</button>
+            </div>
+        </section>
+
+        <div class="card" id="team-menu-card">
+            <ul class="list">
+                <li class="element" data-action="rename">
+                    <svg viewBox="0 0 512 512">
+                        <path d="M471.6 21.7c-12.5-12.5-32.8-12.5-45.3 0L384 64H128C92.7 64 64 92.7 64 128v256c0 35.3 28.7 64 64 64h256c35.3 0 64-28.7 64-64V128l42.3-42.3c12.5-12.5 12.5-32.8 0-45.3zM352 128v256H160V128h192z"></path>
+                    </svg>
+                    <span class="label">Rename</span>
+                </li>
+                <li class="element" data-action="add-member">
+                    <svg viewBox="0 0 512 512">
+                        <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"></path>
+                    </svg>
+                    <span class="label">Add Member</span>
+                </li>
+            </ul>
+            <div class="separator"></div>
+            <ul class="list">
+                <li class="element" data-action="settings">
+                    <svg viewBox="0 0 512 512">
+                        <path d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-26.7c-10.2 7.3-21.7 13.1-33.9 16.8l-10.6 56.4c-2 10.6-9.7 19-20 22.2c-13.2 4.1-26.8 7.1-40.9 8.9V512h-96v-17.6c-14.1-1.8-27.7-4.8-40.9-8.9c-10.3-3.2-18-11.6-20-22.2l-10.6-56.4c-12.2-3.7-23.7-9.5-33.9-16.8l-55.7 26.7c-8.8 2.8-18.6 .3-24.5-6.8c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 273.1 64 264.6 64 256s.6-17.1 1.7-25.4L22.4 191.2c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-7.2 15.7-9.6 24.5-6.8l55.7 26.7c10.2-7.3 21.7-13.1 33.9-16.8l10.6-56.4c2-10.6 9.7-19 20-22.2c13.2-4.1 26.8-7.1 40.9-8.9V0h96v17.6c14.1 1.8 27.7 4.8 40.9 8.9c10.3 3.2 18 11.6 20 22.2l10.6 56.4c12.2 3.7 23.7 9.5 33.9 16.8l55.7-26.7c8.8-2.8 18.6-.3 24.5 6.8c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336c44.2 0 80-35.8 80-80s-35.8-80-80-80s-80 35.8-80 80s35.8 80 80 80z"></path>
+                    </svg>
+                    <span class="label">Settings</span>
+                </li>
+                <li class="element delete" data-action="delete">
+                    <svg viewBox="0 0 448 512">
+                        <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
+                    </svg>
+                    <span class="label">Delete</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="modal" id="invite-modal">
+            <div class="modal-content">
+                <h3>Invite User to <span id="invite-team-name"></span></h3>
+                <input type="text" id="invite-username" placeholder="Enter username">
+                <div id="username-suggestions" class="suggestions-list"></div>
+                <button id="submit-invite">Invite</button>
+                <button id="cancel-invite">Cancel</button>
+            </div>
+        </div>
+
+        <div class="card" id="delete-confirmation-card">
+            <div class="card-content">
+                <h2 class="card-heading">Delete team?</h2>
+                <p class="card-description">Are you sure you want to delete "<span id="delete-team-name"></span>"? This action cannot be undone.</p>
+            </div>
+            <div class="card-button-wrapper">
+                <button class="card-button secondary" id="cancel-delete-btn">Cancel</button>
+                <button class="card-button primary" id="confirm-delete-btn">Delete</button>
+            </div>
+            <button class="exit-button" id="exit-delete-btn">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L6.464 6.05l4.95 4.95z"></path>
+                </svg>
+            </button>
+        </div>
+    </main>
+</body>
+</html>
