@@ -4,8 +4,10 @@ using System.Security.Claims;
 using AJudge.Application.DtO.ContestDTO;
 using AJudge.Application.DtO.ProblemsDTO;
 using AJudge.Application.DTO.ProblemsDTO;
+using AJudge.Application.DTO.UserDTOS;
 using AJudge.Application.services;
 using AJudge.Domain.Entities;
+using AJudge.Domain.RepoContracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,9 +23,12 @@ namespace AJudge.Controllers
 
 
         private readonly IContestServices _ContestServices;
-        public ContestController(IContestServices ContestServices)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public ContestController(IContestServices ContestServices, IUnitOfWork unitOfWork)
         {
             _ContestServices = ContestServices;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost]
@@ -129,47 +134,56 @@ namespace AJudge.Controllers
             return updatedContest;
         }
 
-        [HttpGet("GetAllContest")]
-        public async Task<IActionResult> GetAllContestPerSpecificPage(string? sortBy, bool isAssending = true, int pageNumber = 1, int pageSize = 20)
+        [HttpGet("cName/{cName}")]
+        public async Task<IActionResult> GetAllContestInClub(string cName, bool isAssending = false, int pageNNumber = 1, int pageSSize = 20)
         {
-           // return await _ContestServices.GetAllContestsAsync();
-
-        var sortByy = typeof(Contest).GetProperty(sortBy);
-            if (sortByy == null)
+            if (string.IsNullOrWhiteSpace(cName))
             {
-                return BadRequest("No such property");
+                return BadRequest("Club name is required.");
             }
-            var page = await _ContestServices.GetAllContestInPage(sortBy, isAssending, pageNumber, pageSize);
+            //var s = "null";
+            Contest? clubExist = await _unitOfWork.Contest.GetSpecific(x => x.Name == cName, null);
+            if (clubExist == null)
+                return NoContent();
+            
 
+            ContestPagination contests = await _ContestServices.GetAllContestInClubPerPage(nameof(AJudge.Domain.Entities.Contest.Name),
+                 cName, nameof(AJudge.Domain.Entities.Contest.Name), isAssending, pageNNumber, pageSSize);
+            if (pageNNumber < 1 || pageSSize < 1)
+            {
+                return BadRequest("Invalid pagination parameters.");
+            }
+            var response = new
+            {
+                ItemsResponse = contests.Items.Select(x => ContestResponseDTO.ConvertToContestResponse(x)).ToList(),
+                pagenumber = contests.PageNumber,
+                totalPages = contests.TotalPages,
+                hasPrevious = contests.HasPrevious,
+                hasNext = contests.HasNext
+            };
 
-            if (page == null)
-                return NotFound("No such Page");
-
-    var DisPage = ContestPageDto.ConvertToContestDto(page);
-
-
-            return Ok(DisPage);
-}
-
-/// <summary>
-/// Retrieves all contests associated with a specific group.
-/// </summary>
-/// <param name="id">The ID of the group to retrieve contests for.</param>
-/// <returns>A list of contests belonging to the specified group.</returns>
-/// <response code="200">Returns the list of contests.</response>
-/// <response code="404">Group not found.</response>
-[HttpGet("{id}/ContestByGroupId")]
-        [Authorize]
-
-        public async Task<ActionResult<IEnumerable<Contest>>> GetContestsByGroupId(int id)
-        {
-            //var group = await _ContestServices.GetGroupByIdAsync(id);
-           // if (group == null)
-            //{
-            //    return NotFound();
-          //  }
-            return await _ContestServices.GetContestsByGroupIdAsync(id);
+            return Ok(response);
         }
+
+        /// <summary>
+        /// Retrieves all contests associated with a specific group.
+        /// </summary>
+        /// <param name="id">The ID of the group to retrieve contests for.</param>
+        /// <returns>A list of contests belonging to the specified group.</returns>
+        /// <response code="200">Returns the list of contests.</response>
+        /// <response code="404">Group not found.</response>
+        //[HttpGet("{id}/ContestByGroupId")]
+        //[Authorize]
+
+        //public async Task<ActionResult<IEnumerable<Contest>>> GetContestsByGroupId(int id)
+        //{
+        //var group = await _ContestServices.GetGroupByIdAsync(id);
+        // if (group == null)
+        //{
+        //    return NotFound();
+        //  }
+        //  return await _ContestServices.GetContestsByGroupIdAsync(id);
+        //}
 
 
         /// <summary>

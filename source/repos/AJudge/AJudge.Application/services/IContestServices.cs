@@ -22,7 +22,8 @@ namespace AJudge.Application.services
         Task<List<Contest>> GetContestsByGroupIdAsync(int groupId);
         Task<bool> AddContestToGroupAsync(int contestId, int groupId);
         Task<bool> RemoveContestFromGroupAsync(int contestId, int groupId);
-        Task<ContestPagination> GetAllContestInPage(string sortBy, bool isAsinding = true, int pageNumber = 1, int pageSize = 100);
+        //   Task<ContestPagination> GetAllContestInPage(string sortBy, bool isAsinding = true, int pageNumber = 1, int pageSize = 100);
+        Task<ContestPagination> GetAllContestInClubPerPage(string filterBy, string filterValue, string sortBy, bool isAsinding = true, int pageNumber = 1, int pageSize = 20);
 
     }
 }

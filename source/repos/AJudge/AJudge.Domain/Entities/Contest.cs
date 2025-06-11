@@ -18,6 +18,7 @@ namespace AJudge.Domain.Entities
         public DateTime EndTime { get; set; }      
         public string Status { get; set; }
         public string Tutorial { get; set; }
+        
         public int CreatorUserId { get; set; }
         // Navigation Properties
 

@@ -256,15 +256,6 @@
             <response code="200">Returns the updated contest.</response>
             <response code="404">Contest with the specified ID was not found.</response>
         </member>
-        <member name="M:AJudge.Controllers.ContestController.GetContestsByGroupId(System.Int32)">
-            <summary>
-            Retrieves all contests associated with a specific group.
-            </summary>
-            <param name="id">The ID of the group to retrieve contests for.</param>
-            <returns>A list of contests belonging to the specified group.</returns>
-            <response code="200">Returns the list of contests.</response>
-            <response code="404">Group not found.</response>
-        </member>
         <member name="M:AJudge.Controllers.ContestController.AddContestToGroup(AJudge.Domain.Entities.ContestGroupRequest)">
             <summary>
             Adds a contest to a specified group.

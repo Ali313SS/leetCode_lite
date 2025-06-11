@@ -193,6 +193,14 @@ namespace AJudge.Infrastructure.Repositories
             }
             return await query.Where(predicate).ToListAsync();
         }
+
+        //public async Task<T> GetSpecifics(Expression<Func<T, bool>> predicate)
+        //{
+
+        //    IQueryable<T> query = _context.Set<T>();
+            
+        //    return await query.FirstOrDefaultAsync(predicate);
+        //}
     }
 
 }
