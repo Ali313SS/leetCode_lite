@@ -8,9 +8,8 @@ namespace AJudge.Infrastructure.Data
         public ApplicationDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-
-            // هنا حط الكونكشن سترينج بتاعك بدل النص ده
-            var connectionString = "Data Source=.;Initial Catalog=JudgeLitedb;Integrated Security=True;Trust Server Certificate=True";
+            
+            var connectionString = "Server=db19444.public.databaseasp.net; Database=db19444; User Id=db19444; Password=cJ?5=4LyK@w3; Encrypt=True; TrustServerCertificate=True; MultipleActiveResultSets=True;";
 
             optionsBuilder.UseSqlServer(connectionString);
 
