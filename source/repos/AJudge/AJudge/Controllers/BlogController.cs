@@ -1,8 +1,10 @@
 ﻿using AJudge.Application.DtO.BlogDTO;
 using AJudge.Domain.Entities;
 using AJudge.Domain.RepoContracts;
+using AJudge.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.Design;
 using System.Security.Claims;
 
 namespace AJudge.Controllers
@@ -131,7 +133,7 @@ namespace AJudge.Controllers
 
             if (blog.AuthorUserId.ToString() != currentUserId)
             {
-                return Forbid("You are not the author of this blog.");
+                return StatusCode(403,new { message="You are not the author of this blog" });
             } 
 
 
@@ -145,15 +147,34 @@ namespace AJudge.Controllers
             return Ok(response);
 
         }
+
+        /// <summary>
+        /// add a vote (like or dislike) on a blog post by the authenticated user.
+        /// </summary>
+        /// <param name="blogID">The ID of the blog to vote on</param>
+        /// <param name="vote">The type of vote (Like or Dislike)</param>
+        /// <returns>
+        /// Returns:
+        /// - <c>200 OK</c> if the vote is successfully added.
+        /// - <c>400 Bad Request</c> if the user has already voted on the blog.
+        /// - <c>401 Unauthorized</c> if the user is not authenticated.
+        /// - <c>404 Not Found</c> if the blog does not exist.
+        /// - <c>500 Internal Server Error</c> for unexpected issues.
+        /// </returns>
+        /// <remarks>
+        /// This endpoint is protected and requires the user to be authenticated.
+        /// Users can only vote once per blog. If a user tries to vote again, they will receive an error.
+        /// </remarks>
         [HttpPost("VoteBlog")]
         [Authorize]
-        public async Task<IActionResult>VoteBlog(int BlogID,int vote)
+        public async Task<IActionResult> VoteBlog(int blogID, VoteType vote)
         {
-            int userdid = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+            /*
+            var  userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             Blog? blog = await _unitOfWork.Blog.GetById(BlogID);
             if (blog == null)
                 return NotFound("no such blog");
-            var exist= blog.Votes.FirstOrDefault(x => x.UserId == userdid && x.BlogId == BlogID);
+            var exist= blog.Votes.FirstOrDefault(x => x.UserId.ToString() == userId && x.BlogId == BlogID);
             if (exist != null)
             {
                 if (true)
@@ -182,8 +203,41 @@ namespace AJudge.Controllers
             //await _unitOfWork.CompleteAsync();
 
             return Ok("Vote added successfully.");
+            */
 
+            if (!Enum.IsDefined(typeof(VoteType), vote))
+                return BadRequest("Invalid vote type.");
 
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized("User is not authenticated.");
+            }
+            Blog? blog = await _unitOfWork.Blog.GetById(x => x.BlogId == blogID, new[] { nameof(Blog.Votes) });
+            if (blog == null)
+                return NotFound("No such a blog");
+
+            Vote? voteExist = blog.Votes.FirstOrDefault(x => x.UserId.ToString() == userId);
+            if (voteExist != null)
+            {
+                return BadRequest("You have already voted on this blog");
+            }
+
+            bool result = int.TryParse(userId, out int usId);
+            if (!result)
+            {
+                return Problem("the auhanticated user has conflicted id");
+            }
+            var newVote = new Vote
+            {
+                BlogId = blogID,
+                UserId = usId,
+                VoteType = vote
+            };
+
+            await _unitOfWork.Vote.Create(newVote);
+            await _unitOfWork.CompleteAsync();
+            return Ok("Vote has been successfully added");
 
         }
 
