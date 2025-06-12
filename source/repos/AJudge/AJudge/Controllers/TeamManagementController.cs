@@ -98,7 +98,7 @@ namespace AJudge.Controllers
             await _context.SaveChangesAsync();
             return Ok("Team deleted successfully");
         }
-        [HttpPut]
+        [HttpPut("RenameTeame")]
         [Authorize]
         public async Task<IActionResult> Rename(int teamId, string newName)
         {

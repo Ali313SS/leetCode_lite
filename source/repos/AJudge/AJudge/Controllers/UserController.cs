@@ -111,6 +111,14 @@ namespace AJudge.Controllers
               .Where(g => g.Members.Any(gm => gm.UserId == id))
               .Select(g => g.Name)
               .ToListAsync();
+            // include manger and leader of group
+            groupTask.AddRange(await _context.Groups
+                .Where(g => g.Managers.Any(gm => gm.UserId == id))
+                .Select(g => g.Name)
+                .ToListAsync());
+            groupTask.AddRange(await _context.Groups.Where(g => g.LeaderUserId==id)
+                .Select(g => g.Name)
+                .ToListAsync());
             UserResponse_GroupsNameDTO res= new UserResponse_GroupsNameDTO(groupTask);
             return Ok(res);
 
@@ -187,7 +195,7 @@ namespace AJudge.Controllers
 
 
           
-                var friendsTask =await   _context.UserFriend.Where(x => x.FriendId == id)
+                var friendsTask =await   _context.UserFriend.Where(x.)
                     .Select(x => x.User.Username).ToListAsync();
 
 
