@@ -1,6 +1,6 @@
 ﻿namespace AJudge.Application.DTO.UserDTOS
 {
-    public record UserResponse_FriendsNameDTO(  List<string>? GroupsName  );
+    public record UserResponse_FriendsNameDTO(  List<string>? friendsName  );
     
        
        

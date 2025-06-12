@@ -27,9 +27,21 @@ namespace AJudge.Domain.Entities
         public Comment Comment { get; set; }
     }
 
+
+    /// <summary>
+    /// Represents the type of vote a user can cast on a blog.
+    /// </summary>
     public enum VoteType
     {
+        /// <summary>
+        /// Indicates a positive vote (like).
+        /// </summary>
         Upvote,
+        /// <summary>
+        /// Indicates a negative vote (dislike).
+        /// </summary>
         Downvote
     }
 }
+
+

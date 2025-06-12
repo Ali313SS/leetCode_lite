@@ -79,6 +79,25 @@
             Requires authentication (Bearer token). Only the blog's author can update it.
             </remarks>
         </member>
+        <member name="M:AJudge.Controllers.BlogController.VoteBlog(System.Int32,AJudge.Domain.Entities.VoteType)">
+            <summary>
+            add a vote (like or dislike) on a blog post by the authenticated user.
+            </summary>
+            <param name="blogID">The ID of the blog to vote on</param>
+            <param name="vote">The type of vote (Like or Dislike)</param>
+            <returns>
+            Returns:
+            - <c>200 OK</c> if the vote is successfully added.
+            - <c>400 Bad Request</c> if the user has already voted on the blog.
+            - <c>401 Unauthorized</c> if the user is not authenticated.
+            - <c>404 Not Found</c> if the blog does not exist.
+            - <c>500 Internal Server Error</c> for unexpected issues.
+            </returns>
+            <remarks>
+            This endpoint is protected and requires the user to be authenticated.
+            Users can only vote once per blog. If a user tries to vote again, they will receive an error.
+            </remarks>
+        </member>
         <member name="M:AJudge.Controllers.BlogController.DeleteBlog(System.Int32)">
             <summary>
             Deletes a blog post by its ID.

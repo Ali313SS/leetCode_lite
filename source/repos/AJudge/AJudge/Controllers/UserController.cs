@@ -194,9 +194,9 @@ namespace AJudge.Controllers
 
 
 
-          
-                var friendsTask =await   _context.UserFriend.Where(x.)
-                    .Select(x => x.User.Username).ToListAsync();
+
+                var friendsTask =await   _context.UserFriend.Where(x => x.UserId == id)
+                    .Select(x => x.Friend.Username).ToListAsync();
 
 
             var res = new UserResponse_FriendsNameDTO(friendsTask);
